@@ -66,6 +66,9 @@
 ## ■画面遷移図
 [figma](https://www.figma.com/file/2QQJTd9CjQo7Mc3lz5NvMk/BizTubeLogger?node-id=0%3A1)
 
+## ■ER図
+[draw.io](https://drive.google.com/file/d/1a_sgZG8fUdDulSuAmLoqRdc3K0bRs2ww/view?usp=sharing)
+
 ## ■スケジュール
 
 - 企画〜技術調査：8/24〆切
