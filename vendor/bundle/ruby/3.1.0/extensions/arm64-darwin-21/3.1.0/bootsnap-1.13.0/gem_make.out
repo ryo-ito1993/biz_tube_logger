@@ -1,0 +1,15 @@
+current directory: /Users/ryo/workspace/runteq/biz_tube_logger/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+/Users/ryo/.rbenv/versions/3.1.2/bin/ruby -I /Users/ryo/.rbenv/versions/3.1.2/lib/ruby/3.1.0 -r ./siteconf20220901-3776-gdosqw.rb extconf.rb
+creating Makefile
+
+current directory: /Users/ryo/workspace/runteq/biz_tube_logger/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\= clean
+
+current directory: /Users/ryo/workspace/runteq/biz_tube_logger/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\=
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/ryo/workspace/runteq/biz_tube_logger/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.13.0/ext/bootsnap
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20220901-3776-st17xv/bootsnap
