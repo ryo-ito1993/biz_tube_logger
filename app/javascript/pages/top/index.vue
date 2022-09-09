@@ -1,22 +1,15 @@
 <template>
   <div>
-  <v-card width="400px" class="mx-auto mt-5">
-    <v-card-title>
-      <h1 class="display-1">ログイン</h1>
-    </v-card-title>
-    <v-card-text>
-      <v-form>
-        <v-icon></v-icon>
-        <v-text-field prepend-icon="mdi-account-circle" label="ユーザー名" />
-        <v-text-field prepend-icon="mdi-lock"  label="パスワード" />
-        <v-card-actions>
-          <v-btn class="info">ログイン</v-btn>
-        </v-card-actions>
-      </v-form>
-    </v-card-text>
-  </v-card>
+    <v-container class="blue text-center">
+      <v-container class="title mt-10">
+        <h1 class="orange--text">BizTubeLogger</h1>
+        <h2 class="mt-10">YouTubeで学んだことをアウトプットしよう!</h2>
+        <v-btn class="primary mt-10">今すぐ始める</v-btn>
+      </v-container>
+    </v-container>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -30,4 +23,8 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  padding-top: 130px;
+  padding-bottom: 130px;
+}
 </style>
