@@ -2,6 +2,7 @@
   "name": "biz-tube-logger",
   "private": true,
   "dependencies": {
+    "@mdi/font": "^7.0.96",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -9,6 +10,7 @@
     "turbolinks": "^5.2.0",
     "vue": "^2.6.14",
     "vue-loader": "^15.7.0",
+    "vue-router": "^3.1.5",
     "vue-template-compiler": "^2.6.12",
     "vuetify": "^2.6.9",
     "webpack": "^4.46.0",
