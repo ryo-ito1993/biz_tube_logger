@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <TheHeader />
-    <v-content class="blue">
+    <v-main class="grey lighten-3 accent-1">
       <router-view />
-    </v-content>
+    </v-main>
     <TheFooter />
   </v-app>
 </template>

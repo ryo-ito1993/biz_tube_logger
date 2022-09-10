@@ -1,10 +1,10 @@
 <template>
-  <v-container class="yellow title mt-10 text-center">
-    <h1 class="orange--text">
+  <v-container class="cyan lighten-3 title mt-10 text-center">
+    <h1 class="white--text">
       BizTubeLogger
     </h1>
     <h2 class="mt-10">
-      YouTubeで学んだことをアウトプットしよう!
+      ビジネスYouTubeで学んだことをアウトプットしよう!
     </h2>
     <v-btn class="primary mt-10">
       今すぐ始める
