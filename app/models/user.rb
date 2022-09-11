@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include JwtToken
   authenticates_with_sorcery!
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }

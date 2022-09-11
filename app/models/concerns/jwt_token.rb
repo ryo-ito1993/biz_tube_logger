@@ -8,7 +8,7 @@ module JwtToken
   end
 
   def create_tokens
-    payload = 🇰{ user_id: id }
+    payload = { user_id: id }
     issue_token(payload.merge(exp: Time.current.to_i + 1.month))
   end
 

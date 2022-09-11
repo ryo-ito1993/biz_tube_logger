@@ -27,6 +27,7 @@
         <v-card-actions>
           <v-btn
             class="info"
+            @click="login"
           >
             ログイン
           </v-btn>
@@ -37,19 +38,32 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
+
 export default {
   name: "LoginIndex",
-  data () {
+  data() {
     return {
       showPassword: false,
       user: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       }
     }
   },
   methods: {
-
+    ...mapActions("users", [
+      "loginUser",
+      "fetchUser",
+    ]),
+    async login() {
+      try {
+        await this.loginUser(this.user);
+        this.$router.push({ name: 'PostIndex' })
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 }
 </script>
