@@ -30,11 +30,20 @@ const router = new Router({
     {
       path: "/posts",
       component: PostIndex,
-      name: "PostIndex"
+      name: "PostIndex",
+      meta: { requiredAuth: true },
     }
   ],
 })
 
-
+router.beforeEach((to, from, next) => {
+  store.dispatch('users/fetchAuthUser').then((authUser) => {
+    if (to.matched.some(record => record.meta.requiredAuth) && !authUser) {
+      next({ name: 'LoginIndex' });
+    } else {
+      next();
+    }
+  })
+});
 
 export default router
