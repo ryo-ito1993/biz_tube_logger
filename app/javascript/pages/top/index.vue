@@ -6,12 +6,13 @@
     <h2 class="mt-10">
       ビジネスYouTubeで学んだことをアウトプットしよう!
     </h2>
-    <v-btn class="primary mt-10">
-      今すぐ始める
-    </v-btn>
+    <router-link :to="{ name: 'RegisterIndex' }">
+      <v-btn class="primary mt-10">
+        今すぐ始める
+      </v-btn>
+    </router-link>
   </v-container>
 </template>
-
 
 <script>
 export default {

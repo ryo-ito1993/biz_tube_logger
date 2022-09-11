@@ -1,15 +1,29 @@
 <template>
-  <v-app-bar color="blue lighten-2" dark app>
-    <v-toolbar-title>
-      <h4>BizTubeLogger</h4>
-    </v-toolbar-title>
-    <div class="flex-grow-1"></div>
-    <v-btn text class="mr-5">
+  <v-app-bar
+    color="blue lighten-2"
+    dark
+    app
+  >
+    <router-link :to="{ name: 'TopIndex' }">
+      <v-toolbar-title>
+        <h4>BizTubeLogger</h4>
+      </v-toolbar-title>
+    </router-link>
+    <div class="flex-grow-1" />
+    <v-btn
+      text
+      class="mr-5"
+    >
       投稿一覧
     </v-btn>
-    <v-btn text class="mr-5">
-      新規登録
-    </v-btn>
+    <router-link :to="{ name: 'RegisterIndex' }">
+      <v-btn
+        text
+        class="mr-5"
+      >
+        新規登録
+      </v-btn>
+    </router-link>
     <v-btn text>
       ログイン
     </v-btn>
@@ -23,4 +37,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  }
+a:link, a:visited {
+  color: white;
+}
 </style>
