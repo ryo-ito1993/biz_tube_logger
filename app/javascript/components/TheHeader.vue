@@ -10,12 +10,14 @@
       </v-toolbar-title>
     </router-link>
     <div class="flex-grow-1" />
-    <v-btn
-      text
-      class="mr-5"
-    >
-      投稿一覧
-    </v-btn>
+    <router-link :to="{ name: 'PostIndex' }">
+      <v-btn
+        text
+        class="mr-5"
+      >
+        投稿一覧
+      </v-btn>
+    </router-link>
     <router-link :to="{ name: 'RegisterIndex' }">
       <v-btn
         text
