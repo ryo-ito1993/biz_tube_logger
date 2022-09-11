@@ -236,6 +236,7 @@ DEPENDENCIES
   byebug
   foreman
   jbuilder (~> 2.7)
+  jwt
   listen (~> 3.3)
   oauth2
   pg (~> 1.1)
