@@ -24,9 +24,11 @@
         新規登録
       </v-btn>
     </router-link>
-    <v-btn text>
-      ログイン
-    </v-btn>
+    <router-link :to="{ name: 'LoginIndex' }">
+      <v-btn text>
+        ログイン
+      </v-btn>
+    </router-link>
   </v-app-bar>
 </template>
 

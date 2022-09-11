@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from '../app.vue'
 import router from '../router'
 import axios from '../plugins/axios'
+import store from '../store'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
@@ -15,6 +16,7 @@ const vuetify = new Vuetify()
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     router,
+    store,
     vuetify,
     render: h => h(App)
   }).$mount()
