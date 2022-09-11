@@ -18,25 +18,48 @@
         投稿一覧
       </v-btn>
     </router-link>
-    <router-link :to="{ name: 'RegisterIndex' }">
-      <v-btn
-        text
-        class="mr-5"
-      >
-        新規登録
-      </v-btn>
-    </router-link>
-    <router-link :to="{ name: 'LoginIndex' }">
-      <v-btn text>
-        ログイン
-      </v-btn>
-    </router-link>
+    <template v-if="!authUser">
+      <router-link :to="{ name: 'RegisterIndex' }">
+        <v-btn
+          text
+          class="mr-5"
+        >
+          新規登録
+        </v-btn>
+      </router-link>
+      <router-link :to="{ name: 'LoginIndex' }">
+        <v-btn text>
+          ログイン
+        </v-btn>
+      </router-link>
+    </template>
+    <template v-else>
+      <router-link to="#" @click.native="handleLogout">🇰
+        ログアウト
+      </router-link>
+    </template>
   </v-app-bar>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
+
 export default {
-  name: "TheHeader"
+  name: "TheHeader",
+  computed: {
+    ...mapGetters("users", ["authUser"])
+  },
+  methods: {
+    ...mapActions("users", ["logoutUser"]),
+    async handleLogout() {
+      try {
+        await this.logoutUser()
+        this.$router.push({name: 'TopIndex'})
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
 
