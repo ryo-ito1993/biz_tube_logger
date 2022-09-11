@@ -1,36 +1,50 @@
 <template>
-  <v-card width="450px" class="mx-auto mt-5">
+  <v-card
+    width="450px"
+    class="mx-auto mt-5"
+  >
     <v-card-title>
-      <h1 class="display-1">新規登録</h1>
+      <h1 class="display-1">
+        新規登録
+      </h1>
     </v-card-title>
     <v-card-text>
       <v-form>
         <v-text-field
-        label="ユーザー名"
-        v-model="user.name"
-        type="text"
-        prepend-icon="mdi-account-circle" />
+          v-model="user.name"
+          label="ユーザー名"
+          type="text"
+          prepend-icon="mdi-account-circle"
+        />
         <v-text-field
-        label="メールアドレス"
-        v-model="user.email"
-        type="email"
-        prepend-icon="mdi-email" />
+          v-model="user.email"
+          label="メールアドレス"
+          type="email"
+          prepend-icon="mdi-email"
+        />
         <v-text-field
-        label="パスワード"
-        v-model="user.password"
-        v-bind:type="showPassword ? 'text' : 'password'"
-        prepend-icon="mdi-lock"
-        v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="showPassword = !showPassword" />
+          v-model="user.password"
+          label="パスワード"
+          :type="showPassword ? 'text' : 'password'"
+          prepend-icon="mdi-lock"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPassword = !showPassword"
+        />
         <v-text-field
-        label="パスワード(確認)"
-        v-model="user.password_confirmation"
-        v-bind:append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-        prepend-icon="mdi-lock"
-        v-bind:type="showPasswordConfirm ? 'text' : 'password'"
-        @click:append="showPasswordConfirm = !showPasswordConfirm" />
+          v-model="user.password_confirmation"
+          label="パスワード(確認)"
+          :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+          prepend-icon="mdi-lock"
+          :type="showPasswordConfirm ? 'text' : 'password'"
+          @click:append="showPasswordConfirm = !showPasswordConfirm"
+        />
         <v-card-actions>
-          <v-btn @click="register" class="info">新規登録</v-btn>
+          <v-btn
+            class="info"
+            @click="register"
+          >
+            新規登録
+          </v-btn>
         </v-card-actions>
       </v-form>
     </v-card-text>
