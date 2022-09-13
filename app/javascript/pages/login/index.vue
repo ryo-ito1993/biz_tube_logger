@@ -59,7 +59,7 @@ export default {
     async login() {
       try {
         await this.loginUser(this.user);
-        this.$router.push({ name: 'PostIndex' })
+        this.$router.push({ name: 'VideoIndex' })
       } catch (error) {
         console.log(error);
       }
