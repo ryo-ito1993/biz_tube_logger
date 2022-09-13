@@ -10,7 +10,7 @@
       </v-toolbar-title>
     </router-link>
     <div class="flex-grow-1" />
-    <router-link :to="{ name: 'PostIndex' }">
+    <router-link :to="{ name: 'VideoIndex' }">
       <v-btn
         text
         class="mr-5"
@@ -34,7 +34,11 @@
       </router-link>
     </template>
     <template v-else>
-      <router-link to="#" @click.native="handleLogout">🇰
+      <router-link
+        to="#"
+        @click.native="handleLogout"
+      >
+        🇰
         ログアウト
       </router-link>
     </template>

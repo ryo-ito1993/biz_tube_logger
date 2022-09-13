@@ -2,8 +2,8 @@ class User < ApplicationRecord
   include JwtToken
   authenticates_with_sorcery!
 
-  has_many: videos, dependent: :destroy
-  has_many: outputs, dependent: :destroy
+  has_many :videos, dependent: :destroy
+  has_many :outputs, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
