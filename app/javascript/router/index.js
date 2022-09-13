@@ -5,7 +5,7 @@ import store from '../store'
 import TopIndex from "../pages/top/index";
 import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
-import PostIndex from "../pages/post/index"
+import VideoIndex from "../pages/video/index"
 
 Vue.use(Router)
 
@@ -28,9 +28,9 @@ const router = new Router({
       name: "LoginIndex"
     },
     {
-      path: "/posts",
-      component: PostIndex,
-      name: "PostIndex",
+      path: "/videos",
+      component: VideoIndex,
+      name: "VideoIndex",
     }
   ],
 })

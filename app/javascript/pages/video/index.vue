@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  name: "PostIndex",
+  name: "VideoIndex",
   data() {
     return {
       videos: [],
