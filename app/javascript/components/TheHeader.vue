@@ -34,7 +34,11 @@
       </router-link>
     </template>
     <template v-else>
-      <router-link to="#" @click.native="handleLogout">🇰
+      <router-link
+        to="#"
+        @click.native="handleLogout"
+      >
+        🇰
         ログアウト
       </router-link>
     </template>
