@@ -2,7 +2,6 @@
   <v-container class="mt-5 shades white rounded-lg mb-5">
     <p class="text-h4 pt-5 title font-weight-bold text-center">アウトプット投稿</p>
       <form @submit.prevent="submit">
-        <!-- タイトル -->
 
           <v-text-field
             v-model="youtube_url"
@@ -10,7 +9,6 @@
             placeholder="共有URLを貼り付けてください"
             outlined
           ></v-text-field>
-
 
           <v-select
             v-model="value"
@@ -22,7 +20,6 @@
             outlined
           ></v-select>
 
-        <!-- 本文 -->
           <v-textarea
             v-model="output.summary"
             label="動画内容のアウトプット"
@@ -65,4 +62,5 @@ export default {
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
