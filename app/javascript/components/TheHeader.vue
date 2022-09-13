@@ -34,11 +34,18 @@
       </router-link>
     </template>
     <template v-else>
+      <router-link :to="{ name: 'VideoCreate' }">
+      <v-btn
+        text
+        class="mr-5"
+      >
+        新規投稿
+      </v-btn>
+    </router-link>
       <router-link
         to="#"
         @click.native="handleLogout"
       >
-        🇰
         ログアウト
       </router-link>
     </template>

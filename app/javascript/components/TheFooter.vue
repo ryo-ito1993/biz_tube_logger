@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute>
+  <v-footer >
     <div class="ma-auto">
       <span class="ml-10">
         プライバシーポリシー

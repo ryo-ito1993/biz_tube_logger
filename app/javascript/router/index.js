@@ -6,6 +6,7 @@ import TopIndex from "../pages/top/index";
 import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
 import VideoIndex from "../pages/video/index"
+import VideoCreate from "../pages/video/create"
 
 Vue.use(Router)
 
@@ -31,6 +32,12 @@ const router = new Router({
       path: "/videos",
       component: VideoIndex,
       name: "VideoIndex",
+    },
+    {
+      path: "/video/new",
+      component: VideoCreate,
+      name: "VideoCreate",
+      meta: { requiredAuth: true },
     }
   ],
 })
