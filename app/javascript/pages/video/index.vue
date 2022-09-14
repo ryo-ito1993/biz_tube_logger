@@ -9,23 +9,29 @@
         sm="4"
         md="4"
       >
+            <v-hover v-slot:default="{ hover }">
+
         <v-card
           class="mx-auto mt-4"
           max-width="350"
           height="420"
+          :elevation="hover ? 12 : 2"
         >
+        <router-link :to="{ path: `/video/${video.id}` }">
           <v-img
             :src="video.thumbnail"
             height="200px"
           />
+
           <v-card-title
-            class="font-weight-bold text-truncate d-inline-block"
+            class="text-truncate d-inline-block pt-1 pb-0"
             style="width: 100%"
           >
             {{ video.title }}
           </v-card-title>
+          </router-link>
 
-          <v-card-subtitle>
+          <v-card-subtitle class="pt-0 pb-1">
             {{ video.view_count }}回再生
           </v-card-subtitle>
 
@@ -61,6 +67,7 @@
             カテゴリー名
           </div>
         </v-card>
+            </v-hover>
       </v-col>
     </v-row>
   </v-container>
@@ -73,6 +80,7 @@ export default {
   data() {
     return {
       videos: [],
+      selected: null
     }
   },
     created() {
@@ -84,6 +92,12 @@ export default {
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
+    showMoreInformation(video) {
+      this.$router.push({
+        name: 'VideoShow',
+        params: { id: video.id }
+      })
+    }
   }
 }
 </script>
