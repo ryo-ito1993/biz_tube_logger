@@ -24,7 +24,7 @@ class Api::VideosController < ApplicationController
     set_yt
     yt_video = Yt::Video.new id: youtube_id
     @video = current_user.videos.build
-    @video.youtube_id = video_params[:youtube_url]
+    @video.youtube_id = youtube_id
     @video.title = yt_video.title
     @video.view_count = yt_video.view_count
     @video.published_at = yt_video.published_at
