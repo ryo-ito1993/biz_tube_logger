@@ -34,7 +34,7 @@ const router = new Router({
       name: "VideoIndex",
     },
     {
-      path: "/video/new",
+      path: "/videonew",
       component: VideoCreate,
       name: "VideoCreate",
       meta: { requiredAuth: true },
