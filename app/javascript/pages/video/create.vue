@@ -1,12 +1,11 @@
 <template>
   <v-container class="mt-5 shades white rounded-lg mb-5">
     <p class="text-h4 pt-5 title font-weight-bold text-center">アウトプット投稿</p>
-      <form @submit.prevent="submit">
 
           <v-text-field
             v-model="youtube_url"
             label="YouTube動画URL"
-            placeholder="共有URLを貼り付けてください"
+            placeholder="YouTube動画URLを貼り付けてください"
             outlined
           ></v-text-field>
 
@@ -41,10 +40,10 @@
           class="mr-4 font-weight-bold"
           type="submit"
           color="success"
+          v-on:click="createVideo"
         >
           投稿する
         </v-btn>
-      </form>
   </v-container>
 </template>
 
@@ -59,7 +58,18 @@ export default {
         impression: ''
       }
     }),
+    methods: {
+      createVideo() {
+      this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output })
+        .then(res => {
+          this.$router.push({ name:'VideoIndex' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
+}
 </script>
 
 <style scoped>

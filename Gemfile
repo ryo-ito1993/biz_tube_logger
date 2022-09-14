@@ -55,3 +55,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'sorcery'
 gem 'oauth2'
 gem 'jwt'
+gem 'yt', '~> 0.32.0'
