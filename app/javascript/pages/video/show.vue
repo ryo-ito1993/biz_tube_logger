@@ -1,27 +1,46 @@
 <template>
-<v-container>
-  <v-card class="pa-5 top-frame">
-    <div v-for="video in video"
-        :key="video.id">
-        <iframe width="840" height="473" :src="`https://www.youtube-nocookie.com/embed/${video.youtube_id}`"
-        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <h4 class=" pt-5 title">{{ video.title }}</h4>
-    <div class="ml-5 pt-2">
-      <span class="count">再生回数:{{ video.view_count }}回</span>
-    </div>
-    </div>
-    <v-card class="frame pa-4 mt-3 shades rounded-lg" v-for="output in outputs" :key="output.id">
-        <h2>{{output.user.name}}さんのアウトプット投稿</h2>
-        <v-card-subtitle>投稿日{{output.created_at}}</v-card-subtitle>
-        <v-card class="box" >
+  <v-container>
+    <v-card class="pa-5 top-frame">
+      <div
+        v-for="video in video"
+        :key="video.id"
+      >
+        <iframe
+          width="840"
+          height="473"
+          :src="`https://www.youtube-nocookie.com/embed/${video.youtube_id}`"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+        <h4 class=" pt-5 title">
+          {{ video.title }}
+        </h4>
+        <div class="ml-5 pt-2">
+          <span class="count">再生回数:{{ video.view_count }}回</span>
+        </div>
+      </div>
+      <v-card
+        v-for="output in outputs"
+        :key="output.id"
+        class="frame pa-4 mt-3 shades rounded-lg"
+      >
+        <h2>{{ output.user.name }}さんのアウトプット投稿</h2>
+        <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
+        <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
-          <p class="content">{{ output.summary }}</p>
+          <p class="content">
+            {{ output.summary }}
+          </p>
         </v-card>
         <v-card class="box">
           <span class="box-title">感想や今後に活かすこと</span>
-          <p class="content">{{ output.impression }}</p>
+          <p class="content">
+            {{ output.impression }}
+          </p>
         </v-card>
-    </v-card>
+      </v-card>
     </v-card>
   </v-container>
 </template>
