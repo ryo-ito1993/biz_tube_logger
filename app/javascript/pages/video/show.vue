@@ -14,9 +14,9 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         />
-        <h4 class=" pt-5 title">
+        <div class=" pt-5 title text-h5 font-weight-bold">
           {{ video.title }}
-        </h4>
+        </div>
         <div class="ml-5 pt-2">
           <span class="count">再生回数:{{ video.view_count }}回</span>
         </div>
@@ -26,7 +26,38 @@
         :key="output.id"
         class="frame pa-4 mt-3 shades rounded-lg"
       >
-        <h2>{{ output.user.name }}さんのアウトプット投稿</h2>
+      <div class="title-box">
+        <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+          <v-icon
+            @click="VisibleModal"
+            large
+            right
+            color="green"
+            class="mr-10 box-right"
+
+          >
+            mdi-square-edit-outline
+          </v-icon>
+          <v-icon
+            @click="deletelist"
+            large
+            right
+            color="red"
+            class="box-right"
+          >
+            mdi-trash-can-outline
+          </v-icon>
+          </div>
+        <div
+          id="modal"
+          class="modal"
+          :class="modal_class"
+        >
+          <Edit
+            @updatelist="updatelist"
+            @VisibleModal="VisibleModal"
+          />
+        </div>
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
@@ -108,6 +139,13 @@ iframe {
 .top-frame{
   background: -webkit-linear-gradient(top, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), -webkit-linear-gradient(top, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), -webkit-linear-gradient(57deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
   background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), linear-gradient(33deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+.title-box {
+  position: relative;
+}
+.title-box .box-right {
+  position: absolute;
+  right: 0;
 }
 
 </style>
