@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :sessions
     resources :videos
+    resources :outputs
     resources :users, only: %i[create] do
       collection do
         get 'me'

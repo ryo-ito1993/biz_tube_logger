@@ -7,6 +7,7 @@ import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
 import VideoIndex from "../pages/video/index"
 import VideoCreate from "../pages/video/create"
+import VideoShow from "../pages/video/show"
 
 Vue.use(Router)
 
@@ -38,6 +39,12 @@ const router = new Router({
       component: VideoCreate,
       name: "VideoCreate",
       meta: { requiredAuth: true },
+    },
+    {
+      path: '/video/:id',
+      name: 'VideoShow',
+      component: VideoShow,
+      props: true
     }
   ],
 })

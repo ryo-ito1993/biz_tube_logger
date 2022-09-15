@@ -10,7 +10,7 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.includes(:user, :outputs)
-    render :index, formats: :json, handlers: 'jbuilder'
+    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}])
   end
 
   def create
@@ -24,7 +24,7 @@ class Api::VideosController < ApplicationController
     set_yt
     yt_video = Yt::Video.new id: youtube_id
     @video = current_user.videos.build
-    @video.youtube_id = video_params[:youtube_url]
+    @video.youtube_id = youtube_id
     @video.title = yt_video.title
     @video.view_count = yt_video.view_count
     @video.published_at = yt_video.published_at
@@ -41,6 +41,11 @@ class Api::VideosController < ApplicationController
     else
       render json: @video.errors, status: :bad_request
     end
+  end
+
+  def show
+    @video = Video.where(id: params[:id])
+    render json: @video
   end
 
   private
