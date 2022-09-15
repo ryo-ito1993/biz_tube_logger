@@ -43,7 +43,8 @@ const router = new Router({
     {
       path: '/video/:id',
       name: 'VideoShow',
-      component: VideoShow
+      component: VideoShow,
+      props: true
     }
   ],
 })

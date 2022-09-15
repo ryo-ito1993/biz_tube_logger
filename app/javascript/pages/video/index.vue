@@ -55,11 +55,11 @@
           <div class="ml-3">
             投稿者：
             <span
-              v-for="output in video.output_name"
+              v-for="output in video.outputs"
               :key="output.id"
               class="mr-2"
             >
-              <v-icon>mdi-account-circle</v-icon>{{ output.output_name }}
+              <v-icon>mdi-account-circle</v-icon>{{ output.user.name }}
             </span>
           </div>
           <div class="mt-3 ml-3">
@@ -83,7 +83,7 @@ export default {
       selected: null
     }
   },
-    created() {
+    mounted() {
     this.fetchVideos();
   },
   methods: {
@@ -92,12 +92,6 @@ export default {
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
-    showMoreInformation(video) {
-      this.$router.push({
-        name: 'VideoShow',
-        params: { id: video.id }
-      })
-    }
   }
 }
 </script>

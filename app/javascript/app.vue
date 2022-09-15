@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <TheHeader />
-    <v-main class="grey lighten-3 accent-1">
+    <v-main class="grey lighten-4 accent-1">
       <router-view />
     </v-main>
     <TheFooter />

@@ -10,7 +10,7 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.includes(:user, :outputs)
-    render :index, formats: :json, handlers: 'jbuilder'
+    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}])
   end
 
   def create
@@ -41,6 +41,11 @@ class Api::VideosController < ApplicationController
     else
       render json: @video.errors, status: :bad_request
     end
+  end
+
+  def show
+    @video = Video.where(id: params[:id])
+    render json: @video
   end
 
   private

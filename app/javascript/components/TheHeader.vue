@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="blue lighten-2"
+    color="#555555"
     dark
     app
   >

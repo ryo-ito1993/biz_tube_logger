@@ -1,5 +1,5 @@
 <template>
-  <v-footer >
+  <v-footer color="#555555">
     <div class="ma-auto">
       <span class="ml-10">
         プライバシーポリシー
