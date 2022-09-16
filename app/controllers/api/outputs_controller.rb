@@ -8,7 +8,7 @@ class Api::OutputsController < ApplicationController
   def update
     @output = current_user.outputs.find(params[:id])
     if @output.update(output_params)
-      render json: @output
+      render json: @output.to_json(include: :user)
     else
       render json: @output.errors, status: :bad_request
     end

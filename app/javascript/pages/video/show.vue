@@ -52,15 +52,15 @@
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
-          <p class="content">
+          <pre class="content">
             {{ output.summary }}
-          </p>
+          </pre>
         </v-card>
         <v-card class="box">
           <span class="box-title">感想や今後に活かすこと</span>
-          <p class="content">
+          <pre class="content">
             {{ output.impression }}
-          </p>
+          </pre>
         </v-card>
       </v-card>
     </v-card>
@@ -73,6 +73,7 @@
         :youtube-id="video[0].youtube_id"
         :output="outputEdit"
         @close-modal="handleCloseEditModal"
+        @update-output="handleUpdateOutput"
       />
     </v-dialog>
   </v-container>
@@ -80,7 +81,7 @@
 
 <script>
 import EditModal from "./components/EditModal"
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
@@ -90,24 +91,22 @@ export default {
   data() {
     return {
       video: null,
-      outputs: [],
       outputEdit: {},
       isVisibleEditModal: false,
     }
   },
-  mounted: function () {
+  created: function () {
     this.fetchVideoDetail();
-    this.fetchOutputsDetail();
+    this.fetchOutputs(this.id);
   },
   methods: {
+    ...mapActions("outputs", [
+      "fetchOutputs",
+      "updateOutput"
+    ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
         .then(res => this.video = res.data)
-        .catch(err => console.log(err.status));
-    },
-    fetchOutputsDetail() {
-      this.$axios.get("/outputs/" + this.id)
-        .then(res => this.outputs = res.data)
         .catch(err => console.log(err.status));
     },
     handleShowEditModal(output) {
@@ -123,9 +122,19 @@ export default {
           return this.authUser.id === output.user.id
         }
     },
+    async handleUpdateOutput(output) {
+      try {
+        await this.updateOutput(output);
+        this.handleCloseEditModal();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
   },
   computed: {
     ...mapGetters("users", ["authUser"]),
+    ...mapGetters("outputs", ["outputs"])
   }
 }
 </script>
@@ -173,5 +182,7 @@ iframe {
   position: absolute;
   right: 0;
 }
-
+.content {
+  white-space: pre-line;
+}
 </style>
