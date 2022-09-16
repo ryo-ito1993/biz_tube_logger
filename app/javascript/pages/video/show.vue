@@ -26,15 +26,15 @@
         :key="'output' + output.id"
         class="frame pa-4 mt-3 shades rounded-lg"
       >
-      <div class="title-box">
-        <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+        <div class="title-box">
+          <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+          <template v-if="isAuthUserTask(output)">
           <v-icon
-            @click="handleShowEditModal(output)"
             large
             right
             color="green"
             class="mr-10 box-right"
-
+            @click="handleShowEditModal(output)"
           >
             mdi-square-edit-outline
           </v-icon>
@@ -46,7 +46,8 @@
           >
             mdi-trash-can-outline
           </v-icon>
-          </div>
+          </template>
+        </div>
 
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
@@ -64,22 +65,22 @@
       </v-card>
     </v-card>
     <v-dialog
-      max-width="290"
-      v-model="isVisibleEditModal"
       v-if="isVisibleEditModal"
+      v-model="isVisibleEditModal"
+      max-width="800"
     >
-    <EditModal
-            :youtube_id="this.video[0].youtube_id"
-            :output="outputEdit"
-            @close-modal="handleCloseEditModal"
-          />
+      <EditModal
+        :youtube-id="video[0].youtube_id"
+        :output="outputEdit"
+        @close-modal="handleCloseEditModal"
+      />
     </v-dialog>
-
   </v-container>
 </template>
 
 <script>
 import EditModal from "./components/EditModal"
+import { mapGetters } from "vuex"
 export default {
   name: "VideoShow",
   components: {
@@ -91,7 +92,7 @@ export default {
       video: null,
       outputs: [],
       outputEdit: {},
-      isVisibleEditModal: false
+      isVisibleEditModal: false,
     }
   },
   mounted: function () {
@@ -117,6 +118,14 @@ export default {
       this.isVisibleEditModal = false;
       this.outputEdit = {};
     },
+    isAuthUserTask(output) {
+      if (this.authUser) {
+          return this.authUser.id === output.user.id
+        }
+    }
+  },
+  computed: {
+    ...mapGetters("users", ["authUser"]),
   }
 }
 </script>
