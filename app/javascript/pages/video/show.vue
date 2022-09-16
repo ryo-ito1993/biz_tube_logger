@@ -122,7 +122,7 @@ export default {
       if (this.authUser) {
           return this.authUser.id === output.user.id
         }
-    }
+    },
   },
   computed: {
     ...mapGetters("users", ["authUser"]),

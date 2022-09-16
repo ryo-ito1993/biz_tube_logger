@@ -36,6 +36,7 @@
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
+      @click="updateOutput(output)"
     >
       更新する
     </v-btn>
@@ -72,7 +73,16 @@
     methods: {
       handleCloseModal(){
         this.$emit('close-modal')
-      }
+      },
+      updateOutput(output) {
+      this.$axios.patch("/outputs/" + output.id, output)
+        .then(res => {
+          location.reload()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
     }
   }
 </script>

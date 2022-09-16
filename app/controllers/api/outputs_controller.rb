@@ -5,5 +5,20 @@ class Api::OutputsController < ApplicationController
     render json: @outputs.to_json(include: :user)
   end
 
+  def update
+    @output = current_user.outputs.find(params[:id])
+    if @output.update(output_params)
+      render json: @output
+    else
+      render json: @output.errors, status: :bad_request
+    end
+  end
+
+  private
+
+  def output_params
+    params.require(:output).permit(:summary, :impression)
+  end
+
 
 end
