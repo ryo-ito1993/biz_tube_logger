@@ -3,7 +3,7 @@
     <v-card class="pa-5 top-frame">
       <div
         v-for="video in video"
-        :key="video.id"
+        :key="'video' + video.id"
       >
         <iframe
           width="840"
@@ -23,13 +23,13 @@
       </div>
       <v-card
         v-for="output in outputs"
-        :key="output.id"
+        :key="'output' + output.id"
         class="frame pa-4 mt-3 shades rounded-lg"
       >
       <div class="title-box">
         <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
           <v-icon
-            @click="VisibleModal"
+            @click="handleShowEditModal(output)"
             large
             right
             color="green"
@@ -39,7 +39,6 @@
             mdi-square-edit-outline
           </v-icon>
           <v-icon
-            @click="deletelist"
             large
             right
             color="red"
@@ -48,16 +47,7 @@
             mdi-trash-can-outline
           </v-icon>
           </div>
-        <div
-          id="modal"
-          class="modal"
-          :class="modal_class"
-        >
-          <Edit
-            @updatelist="updatelist"
-            @VisibleModal="VisibleModal"
-          />
-        </div>
+
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
@@ -73,16 +63,35 @@
         </v-card>
       </v-card>
     </v-card>
+    <v-dialog
+      max-width="290"
+      v-model="isVisibleEditModal"
+      v-if="isVisibleEditModal"
+    >
+    <EditModal
+            :youtube_id="this.video[0].youtube_id"
+            :output="outputEdit"
+            @close-modal="handleCloseEditModal"
+          />
+    </v-dialog>
+
   </v-container>
 </template>
 
 <script>
+import EditModal from "./components/EditModal"
 export default {
+  name: "VideoShow",
+  components: {
+    EditModal
+  },
   props: ["id"],
   data() {
     return {
       video: null,
-      outputs: []
+      outputs: [],
+      outputEdit: {},
+      isVisibleEditModal: false
     }
   },
   mounted: function () {
@@ -99,6 +108,14 @@ export default {
       this.$axios.get("/outputs/" + this.id)
         .then(res => this.outputs = res.data)
         .catch(err => console.log(err.status));
+    },
+    handleShowEditModal(output) {
+      this.isVisibleEditModal = true;
+      this.outputEdit = Object.assign({}, output)
+    },
+    handleCloseEditModal() {
+      this.isVisibleEditModal = false;
+      this.outputEdit = {};
     },
   }
 }

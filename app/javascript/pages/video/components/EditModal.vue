@@ -1,58 +1,62 @@
 <template>
-  <v-row justify="center">
-    <v-dialog
-      v-model="dialog"
-      width="600px"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Dialog
-        </v-btn>
-      </template>
       <v-card>
-        <v-card-title>
-          <span class="text-h5">Use Google's location service?</span>
+        <v-card-title class="text-h5">
+          どうもどうもどうも
         </v-card-title>
+
         <v-card-text>
-          hogehoge
+          ヤッホー
+          <p>{{output}}</p>
+          <p>{{youtube_id}}</p>
+          <textarea v-model="output.summary"></textarea>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
+
           <v-btn
             color="green darken-1"
             text
-            @click="dialog = false"
+            @click="handleCloseModal"
           >
             Disagree
           </v-btn>
+
           <v-btn
             color="green darken-1"
             text
-            @click="dialog = false"
+            @click="handleCloseModal"
           >
             Agree
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-row>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        dialog: false,
+    name: "EditModal",
+    props: {
+      output: {
+        summary: {
+          type: Text,
+          required: true
+        },
+        impression: {
+          type:Text,
+          required: true
+        }
+      },
+      youtube_id:{
+        type: String,
+        required: true
       }
+
     },
+    methods: {
+      handleCloseModal(){
+        this.$emit('close-modal')
+      }
+    }
   }
 </script>
-
-<style scoped>
-
-</style>
