@@ -39,6 +39,13 @@
     >
       更新する
     </v-btn>
+    <v-btn
+      class="mr-4 font-weight-bold"
+      type="submit"
+      @click="handleCloseModal"
+    >
+      キャンセル
+    </v-btn>
   </v-container>
 </template>
 
