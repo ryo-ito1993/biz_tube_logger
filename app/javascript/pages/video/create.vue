@@ -20,7 +20,11 @@
       label="カテゴリー"
       multiple
       outlined
-    />
+    >
+      <template #selection="{ item }">
+        <v-chip color="primary">{{item.name}}</v-chip>
+      </template>
+    </v-select>
 
     <v-textarea
       v-model="output.summary"

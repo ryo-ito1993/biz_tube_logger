@@ -10,7 +10,7 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.includes(:user, :outputs).order(created_at: :desc)
-    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}])
+    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}, {categories: {only: :name}}])
   end
 
   def create
@@ -54,7 +54,7 @@ class Api::VideosController < ApplicationController
 
   def show
     @video = Video.where(id: params[:id])
-    render json: @video
+    render json: @video.to_json(include: {categories: {only: :name}})
   end
 
   private
@@ -70,6 +70,4 @@ class Api::VideosController < ApplicationController
   def output_params
     params.require(:output).permit(:summary, :impression)
   end
-
-
 end

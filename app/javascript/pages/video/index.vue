@@ -12,8 +12,8 @@
         <v-hover v-slot:default="{ hover }">
           <v-card
             class="mx-auto mt-4"
-            max-width="350"
-            height="420"
+            max-width="360"
+            height="405"
             :elevation="hover ? 12 : 2"
           >
             <router-link :to="{ path: `/video/${video.id}` }">
@@ -63,7 +63,15 @@
             </div>
             <div class="mt-3 ml-3">
               <v-icon> mdi-tag</v-icon>
-              カテゴリー名
+              <v-chip
+                v-for="category in video.categories"
+                :key="category.id"
+                class="mr-1"
+                color="primary"
+                small
+              >
+                {{ category.name }}
+              </v-chip>
             </div>
           </v-card>
         </v-hover>

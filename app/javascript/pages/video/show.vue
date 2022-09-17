@@ -17,16 +17,28 @@
         <div class=" pt-5 title text-h5 font-weight-bold">
           {{ video.title }}
         </div>
-        <div class="ml-5 pt-2">
+        <div class="wrap-box ml-5 mb-4 pt-2">
           <span class="count">再生回数:{{ video.view_count }}回</span>
+              <span class="box-right category">
+                <v-icon> mdi-tag</v-icon>
+              <v-chip
+                v-for="category in video.categories"
+                :key="category.id"
+                class="mr-1"
+                color="primary"
+              >
+                {{ category.name }}
+              </v-chip>
+              </span>
         </div>
+
       </div>
       <v-card
         v-for="output in outputs"
         :key="'output' + output.id"
         class="frame pa-4 mt-3 shades rounded-lg"
       >
-        <div class="title-box">
+        <div class="wrap-box">
           <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
           <template v-if="isAuthUserTask(output)">
             <v-icon
@@ -221,14 +233,17 @@ iframe {
   background: -webkit-linear-gradient(top, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), -webkit-linear-gradient(top, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), -webkit-linear-gradient(57deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
   background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), linear-gradient(33deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
 }
-.title-box {
+.wrap-box {
   position: relative;
 }
-.title-box .box-right {
+.wrap-box .box-right {
   position: absolute;
   right: 0;
 }
 .content {
   white-space: pre-line;
+}
+.category{
+  margin-right: 30px;
 }
 </style>
