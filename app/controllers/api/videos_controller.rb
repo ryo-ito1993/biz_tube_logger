@@ -29,6 +29,15 @@ class Api::VideosController < ApplicationController
     @video.view_count = yt_video.view_count
     @video.published_at = yt_video.published_at
     @video.thumbnail = yt_video.thumbnail_url(size = :high)
+
+    categories_name = category_params[:selected_categories]
+    categories_id = []
+    categories_name.each do |name|
+      category = Category.find_by(name: name)
+      categories_id << category.id
+    end
+    @video.category_ids = categories_id
+
     if @video.save
       @output = current_user.outputs.build(output_params)
       @output.video_id = @video.id
@@ -52,6 +61,10 @@ class Api::VideosController < ApplicationController
 
   def video_params
     params.permit(:youtube_url)
+  end
+
+  def category_params
+    params.permit(selected_categories: [])
   end
 
   def output_params
