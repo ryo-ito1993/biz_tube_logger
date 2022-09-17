@@ -10,7 +10,7 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.includes(:user, :outputs).order(created_at: :desc)
-    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}])
+    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}, {categories: {only: :name}}])
   end
 
   def create
@@ -29,6 +29,15 @@ class Api::VideosController < ApplicationController
     @video.view_count = yt_video.view_count
     @video.published_at = yt_video.published_at
     @video.thumbnail = yt_video.thumbnail_url(size = :high)
+
+    categories_name = category_params[:selected_categories]
+    categories_id = []
+    categories_name.each do |name|
+      category = Category.find_by(name: name)
+      categories_id << category.id
+    end
+    @video.category_ids = categories_id
+
     if @video.save
       @output = current_user.outputs.build(output_params)
       @output.video_id = @video.id
@@ -45,7 +54,7 @@ class Api::VideosController < ApplicationController
 
   def show
     @video = Video.where(id: params[:id])
-    render json: @video
+    render json: @video.to_json(include: {categories: {only: :name}})
   end
 
   private
@@ -54,9 +63,11 @@ class Api::VideosController < ApplicationController
     params.permit(:youtube_url)
   end
 
+  def category_params
+    params.permit(selected_categories: [])
+  end
+
   def output_params
     params.require(:output).permit(:summary, :impression)
   end
-
-
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :sessions
     resources :videos
     resources :outputs
+    resources :categories
     resources :users, only: %i[create] do
       collection do
         get 'me'

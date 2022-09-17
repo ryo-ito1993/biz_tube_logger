@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_12_021621) do
+ActiveRecord::Schema.define(version: 2022_09_17_103803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "outputs", force: :cascade do |t|
     t.text "summary", null: false
@@ -36,6 +42,15 @@ ActiveRecord::Schema.define(version: 2022_09_12_021621) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "video_categories", force: :cascade do |t|
+    t.bigint "video_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_video_categories_on_category_id"
+    t.index ["video_id"], name: "index_video_categories_on_video_id"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "youtube_id", null: false
     t.string "title", null: false
@@ -50,5 +65,7 @@ ActiveRecord::Schema.define(version: 2022_09_12_021621) do
 
   add_foreign_key "outputs", "users"
   add_foreign_key "outputs", "videos"
+  add_foreign_key "video_categories", "categories"
+  add_foreign_key "video_categories", "videos"
   add_foreign_key "videos", "users"
 end
