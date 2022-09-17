@@ -67,6 +67,7 @@
       <v-btn
         class="primary font-weight-bold mt-4"
         @click="handleShowCreateModal"
+        v-if="authUser"
       >
         この動画をアウトプットする
       </v-btn>
