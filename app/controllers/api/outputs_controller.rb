@@ -6,6 +6,16 @@ class Api::OutputsController < ApplicationController
     render json: @outputs.to_json(include: :user)
   end
 
+  def create
+    @output = current_user.outputs.build(output_params)
+    if @output.save
+      render json: @output.to_json(include: :user)
+    else
+      render json: @output.errors, status: :bad_request
+    end
+  end
+
+
   def update
     if @output.update(output_params)
       render json: @output.to_json(include: :user)

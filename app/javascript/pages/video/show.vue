@@ -64,6 +64,12 @@
           </pre>
         </v-card>
       </v-card>
+      <v-btn
+        class="primary font-weight-bold mt-4"
+        @click="handleShowCreateModal"
+      >
+        この動画をアウトプットする
+      </v-btn>
     </v-card>
     <v-dialog
       v-if="isVisibleEditModal"
@@ -77,16 +83,30 @@
         @update-output="handleUpdateOutput"
       />
     </v-dialog>
+    <v-dialog
+      v-if="isVisibleCreateModal"
+      v-model="isVisibleCreateModal"
+      max-width="800"
+    >
+      <OutputCreateModal
+        :youtube-id="video[0].youtube_id"
+        :video-id="id"
+        @close-modal="handleCloseCreateModal"
+        @create-output="handleCreateOutput"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import EditModal from "./components/EditModal"
+import OutputCreateModal from "./components/OutputCreateModal.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
-    EditModal
+    EditModal,
+    OutputCreateModal
   },
   props: ["id"],
   data() {
@@ -94,17 +114,23 @@ export default {
       video: null,
       outputEdit: {},
       isVisibleEditModal: false,
+      isVisibleCreateModal: false
     }
   },
   created: function () {
     this.fetchVideoDetail();
     this.fetchOutputs(this.id);
   },
+  computed: {
+  ...mapGetters("users", ["authUser"]),
+  ...mapGetters("outputs", ["outputs"])
+  },
   methods: {
     ...mapActions("outputs", [
       "fetchOutputs",
       "updateOutput",
-      "deleteOutput"
+      "deleteOutput",
+      "createOutput"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -118,6 +144,13 @@ export default {
     handleCloseEditModal() {
       this.isVisibleEditModal = false;
       this.outputEdit = {};
+    },
+    handleShowCreateModal() {
+      this.isVisibleCreateModal = true;
+    },
+    handleCloseCreateModal() {
+      this.isVisibleCreateModal = false;
+      this.output = {};
     },
     isAuthUserTask(output) {
       if (this.authUser) {
@@ -139,12 +172,15 @@ export default {
         console.log(error);
       }
     },
-
+    async handleCreateOutput(output) {
+      try {
+        await this.createOutput(output)
+        this.handleCloseCreateModal()
+      } catch (error) {
+        console.log(error)
+      }
   },
-  computed: {
-    ...mapGetters("users", ["authUser"]),
-    ...mapGetters("outputs", ["outputs"])
-  }
+}
 }
 </script>
 
