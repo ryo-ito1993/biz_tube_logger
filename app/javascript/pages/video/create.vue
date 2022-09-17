@@ -12,8 +12,9 @@
     />
 
     <v-select
-      v-model="value"
-      :items="items"
+      v-model="selected_categories"
+      item-text="name"
+      :items="categories"
       class="hoge"
       chips
       label="カテゴリー"
@@ -52,25 +53,34 @@
 <script>
 export default {
     data: () => ({
-      items: ['仕事', 'お金/投資', '健康', '教養', '対談', '要約', 'その他'],
-      value: [],
+      categories: [],
+      selected_categories: [],
       youtube_url: '',
       output: {
         summary: '',
         impression: ''
       }
     }),
+    created: function () {
+      this.fetchCategories();
+    },
     methods: {
       createVideo() {
-      this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output })
+      this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
         .then(res => {
           this.$router.push({ name:'VideoIndex' })
         })
         .catch(err => {
           console.log(err)
         })
+      },
+      fetchCategories() {
+      this.$axios.get("/categories/")
+        .then(res => this.categories = res.data)
+        .catch(err => console.log(err.status));
+    },
+
     }
-  }
 }
 </script>
 
