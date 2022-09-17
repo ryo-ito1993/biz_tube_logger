@@ -29,24 +29,24 @@
         <div class="title-box">
           <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
           <template v-if="isAuthUserTask(output)">
-          <v-icon
-            large
-            right
-            color="green"
-            class="mr-10 box-right"
-            @click="handleShowEditModal(output)"
-          >
-            mdi-square-edit-outline
-          </v-icon>
-          <v-icon
-            large
-            right
-            color="red"
-            class="box-right"
-            @click="handleDeleteOutput(output)"
-          >
-            mdi-trash-can-outline
-          </v-icon>
+            <v-icon
+              large
+              right
+              color="green"
+              class="mr-10 box-right"
+              @click="handleShowEditModal(output)"
+            >
+              mdi-square-edit-outline
+            </v-icon>
+            <v-icon
+              large
+              right
+              color="red"
+              class="box-right"
+              @click="handleDeleteOutput(output)"
+            >
+              mdi-trash-can-outline
+            </v-icon>
           </template>
         </div>
 
