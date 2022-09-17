@@ -1,4 +1,5 @@
 class Api::OutputsController < ApplicationController
+  before_action :currentuser_set_output, only: %i[update destroy]
 
   def show
     @outputs = Output.where(video_id: params[:id])
@@ -6,7 +7,6 @@ class Api::OutputsController < ApplicationController
   end
 
   def update
-    @output = current_user.outputs.find(params[:id])
     if @output.update(output_params)
       render json: @output.to_json(include: :user)
     else
@@ -14,10 +14,26 @@ class Api::OutputsController < ApplicationController
     end
   end
 
+  def destroy
+    @video = Video.find(@output.video_id)
+    if @video.outputs.length == 1
+      @video.destroy!
+      render json: [@video, @output]
+    else
+      @output.destroy!
+      render json: @output
+    end
+  end
+
+
   private
 
+  def currentuser_set_output
+    @output = current_user.outputs.find(params[:id])
+  end
+
   def output_params
-    params.require(:output).permit(:summary, :impression)
+    params.require(:output).permit(:id, :summary, :impression , :video_id)
   end
 
 

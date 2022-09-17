@@ -55,6 +55,10 @@
     name: "EditModal",
     props: {
       output: {
+        id: {
+        type: Number,
+        required: true
+      },
         summary: {
           type: Text,
           required: true

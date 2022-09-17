@@ -1,4 +1,6 @@
 import axios from '../../plugins/axios'
+import router from '../../router'
+
 
 const state = {
   outputs: []
@@ -18,6 +20,12 @@ const mutations = {
     })
     state.outputs.splice(index, 1, updateOutput)
   },
+  deleteOutput: (state, deleteOutput) => {
+    state.outputs = state.outputs.filter(output => {
+      return output.id != deleteOutput.id
+    })
+  },
+
 }
 
 const actions = {
@@ -34,7 +42,17 @@ const actions = {
         commit('updateOutput', res.data)
       })
   },
-
+  deleteOutput({commit}, output) {
+    return axios.delete('outputs/' + output.id)
+      .then(res => {
+        commit('deleteOutput', res.data)
+        console.log(res.data)
+        const video = res.data[0]
+        if ('title' in video) {
+          router.push({ name: 'VideoIndex' });
+        }
+      })
+  },
 }
 
 export default {

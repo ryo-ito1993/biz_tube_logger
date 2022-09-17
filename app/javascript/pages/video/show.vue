@@ -43,6 +43,7 @@
             right
             color="red"
             class="box-right"
+            @click="handleDeleteOutput(output)"
           >
             mdi-trash-can-outline
           </v-icon>
@@ -102,7 +103,8 @@ export default {
   methods: {
     ...mapActions("outputs", [
       "fetchOutputs",
-      "updateOutput"
+      "updateOutput",
+      "deleteOutput"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -126,6 +128,13 @@ export default {
       try {
         await this.updateOutput(output);
         this.handleCloseEditModal();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async handleDeleteOutput(output) {
+      try {
+        await this.deleteOutput(output);
       } catch (error) {
         console.log(error);
       }
