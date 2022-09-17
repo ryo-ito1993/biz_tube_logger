@@ -29,38 +29,39 @@
         <div class="title-box">
           <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
           <template v-if="isAuthUserTask(output)">
-          <v-icon
-            large
-            right
-            color="green"
-            class="mr-10 box-right"
-            @click="handleShowEditModal(output)"
-          >
-            mdi-square-edit-outline
-          </v-icon>
-          <v-icon
-            large
-            right
-            color="red"
-            class="box-right"
-          >
-            mdi-trash-can-outline
-          </v-icon>
+            <v-icon
+              large
+              right
+              color="green"
+              class="mr-10 box-right"
+              @click="handleShowEditModal(output)"
+            >
+              mdi-square-edit-outline
+            </v-icon>
+            <v-icon
+              large
+              right
+              color="red"
+              class="box-right"
+              @click="handleDeleteOutput(output)"
+            >
+              mdi-trash-can-outline
+            </v-icon>
           </template>
         </div>
 
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
-          <p class="content">
+          <pre class="content">
             {{ output.summary }}
-          </p>
+          </pre>
         </v-card>
         <v-card class="box">
           <span class="box-title">感想や今後に活かすこと</span>
-          <p class="content">
+          <pre class="content">
             {{ output.impression }}
-          </p>
+          </pre>
         </v-card>
       </v-card>
     </v-card>
@@ -73,6 +74,7 @@
         :youtube-id="video[0].youtube_id"
         :output="outputEdit"
         @close-modal="handleCloseEditModal"
+        @update-output="handleUpdateOutput"
       />
     </v-dialog>
   </v-container>
@@ -80,7 +82,7 @@
 
 <script>
 import EditModal from "./components/EditModal"
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
@@ -90,24 +92,23 @@ export default {
   data() {
     return {
       video: null,
-      outputs: [],
       outputEdit: {},
       isVisibleEditModal: false,
     }
   },
-  mounted: function () {
+  created: function () {
     this.fetchVideoDetail();
-    this.fetchOutputsDetail();
+    this.fetchOutputs(this.id);
   },
   methods: {
+    ...mapActions("outputs", [
+      "fetchOutputs",
+      "updateOutput",
+      "deleteOutput"
+    ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
         .then(res => this.video = res.data)
-        .catch(err => console.log(err.status));
-    },
-    fetchOutputsDetail() {
-      this.$axios.get("/outputs/" + this.id)
-        .then(res => this.outputs = res.data)
         .catch(err => console.log(err.status));
     },
     handleShowEditModal(output) {
@@ -122,10 +123,27 @@ export default {
       if (this.authUser) {
           return this.authUser.id === output.user.id
         }
-    }
+    },
+    async handleUpdateOutput(output) {
+      try {
+        await this.updateOutput(output);
+        this.handleCloseEditModal();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async handleDeleteOutput(output) {
+      try {
+        await this.deleteOutput(output);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
   },
   computed: {
     ...mapGetters("users", ["authUser"]),
+    ...mapGetters("outputs", ["outputs"])
   }
 }
 </script>
@@ -173,5 +191,7 @@ iframe {
   position: absolute;
   right: 0;
 }
-
+.content {
+  white-space: pre-line;
+}
 </style>

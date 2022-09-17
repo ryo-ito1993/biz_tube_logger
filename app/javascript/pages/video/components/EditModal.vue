@@ -36,8 +36,16 @@
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
+      @click="handleUpdateOutput"
     >
       更新する
+    </v-btn>
+    <v-btn
+      class="mr-4 font-weight-bold"
+      type="submit"
+      @click="handleCloseModal"
+    >
+      キャンセル
     </v-btn>
   </v-container>
 </template>
@@ -47,6 +55,10 @@
     name: "EditModal",
     props: {
       output: {
+        id: {
+        type: Number,
+        required: true
+      },
         summary: {
           type: Text,
           required: true
@@ -65,7 +77,10 @@
     methods: {
       handleCloseModal(){
         this.$emit('close-modal')
-      }
+      },
+      handleUpdateOutput() {
+      this.$emit('update-output', this.output)
+    }
     }
   }
 </script>
