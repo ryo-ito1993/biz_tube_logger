@@ -6,9 +6,9 @@
     <h2 class="mt-10">
       ビジネスYouTubeで学んだことをアウトプットしよう!
     </h2>
-    <router-link :to="{ name: 'RegisterIndex' }">
+    <router-link :to="{ name: 'VideoIndex' }">
       <v-btn class="primary mt-10">
-        今すぐ始める
+        みんなの投稿を覗いてみる
       </v-btn>
     </router-link>
   </v-container>

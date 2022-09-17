@@ -25,6 +25,9 @@ const mutations = {
       return output.id != deleteOutput.id
     })
   },
+  addOutput: (state, output) => {
+    state.outputs.push(output)
+  }
 
 }
 
@@ -53,6 +56,12 @@ const actions = {
         }
       })
   },
+  createOutput({ commit }, output) {
+    return axios.post('outputs', output)
+      .then(res => {
+        commit('addOutput', res.data)
+      })
+  }
 }
 
 export default {

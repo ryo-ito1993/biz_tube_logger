@@ -9,7 +9,7 @@ class Api::VideosController < ApplicationController
   end
 
   def index
-    @videos = Video.includes(:user, :outputs)
+    @videos = Video.includes(:user, :outputs).order(created_at: :desc)
     render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}])
   end
 
