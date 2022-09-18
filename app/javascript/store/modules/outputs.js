@@ -61,7 +61,14 @@ const actions = {
       .then(res => {
         commit('addOutput', res.data)
       })
-  }
+    },
+    createComment({ commit }, comment) {
+      return axios.post('comments', comment)
+        .then(res => {
+          console.log(res.data)
+          commit('updateOutput', res.data)
+        })
+    }
 }
 
 export default {
