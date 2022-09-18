@@ -75,7 +75,43 @@
             {{ output.impression }}
           </pre>
         </v-card>
+
+
+        <div v-if="output.comments.length">
+          <div class="font-weight-bold">
+            <v-icon class="pr-2">
+              mdi-comment-processing-outline
+            </v-icon>コメント一覧
+          </div>
+          <v-container
+            v-for="comment in output.comments"
+            :key="'comment' + comment.id"
+          >
+            <v-divider />
+            <div>
+              <v-icon>mdi-account</v-icon>
+              <span class="font-weight-bold">{{ comment.user.name }}</span>
+            </div>
+            <div>
+              {{ comment.body }}
+            </div>
+          </v-container>
+        </div>
+
+    <v-btn
+      class="mr-4 font-weight-bold"
+      type="submit"
+      color="success"
+      @click="handleShowCommentModal(output.id)"
+    >
+      コメントする
+    </v-btn>
       </v-card>
+
+      </v-card>
+
+
+
       <v-btn
         class="primary font-weight-bold mt-4"
         @click="handleShowCreateModal"
@@ -84,6 +120,7 @@
         この動画をアウトプットする
       </v-btn>
     </v-card>
+
     <v-dialog
       v-if="isVisibleEditModal"
       v-model="isVisibleEditModal"
@@ -108,26 +145,41 @@
         @create-output="handleCreateOutput"
       />
     </v-dialog>
+    <v-dialog
+      v-if="isVisibleCommentModal"
+      v-model="isVisibleCommentModal"
+      max-width="500"
+    >
+      <CommentCreateModal
+        :outputId="this.outputId"
+        @close-modal="handleCloseCommentModal"
+        @create-comment="handleCreateComment"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import EditModal from "./components/EditModal"
 import OutputCreateModal from "./components/OutputCreateModal.vue"
+import CommentCreateModal from "./components/comments/CommentCreateModal.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
     EditModal,
-    OutputCreateModal
+    OutputCreateModal,
+    CommentCreateModal
   },
   props: ["id"],
   data() {
     return {
       video: null,
       outputEdit: {},
+      outputId: '',
       isVisibleEditModal: false,
-      isVisibleCreateModal: false
+      isVisibleCreateModal: false,
+      isVisibleCommentModal: false
     }
   },
   created: function () {
@@ -143,7 +195,8 @@ export default {
       "fetchOutputs",
       "updateOutput",
       "deleteOutput",
-      "createOutput"
+      "createOutput",
+      "createComment"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -192,7 +245,22 @@ export default {
       } catch (error) {
         console.log(error)
       }
+  },async handleCreateComment(comment) {
+      try {
+        await this.createComment(comment)
+        this.handleCloseCommentModal()
+      } catch (error) {
+        console.log(error)
+      }
   },
+  handleShowCommentModal(outputId) {
+      this.isVisibleCommentModal = true;
+      this.outputId = outputId
+    },
+  handleCloseCommentModal() {
+      this.isVisibleCommentModal = false;
+      this.comment = {};
+    },
 }
 }
 </script>

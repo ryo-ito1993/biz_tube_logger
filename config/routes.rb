@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :videos
     resources :outputs
     resources :categories
+    resources :comments
     resources :users, only: %i[create] do
       collection do
         get 'me'
