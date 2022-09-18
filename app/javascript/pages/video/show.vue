@@ -79,7 +79,7 @@
         </v-card>
 
         <!-- コメント一覧 -->
-        <div v-if="output.comments.length">
+        <div v-if="output.comments && output.comments.length">
           <div class="font-weight-bold">
             <v-icon class="pr-2">
               mdi-comment-processing-outline
@@ -99,6 +99,7 @@
               right
               color="green"
               class="mr-10 box-right"
+              @click="handleShowCommentEditModal(comment)"
             >
               mdi-square-edit-outline
             </v-icon>
@@ -173,6 +174,17 @@
         @create-comment="handleCreateComment"
       />
     </v-dialog>
+    <v-dialog
+      v-if="isVisibleCommentEditModal"
+      v-model="isVisibleCommentEditModal"
+      max-width="500"
+    >
+      <CommentEditModal
+        :comment="this.commentEdit"
+        @close-modal="handleCloseCommentEditModal"
+        @update-comment="handleUpdateComment"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
@@ -180,23 +192,27 @@
 import EditModal from "./components/EditModal"
 import OutputCreateModal from "./components/OutputCreateModal.vue"
 import CommentCreateModal from "./components/comments/CommentCreateModal.vue"
+import CommentEditModal from "./components/comments/CommentEditModal.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
     EditModal,
     OutputCreateModal,
-    CommentCreateModal
+    CommentCreateModal,
+    CommentEditModal
   },
   props: ["id"],
   data() {
     return {
       video: null,
       outputEdit: {},
+      commentEdit: {},
       outputId: '',
       isVisibleEditModal: false,
       isVisibleCreateModal: false,
-      isVisibleCommentModal: false
+      isVisibleCommentModal: false,
+      isVisibleCommentEditModal: false
     }
   },
   created: function () {
@@ -214,7 +230,8 @@ export default {
       "deleteOutput",
       "createOutput",
       "createComment",
-      "deleteComment"
+      "deleteComment",
+      "updateComment"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -246,6 +263,7 @@ export default {
           return this.authUser.id === comment.user.id
         }
     },
+
     async handleUpdateOutput(output) {
       try {
         await this.updateOutput(output);
@@ -283,6 +301,14 @@ export default {
         console.log(error);
       }
     },
+    async handleUpdateComment(comment) {
+      try {
+        await this.updateComment(comment);
+        this.handleCloseCommentEditModal();
+      } catch (error) {
+        console.log(error);
+      }
+    },
   handleShowCommentModal(outputId) {
       this.isVisibleCommentModal = true;
       this.outputId = outputId
@@ -290,6 +316,14 @@ export default {
   handleCloseCommentModal() {
       this.isVisibleCommentModal = false;
       this.comment = {};
+    },
+    handleShowCommentEditModal(comment) {
+      this.isVisibleCommentEditModal = true;
+      this.commentEdit = Object.assign({}, comment)
+    },
+    handleCloseCommentEditModal() {
+      this.isVisibleCommentEditModal = false;
+      this.commentEdit = {};
     },
 }
 }

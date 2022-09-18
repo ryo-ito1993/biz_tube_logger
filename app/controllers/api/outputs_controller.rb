@@ -1,5 +1,5 @@
 class Api::OutputsController < ApplicationController
-  before_action :currentuser_set_output, only: %i[update destroy]
+  before_action :set_output, only: %i[update destroy]
 
   def show
     @outputs = Output.where(video_id: params[:id])
@@ -36,7 +36,7 @@ class Api::OutputsController < ApplicationController
 
   private
 
-  def currentuser_set_output
+  def set_output
     @output = current_user.outputs.find(params[:id])
   end
 

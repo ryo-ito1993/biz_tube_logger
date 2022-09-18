@@ -1,7 +1,7 @@
 <template>
-  <v-container class="white rounded-lg">
+  <v-container class=" white rounded-lg">
     <p class="text-h5 pt-5 title text-center">
-      コメント投稿
+      コメント編集
     </p>
 
     <v-textarea
@@ -16,9 +16,9 @@
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
-      @click="handleCreateComment"
+      @click="handleUpdateComment"
     >
-      投稿する
+      更新する
     </v-btn>
     <v-btn
       class="mr-4 font-weight-bold"
@@ -30,30 +30,33 @@
   </v-container>
 </template>
 
+
 <script>
   export default {
-    name: "CommentCreateModal",
+    name: "CommentEditModal",
     props: {
-      outputId: {
+      comment: {
+        id: {
         type: Number,
         required: true
-      }
-    },
-    data() {
-      return {
-        comment: {
-          body: '',
-          output_id: ''
+      },
+        body: {
+          type: Text,
+          required: true
         },
-      }
+        video_id: {
+          type: Number,
+          required: true
+        }
+      },
+
     },
     methods: {
       handleCloseModal(){
         this.$emit('close-modal')
       },
-      handleCreateComment() {
-      this.comment.output_id = this.outputId
-      this.$emit('create-comment', this.comment)
+      handleUpdateComment() {
+      this.$emit('update-comment', this.comment)
     }
     }
   }
