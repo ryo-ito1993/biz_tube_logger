@@ -39,7 +39,7 @@
       >
         <div class="wrap-box">
           <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
-          <template v-if="isAuthUserTask(output)">
+          <template v-if="isAuthUserOutput(output)">
             <v-icon
               large
               right
@@ -87,10 +87,30 @@
             :key="'comment' + comment.id"
           >
             <v-divider />
-            <div>
+
+            <div class="wrap-box">
               <v-icon>mdi-account</v-icon>
-              <span class="font-weight-bold">{{ comment.user.name }}</span>
-            </div>
+          <span class="font-weight-bold">{{ comment.user.name }}</span>
+          <template v-if="isAuthUserComment(comment)">
+            <v-icon
+              right
+              color="green"
+              class="mr-10 box-right"
+            >
+              mdi-square-edit-outline
+            </v-icon>
+            <v-icon
+              right
+              color="red"
+              class="box-right"
+            >
+              mdi-trash-can-outline
+            </v-icon>
+          </template>
+        </div>
+
+
+
             <div>
               {{ comment.body }}
             </div>
@@ -215,9 +235,14 @@ export default {
       this.isVisibleCreateModal = false;
       this.output = {};
     },
-    isAuthUserTask(output) {
+    isAuthUserOutput(output) {
       if (this.authUser) {
           return this.authUser.id === output.user.id
+        }
+    },
+    isAuthUserComment(comment) {
+      if (this.authUser) {
+          return this.authUser.id === comment.user.id
         }
     },
     async handleUpdateOutput(output) {
