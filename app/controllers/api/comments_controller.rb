@@ -9,6 +9,14 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    comment = Comment.find(params[:id])
+    output_id = comment.output_id
+    comment.destroy!
+    output = Output.find(output_id)
+    render json: output.to_json(include: [:user, { comments: { include: :user } }])
+  end
+
   private
 
   def comment_params

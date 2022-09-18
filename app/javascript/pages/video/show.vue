@@ -1,6 +1,8 @@
 <template>
   <v-container>
     <v-card class="pa-5 top-frame">
+
+      <!-- video -->
       <div
         v-for="video in video"
         :key="'video' + video.id"
@@ -32,6 +34,8 @@
           </span>
         </div>
       </div>
+
+      <!-- アウトプット投稿一覧 -->
       <v-card
         v-for="output in outputs"
         :key="'output' + output.id"
@@ -60,7 +64,6 @@
             </v-icon>
           </template>
         </div>
-
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
@@ -75,7 +78,7 @@
           </pre>
         </v-card>
 
-
+        <!-- コメント一覧 -->
         <div v-if="output.comments.length">
           <div class="font-weight-bold">
             <v-icon class="pr-2">
@@ -103,20 +106,17 @@
               right
               color="red"
               class="box-right"
+              @click="handleDeleteComment(comment)"
             >
               mdi-trash-can-outline
             </v-icon>
           </template>
         </div>
-
-
-
             <div>
               {{ comment.body }}
             </div>
           </v-container>
         </div>
-
         <v-btn
           class="mr-4 font-weight-bold"
           type="submit"
@@ -126,10 +126,8 @@
           コメントする
         </v-btn>
       </v-card>
-    </v-card>
 
-
-
+      <!-- アウトプット投稿ボタン -->
     <v-btn
       v-if="authUser"
       class="primary font-weight-bold mt-4"
@@ -137,7 +135,9 @@
     >
       この動画をアウトプットする
     </v-btn>
+    </v-card>
 
+    <!-- モーダルコンポーネント -->
     <v-dialog
       v-if="isVisibleEditModal"
       v-model="isVisibleEditModal"
@@ -213,7 +213,8 @@ export default {
       "updateOutput",
       "deleteOutput",
       "createOutput",
-      "createComment"
+      "createComment",
+      "deleteComment"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -275,6 +276,13 @@ export default {
         console.log(error)
       }
   },
+  async handleDeleteComment(comment) {
+      try {
+        await this.deleteComment(comment);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   handleShowCommentModal(outputId) {
       this.isVisibleCommentModal = true;
       this.outputId = outputId
