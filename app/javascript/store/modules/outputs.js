@@ -68,7 +68,20 @@ const actions = {
           console.log(res.data)
           commit('updateOutput', res.data)
         })
-    }
+    },
+    deleteComment({commit}, comment) {
+      return axios.delete('comments/' + comment.id)
+        .then(res => {
+          commit('updateOutput', res.data)
+          console.log(res.data)
+        })
+    },
+    updateComment({commit}, comment) {
+      return axios.patch('comments/' + comment.id , comment)
+        .then(res => {
+          commit('updateOutput', res.data)
+        })
+    },
 }
 
 export default {

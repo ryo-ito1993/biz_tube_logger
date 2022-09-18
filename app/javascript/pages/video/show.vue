@@ -1,6 +1,8 @@
 <template>
   <v-container>
     <v-card class="pa-5 top-frame">
+
+      <!-- video -->
       <div
         v-for="video in video"
         :key="'video' + video.id"
@@ -32,6 +34,8 @@
           </span>
         </div>
       </div>
+
+      <!-- アウトプット投稿一覧 -->
       <v-card
         v-for="output in outputs"
         :key="'output' + output.id"
@@ -39,7 +43,7 @@
       >
         <div class="wrap-box">
           <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
-          <template v-if="isAuthUserTask(output)">
+          <template v-if="isAuthUserOutput(output)">
             <v-icon
               large
               right
@@ -60,7 +64,6 @@
             </v-icon>
           </template>
         </div>
-
         <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
         <v-card class="box">
           <span class="box-title">動画内容のアウトプット</span>
@@ -75,8 +78,8 @@
           </pre>
         </v-card>
 
-
-        <div v-if="output.comments.length">
+        <!-- コメント一覧 -->
+        <div v-if="output.comments && output.comments.length">
           <div class="font-weight-bold">
             <v-icon class="pr-2">
               mdi-comment-processing-outline
@@ -87,16 +90,34 @@
             :key="'comment' + comment.id"
           >
             <v-divider />
-            <div>
+
+            <div class="wrap-box">
               <v-icon>mdi-account</v-icon>
-              <span class="font-weight-bold">{{ comment.user.name }}</span>
-            </div>
+          <span class="font-weight-bold">{{ comment.user.name }}</span>
+          <template v-if="isAuthUserComment(comment)">
+            <v-icon
+              right
+              color="green"
+              class="mr-10 box-right"
+              @click="handleShowCommentEditModal(comment)"
+            >
+              mdi-square-edit-outline
+            </v-icon>
+            <v-icon
+              right
+              color="red"
+              class="box-right"
+              @click="handleDeleteComment(comment)"
+            >
+              mdi-trash-can-outline
+            </v-icon>
+          </template>
+        </div>
             <div>
               {{ comment.body }}
             </div>
           </v-container>
         </div>
-
         <v-btn
           class="mr-4 font-weight-bold"
           type="submit"
@@ -106,10 +127,8 @@
           コメントする
         </v-btn>
       </v-card>
-    </v-card>
 
-
-
+      <!-- アウトプット投稿ボタン -->
     <v-btn
       v-if="authUser"
       class="primary font-weight-bold mt-4"
@@ -117,7 +136,9 @@
     >
       この動画をアウトプットする
     </v-btn>
+    </v-card>
 
+    <!-- モーダルコンポーネント -->
     <v-dialog
       v-if="isVisibleEditModal"
       v-model="isVisibleEditModal"
@@ -153,6 +174,17 @@
         @create-comment="handleCreateComment"
       />
     </v-dialog>
+    <v-dialog
+      v-if="isVisibleCommentEditModal"
+      v-model="isVisibleCommentEditModal"
+      max-width="500"
+    >
+      <CommentEditModal
+        :comment="this.commentEdit"
+        @close-modal="handleCloseCommentEditModal"
+        @update-comment="handleUpdateComment"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
@@ -160,23 +192,27 @@
 import EditModal from "./components/EditModal"
 import OutputCreateModal from "./components/OutputCreateModal.vue"
 import CommentCreateModal from "./components/comments/CommentCreateModal.vue"
+import CommentEditModal from "./components/comments/CommentEditModal.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
     EditModal,
     OutputCreateModal,
-    CommentCreateModal
+    CommentCreateModal,
+    CommentEditModal
   },
   props: ["id"],
   data() {
     return {
       video: null,
       outputEdit: {},
+      commentEdit: {},
       outputId: '',
       isVisibleEditModal: false,
       isVisibleCreateModal: false,
-      isVisibleCommentModal: false
+      isVisibleCommentModal: false,
+      isVisibleCommentEditModal: false
     }
   },
   created: function () {
@@ -193,7 +229,9 @@ export default {
       "updateOutput",
       "deleteOutput",
       "createOutput",
-      "createComment"
+      "createComment",
+      "deleteComment",
+      "updateComment"
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
@@ -215,11 +253,17 @@ export default {
       this.isVisibleCreateModal = false;
       this.output = {};
     },
-    isAuthUserTask(output) {
+    isAuthUserOutput(output) {
       if (this.authUser) {
           return this.authUser.id === output.user.id
         }
     },
+    isAuthUserComment(comment) {
+      if (this.authUser) {
+          return this.authUser.id === comment.user.id
+        }
+    },
+
     async handleUpdateOutput(output) {
       try {
         await this.updateOutput(output);
@@ -250,6 +294,21 @@ export default {
         console.log(error)
       }
   },
+  async handleDeleteComment(comment) {
+      try {
+        await this.deleteComment(comment);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async handleUpdateComment(comment) {
+      try {
+        await this.updateComment(comment);
+        this.handleCloseCommentEditModal();
+      } catch (error) {
+        console.log(error);
+      }
+    },
   handleShowCommentModal(outputId) {
       this.isVisibleCommentModal = true;
       this.outputId = outputId
@@ -257,6 +316,14 @@ export default {
   handleCloseCommentModal() {
       this.isVisibleCommentModal = false;
       this.comment = {};
+    },
+    handleShowCommentEditModal(comment) {
+      this.isVisibleCommentEditModal = true;
+      this.commentEdit = Object.assign({}, comment)
+    },
+    handleCloseCommentEditModal() {
+      this.isVisibleCommentEditModal = false;
+      this.commentEdit = {};
     },
 }
 }
