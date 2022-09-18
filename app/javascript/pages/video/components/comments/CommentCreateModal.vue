@@ -33,18 +33,18 @@
 <script>
   export default {
     name: "CommentCreateModal",
+    props: {
+      outputId: {
+        type: Number,
+        required: true
+      }
+    },
     data() {
       return {
         comment: {
           body: '',
           output_id: ''
         },
-      }
-    },
-    props: {
-      outputId: {
-        type: Number,
-        required: true
       }
     },
     methods: {

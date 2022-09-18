@@ -1,5 +1,5 @@
 class Api::VideosController < ApplicationController
-  GOOGLE_API_KEY = ENV['GOOGLE_API_KEY']
+  GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
 
   def set_yt
     Yt.configure do |config|
@@ -10,16 +10,16 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.includes(:user, :outputs).order(created_at: :desc)
-    render json: @videos.to_json(include: [{user: {only: :name}}, {outputs: {include: {user: {only: :name}}}}, {categories: {only: :name}}])
+    render json: @videos.to_json(include: [{ user: { only: :name } }, { outputs: { include: { user: { only: :name } } } }, { categories: { only: :name } }])
   end
 
   def create
     youtube_url = video_params[:youtube_url]
-    if youtube_url[0..16] == "https://youtu.be/"
-      youtube_id = youtube_url[17..27]
-    else
-      youtube_id = youtube_url[32..42]
-    end
+    youtube_id =  if youtube_url[0..16] == 'https://youtu.be/'
+                    youtube_url[17..27]
+                  else
+                    youtube_url[32..42]
+                  end
 
     set_yt
     yt_video = Yt::Video.new id: youtube_id
@@ -33,7 +33,7 @@ class Api::VideosController < ApplicationController
     categories_name = category_params[:selected_categories]
     categories_id = []
     categories_name.each do |name|
-      category = Category.find_by(name: name)
+      category = Category.find_by(name:)
       categories_id << category.id
     end
     @video.category_ids = categories_id
@@ -46,7 +46,7 @@ class Api::VideosController < ApplicationController
     end
 
     if @output.save
-      render json: [@video,@output], status: :ok
+      render json: [@video, @output], status: :ok
     else
       render json: @video.errors, status: :bad_request
     end
@@ -54,7 +54,7 @@ class Api::VideosController < ApplicationController
 
   def show
     @video = Video.where(id: params[:id])
-    render json: @video.to_json(include: {categories: {only: :name}})
+    render json: @video.to_json(include: { categories: { only: :name } })
   end
 
   private

@@ -3,7 +3,7 @@ class Api::OutputsController < ApplicationController
 
   def show
     @outputs = Output.where(video_id: params[:id])
-    render json: @outputs.to_json(include: [:user, :comments => {include: :user} ])
+    render json: @outputs.to_json(include: [:user, { comments: { include: :user } }])
   end
 
   def create
@@ -14,7 +14,6 @@ class Api::OutputsController < ApplicationController
       render json: @output.errors, status: :bad_request
     end
   end
-
 
   def update
     if @output.update(output_params)
@@ -35,7 +34,6 @@ class Api::OutputsController < ApplicationController
     end
   end
 
-
   private
 
   def currentuser_set_output
@@ -43,8 +41,6 @@ class Api::OutputsController < ApplicationController
   end
 
   def output_params
-    params.require(:output).permit(:id, :summary, :impression , :video_id)
+    params.require(:output).permit(:id, :summary, :impression, :video_id)
   end
-
-
 end

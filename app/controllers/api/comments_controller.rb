@@ -3,7 +3,7 @@ class Api::CommentsController < ApplicationController
     comment = current_user.comments.build(comment_params)
     if comment.save
       output = Output.find(comment.output_id)
-      render json: output.to_json(include: [:user, :comments => {include: :user} ])
+      render json: output.to_json(include: [:user, { comments: { include: :user } }])
     else
       render json: comment.errors, status: :bad_request
     end
@@ -14,5 +14,4 @@ class Api::CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body, :output_id)
   end
-
 end

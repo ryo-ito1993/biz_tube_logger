@@ -22,7 +22,9 @@
       outlined
     >
       <template #selection="{ item }">
-        <v-chip color="primary">{{item.name}}</v-chip>
+        <v-chip color="primary">
+          {{ item.name }}
+        </v-chip>
       </template>
     </v-select>
 

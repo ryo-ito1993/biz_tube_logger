@@ -19,19 +19,18 @@
         </div>
         <div class="wrap-box ml-5 mb-4 pt-2">
           <span class="count">再生回数:{{ video.view_count }}回</span>
-              <span class="box-right category">
-                <v-icon> mdi-tag</v-icon>
-              <v-chip
-                v-for="category in video.categories"
-                :key="category.id"
-                class="mr-1"
-                color="primary"
-              >
-                {{ category.name }}
-              </v-chip>
-              </span>
+          <span class="box-right category">
+            <v-icon> mdi-tag</v-icon>
+            <v-chip
+              v-for="category in video.categories"
+              :key="category.id"
+              class="mr-1"
+              color="primary"
+            >
+              {{ category.name }}
+            </v-chip>
+          </span>
         </div>
-
       </div>
       <v-card
         v-for="output in outputs"
@@ -98,28 +97,26 @@
           </v-container>
         </div>
 
-    <v-btn
-      class="mr-4 font-weight-bold"
-      type="submit"
-      color="success"
-      @click="handleShowCommentModal(output.id)"
-    >
-      コメントする
-    </v-btn>
+        <v-btn
+          class="mr-4 font-weight-bold"
+          type="submit"
+          color="success"
+          @click="handleShowCommentModal(output.id)"
+        >
+          コメントする
+        </v-btn>
       </v-card>
-
-      </v-card>
-
-
-
-      <v-btn
-        class="primary font-weight-bold mt-4"
-        @click="handleShowCreateModal"
-        v-if="authUser"
-      >
-        この動画をアウトプットする
-      </v-btn>
     </v-card>
+
+
+
+    <v-btn
+      v-if="authUser"
+      class="primary font-weight-bold mt-4"
+      @click="handleShowCreateModal"
+    >
+      この動画をアウトプットする
+    </v-btn>
 
     <v-dialog
       v-if="isVisibleEditModal"
@@ -151,7 +148,7 @@
       max-width="500"
     >
       <CommentCreateModal
-        :outputId="this.outputId"
+        :output-id="this.outputId"
         @close-modal="handleCloseCommentModal"
         @create-comment="handleCreateComment"
       />
