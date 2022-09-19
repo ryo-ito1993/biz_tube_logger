@@ -9,74 +9,75 @@
       </h1>
     </v-card-title>
     <v-card-text>
-      <ValidationObserver v-slot="{ handleSubmit }">
-      <v-form>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          name="ユーザー名"
-        >
-        <v-text-field
-          v-model="user.name"
-          label="ユーザー名"
-          type="text"
-          prepend-icon="mdi-account-circle"
-          :error-messages="errors"
-        />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|email"
-          name="メールアドレス"
-        >
-        <v-text-field
-          v-model="user.email"
-          label="メールアドレス"
-          type="email"
-          prepend-icon="mdi-email"
-          :error-messages="errors"
-        />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|min:3"
-          vid="password"
-          name="パスワード"
-        >
-        <v-text-field
-          v-model="user.password"
-          label="パスワード"
-          :type="showPassword ? 'text' : 'password'"
-          prepend-icon="mdi-lock"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showPassword = !showPassword"
-          :error-messages="errors"
-        />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="パスワード(確認)"
-          rules="required|min:3|password_confirmed:@password"
-        >
-        <v-text-field
-          v-model="user.password_confirmation"
-          label="パスワード(確認)"
-          :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-          prepend-icon="mdi-lock"
-          :type="showPasswordConfirm ? 'text' : 'password'"
-          @click:append="showPasswordConfirm = !showPasswordConfirm"
-          :error-messages="errors"
-        />
-        </ValidationProvider>
-        <v-card-actions>
-          <v-btn
-            class="info"
-            @click="handleSubmit(register)"
+      <ValidationObserver v-slot="{ invalid }">
+        <v-form>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            name="ユーザー名"
           >
-            新規登録
-          </v-btn>
-        </v-card-actions>
-      </v-form>
+            <v-text-field
+              v-model="user.name"
+              label="ユーザー名"
+              type="text"
+              prepend-icon="mdi-account-circle"
+              :error-messages="errors"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|email"
+            name="メールアドレス"
+          >
+            <v-text-field
+              v-model="user.email"
+              label="メールアドレス"
+              type="email"
+              prepend-icon="mdi-email"
+              :error-messages="errors"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|min:3"
+            vid="password"
+            name="パスワード"
+          >
+            <v-text-field
+              v-model="user.password"
+              label="パスワード"
+              :type="showPassword ? 'text' : 'password'"
+              prepend-icon="mdi-lock"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :error-messages="errors"
+              @click:append="showPassword = !showPassword"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="パスワード(確認)"
+            rules="required|min:3|password_confirmed:@password"
+          >
+            <v-text-field
+              v-model="user.password_confirmation"
+              label="パスワード(確認)"
+              :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+              prepend-icon="mdi-lock"
+              :type="showPasswordConfirm ? 'text' : 'password'"
+              :error-messages="errors"
+              @click:append="showPasswordConfirm = !showPasswordConfirm"
+            />
+          </ValidationProvider>
+          <v-card-actions>
+            <v-btn
+              class="info"
+              :disabled="invalid"
+              @click="register"
+            >
+              新規登録
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </ValidationObserver>
     </v-card-text>
   </v-card>
