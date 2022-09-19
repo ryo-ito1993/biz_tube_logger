@@ -14,8 +14,6 @@ class Api::VideosController < ApplicationController
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
-  # @videos = Output.joins(:comments).group("outputs.video_id").count
-
   def create
     youtube_url = video_params[:youtube_url]
     youtube_id =  if youtube_url[0..16] == 'https://youtu.be/'

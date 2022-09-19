@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-card class="pa-5 top-frame">
-
       <!-- video -->
       <div
         v-for="video in video"
@@ -93,26 +92,26 @@
 
             <div class="wrap-box">
               <v-icon>mdi-account</v-icon>
-          <span class="font-weight-bold">{{ comment.user.name }}</span>
-          <template v-if="isAuthUserComment(comment)">
-            <v-icon
-              right
-              color="green"
-              class="mr-10 box-right"
-              @click="handleShowCommentEditModal(comment)"
-            >
-              mdi-square-edit-outline
-            </v-icon>
-            <v-icon
-              right
-              color="red"
-              class="box-right"
-              @click="handleDeleteComment(comment)"
-            >
-              mdi-trash-can-outline
-            </v-icon>
-          </template>
-        </div>
+              <span class="font-weight-bold">{{ comment.user.name }}</span>
+              <template v-if="isAuthUserComment(comment)">
+                <v-icon
+                  right
+                  color="green"
+                  class="mr-10 box-right"
+                  @click="handleShowCommentEditModal(comment)"
+                >
+                  mdi-square-edit-outline
+                </v-icon>
+                <v-icon
+                  right
+                  color="red"
+                  class="box-right"
+                  @click="handleDeleteComment(comment)"
+                >
+                  mdi-trash-can-outline
+                </v-icon>
+              </template>
+            </div>
             <div>
               {{ comment.body }}
             </div>
@@ -129,13 +128,13 @@
       </v-card>
 
       <!-- アウトプット投稿ボタン -->
-    <v-btn
-      v-if="authUser"
-      class="primary font-weight-bold mt-4"
-      @click="handleShowCreateModal"
-    >
-      この動画をアウトプットする
-    </v-btn>
+      <v-btn
+        v-if="authUser"
+        class="primary font-weight-bold mt-4"
+        @click="handleShowCreateModal"
+      >
+        この動画をアウトプットする
+      </v-btn>
     </v-card>
 
     <!-- モーダルコンポーネント -->

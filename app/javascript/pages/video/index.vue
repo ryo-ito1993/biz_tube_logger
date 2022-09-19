@@ -37,23 +37,24 @@
             <v-card-text class="d-flex text-caption">
               {{ video.created_at }}
               <v-spacer />
-              <div class="mr-2">
+              <span class="mr-3">
                 <v-icon>mdi-thumb-up-outline</v-icon>
                 {{ }}
-              </div>
-              <div>
-                <v-icon class="mr-2">
+              </span>
+              <span>
+                <v-icon>
                   mdi-comment-outline
                 </v-icon>
-                <div v-for="(key, value) in video.video_comments"
-                    :key="key.id"
-                    >
-                    <span v-if="Number(value) === video.id">{{key}}</span>
-                </div>
-              </div>
-              <div>
+              </span>
+              <span
+                v-for="(key, value) in video.video_comments"
+                :key="key.id"
+              >
+                <template v-if="Number(value) === video.id">{{ key }}</template>
+              </span>
+              <span>
                 <v-icon>mdi-bookmark-outline</v-icon>
-              </div>
+              </span>
             </v-card-text>
             <div class="ml-3">
               投稿者：
