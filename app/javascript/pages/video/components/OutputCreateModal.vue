@@ -14,29 +14,39 @@
       allowfullscreen
       class="mb-5"
     />
-
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                >
     <v-textarea
       v-model="output.summary"
       label="動画内容のアウトプット"
       placeholder="動画の要約やためになった内容をまとめてみよう！"
       auto-grow
       outlined
+      :error-messages="errors"
     />
-
+    </ValidationProvider>
+    <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                >
     <v-textarea
       v-model="output.impression"
       label="感想、今後に活かしたいこと"
       placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
       auto-grow
       outlined
+      :error-messages="errors"
     />
-
+    </ValidationProvider>
 
     <v-btn
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
-      @click="handleCreateOutput"
+      @click="handleSubmit(handleCreateOutput)"
     >
       投稿する
     </v-btn>
@@ -47,6 +57,7 @@
     >
       キャンセル
     </v-btn>
+    </ValidationObserver>
   </v-container>
 </template>
 

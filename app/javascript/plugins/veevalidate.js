@@ -19,7 +19,7 @@ extend('email', {
 
 extend('required', {
   ...required,
-  message: '{_field_}は必須項目です'
+  message: '必須の項目です'
 });
 
 extend('min', {

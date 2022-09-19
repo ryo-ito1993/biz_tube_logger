@@ -3,20 +3,26 @@
     <p class="text-h5 pt-5 title text-center">
       コメント編集
     </p>
-
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                >
     <v-textarea
       v-model="comment.body"
       label="コメント内容"
       placeholder="コメントを投稿しよう！"
       auto-grow
       outlined
+      :error-messages="errors"
     />
+    </ValidationProvider>
 
     <v-btn
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
-      @click="handleUpdateComment"
+      @click="handleSubmit(handleUpdateComment)"
     >
       更新する
     </v-btn>
@@ -27,6 +33,7 @@
     >
       キャンセル
     </v-btn>
+    </ValidationObserver>
   </v-container>
 </template>
 
