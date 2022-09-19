@@ -37,12 +37,12 @@
             <v-card-text class="d-flex text-caption">
               {{ video.created_at }}
               <v-spacer />
-              <span class="mr-3">
+              <span class="mr-2">
                 <v-icon>mdi-thumb-up-outline</v-icon>
                 {{ }}
               </span>
               <span>
-                <v-icon>
+                <v-icon class="mr-1">
                   mdi-comment-outline
                 </v-icon>
               </span>
