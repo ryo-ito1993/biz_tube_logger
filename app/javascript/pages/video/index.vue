@@ -45,7 +45,11 @@
                 <v-icon class="mr-2">
                   mdi-comment-outline
                 </v-icon>
-                {{ }}
+                <div v-for="(key, value) in video.video_comments"
+                    :key="key.id"
+                    >
+                    <span v-if="Number(value) === video.id">{{key}}</span>
+                </div>
               </div>
               <div>
                 <v-icon>mdi-bookmark-outline</v-icon>
@@ -58,7 +62,7 @@
                 :key="output.id"
                 class="mr-2"
               >
-                <v-icon>mdi-account-circle</v-icon>{{ output.user.name }}
+                <v-icon>mdi-account-circle</v-icon>{{ output.name }}
               </span>
             </div>
             <div class="mt-3 ml-3">
