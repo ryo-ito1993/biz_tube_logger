@@ -9,13 +9,26 @@
       </h1>
     </v-card-title>
     <v-card-text>
+      <ValidationObserver v-slot="{ handleSubmit }">
       <v-form>
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="メールアドレス"
+          rules="required|email"
+        >
         <v-text-field
           v-model="user.email"
           label="メールアドレス"
           type="email"
           prepend-icon="mdi-email"
+          :error-messages="errors"
         />
+        </ValidationProvider>
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="パスワード"
+          rules="required|min:3"
+        >
         <v-text-field
           v-model="user.password"
           label="パスワード"
@@ -23,16 +36,19 @@
           prepend-icon="mdi-lock"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
+          :error-messages="errors"
         />
+        </ValidationProvider>
         <v-card-actions>
           <v-btn
             class="info"
-            @click="login"
+            @click="handleSubmit(login)"
           >
             ログイン
           </v-btn>
         </v-card-actions>
       </v-form>
+      </ValidationObserver>
     </v-card-text>
   </v-card>
 </template>
