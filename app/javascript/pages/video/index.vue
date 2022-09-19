@@ -37,19 +37,24 @@
             <v-card-text class="d-flex text-caption">
               {{ video.created_at }}
               <v-spacer />
-              <div class="mr-2">
+              <span class="mr-2">
                 <v-icon>mdi-thumb-up-outline</v-icon>
                 {{ }}
-              </div>
-              <div>
-                <v-icon class="mr-2">
+              </span>
+              <span>
+                <v-icon class="mr-1">
                   mdi-comment-outline
                 </v-icon>
-                {{ }}
-              </div>
-              <div>
+              </span>
+              <span
+                v-for="(key, value) in video.video_comments"
+                :key="key.id"
+              >
+                <template v-if="Number(value) === video.id">{{ key }}</template>
+              </span>
+              <span>
                 <v-icon>mdi-bookmark-outline</v-icon>
-              </div>
+              </span>
             </v-card-text>
             <div class="ml-3">
               投稿者：
@@ -58,7 +63,7 @@
                 :key="output.id"
                 class="mr-2"
               >
-                <v-icon>mdi-account-circle</v-icon>{{ output.user.name }}
+                <v-icon>mdi-account-circle</v-icon>{{ output.name }}
               </span>
             </div>
             <div class="mt-3 ml-3">
