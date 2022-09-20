@@ -77,7 +77,25 @@ export default {
       try {
         await this.loginUser(this.user);
         this.$router.push({ name: 'VideoIndex' })
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "ログインしました",
+        type: "success",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "ログインに失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error);
       }
     }

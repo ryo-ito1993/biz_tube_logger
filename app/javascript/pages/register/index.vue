@@ -102,9 +102,27 @@ export default {
     register() {
       this.$axios.post('users', { user: this.user })
         .then(res => {
+          this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "ユーザー登録が完了しました",
+        type: "success",
+        status: true,
+      },
+      { root: true }
+    ),
           this.$router.push({ name:'LoginIndex' })
         })
         .catch(err => {
+          this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "ユーザー登録に失敗しました。",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    ),
           console.log(err)
         })
     }
