@@ -14,39 +14,51 @@
       allowfullscreen
       class="mb-5"
     />
+    <ValidationObserver v-slot="{ invalid }">
+      <ValidationProvider
+        v-slot="{ errors }"
+        rules="required"
+      >
+        <v-textarea
+          v-model="output.summary"
+          label="動画内容のアウトプット"
+          placeholder="動画の要約やためになった内容をまとめてみよう！"
+          auto-grow
+          outlined
+          :error-messages="errors"
+        />
+      </ValidationProvider>
+      <ValidationProvider
+        v-slot="{ errors }"
+        rules="required"
+      >
+        <v-textarea
+          v-model="output.impression"
+          label="感想、今後に活かしたいこと"
+          placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
+          auto-grow
+          outlined
+          :error-messages="errors"
+        />
+      </ValidationProvider>
 
-    <v-textarea
-      v-model="output.summary"
-      label="動画内容のアウトプット"
-      placeholder="動画の要約やためになった内容をまとめてみよう！"
-      auto-grow
-      outlined
-    />
-
-    <v-textarea
-      v-model="output.impression"
-      label="感想、今後に活かしたいこと"
-      placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
-      auto-grow
-      outlined
-    />
-
-
-    <v-btn
-      class="mr-4 font-weight-bold"
-      type="submit"
-      color="success"
-      @click="handleCreateOutput"
-    >
-      投稿する
-    </v-btn>
-    <v-btn
-      class="mr-4 font-weight-bold"
-      type="submit"
-      @click="handleCloseModal"
-    >
-      キャンセル
-    </v-btn>
+      <v-btn
+        class="mr-4 font-weight-bold"
+        type="submit"
+        color="success"
+        :disabled="invalid"
+        @click="handleCreateOutput"
+      >
+        投稿する
+      </v-btn>
+      <v-btn
+        class="mr-4 font-weight-bold"
+        type="submit"
+        @click="handleCloseModal"
+      >
+        キャンセル
+      </v-btn>
+    </ValidationObserver>
   </v-container>
 </template>
 
