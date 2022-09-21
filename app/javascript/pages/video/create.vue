@@ -8,68 +8,68 @@
         v-slot="{ errors }"
         rules="required|url_format"
       >
-    <v-text-field
-      v-model="youtube_url"
-      label="YouTube動画URL"
-      placeholder="YouTube動画URLを貼り付けてください"
-      outlined
-      :error-messages="errors"
-    />
-    </ValidationProvider>
+        <v-text-field
+          v-model="youtube_url"
+          label="YouTube動画URL"
+          placeholder="YouTube動画URLを貼り付けてください"
+          outlined
+          :error-messages="errors"
+        />
+      </ValidationProvider>
 
-    <v-select
-      v-model="selected_categories"
-      item-text="name"
-      :items="categories"
-      class="hoge"
-      chips
-      label="カテゴリー"
-      multiple
-      outlined
-    >
-      <template #selection="{ item }">
-        <v-chip color="primary">
-          {{ item.name }}
-        </v-chip>
-      </template>
-    </v-select>
-    <ValidationProvider
+      <v-select
+        v-model="selected_categories"
+        item-text="name"
+        :items="categories"
+        class="hoge"
+        chips
+        label="カテゴリー"
+        multiple
+        outlined
+      >
+        <template #selection="{ item }">
+          <v-chip color="primary">
+            {{ item.name }}
+          </v-chip>
+        </template>
+      </v-select>
+      <ValidationProvider
         v-slot="{ errors }"
         rules="required"
       >
-    <v-textarea
-      v-model="output.summary"
-      label="動画内容のアウトプット"
-      placeholder="動画の要約やためになった内容をまとめてみよう！"
-      auto-grow
-      outlined
-      :error-messages="errors"
-    />
-    </ValidationProvider>
+        <v-textarea
+          v-model="output.summary"
+          label="動画内容のアウトプット"
+          placeholder="動画の要約やためになった内容をまとめてみよう！"
+          auto-grow
+          outlined
+          :error-messages="errors"
+        />
+      </ValidationProvider>
 
-    <ValidationProvider
+      <ValidationProvider
         v-slot="{ errors }"
         rules="required"
       >
-    <v-textarea
-      v-model="output.impression"
-      label="感想、今後に活かしたいこと"
-      placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
-      auto-grow
-      outlined
-      :error-messages="errors"
-    />
-    </ValidationProvider>
+        <v-textarea
+          v-model="output.impression"
+          label="感想、今後に活かしたいこと"
+          placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
+          auto-grow
+          outlined
+          :error-messages="errors"
+        />
+      </ValidationProvider>
 
-    <v-btn
-      class="mr-4 font-weight-bold"
-      type="submit"
-      color="success"
-      :disabled="invalid"
-      @click="createVideo"
-    >
-      投稿する
-    </v-btn>
+      <v-btn
+        class="mr-4 font-weight-bold"
+        type="submit"
+        color="success"
+        :disabled="invalid"
+        @click="createVideo"
+      >
+        投稿する
+      </v-btn>
     </ValidationObserver>
   </v-container>
 </template>
@@ -93,8 +93,26 @@ export default {
       this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
         .then(res => {
           this.$router.push({ name:'VideoIndex' })
+          this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿しました",
+        type: "light-blue",
+        status: true,
+      },
+      { root: true }
+    )
         })
         .catch(err => {
+          this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿に失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
           console.log(err)
         })
       },
