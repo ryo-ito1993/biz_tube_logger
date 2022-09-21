@@ -267,7 +267,25 @@ export default {
       try {
         await this.updateOutput(output);
         this.handleCloseEditModal();
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿を編集しました",
+        type: "light-blue",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿の編集に失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error);
       }
     },
@@ -275,6 +293,15 @@ export default {
       try {
         await this.deleteOutput(output);
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿を削除しました",
+        type: "warning",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error);
       }
     },
@@ -282,20 +309,65 @@ export default {
       try {
         await this.createOutput(output)
         this.handleCloseCreateModal()
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿しました",
+        type: "light-blue",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "投稿に失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error)
       }
   },async handleCreateComment(comment) {
       try {
         await this.createComment(comment)
         this.handleCloseCommentModal()
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "コメントを投稿しました",
+        type: "light-blue",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "コメントの投稿に失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error)
       }
   },
   async handleDeleteComment(comment) {
       try {
         await this.deleteComment(comment);
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "コメントを削除しました",
+        type: "warning",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
         console.log(error);
       }
@@ -304,7 +376,25 @@ export default {
       try {
         await this.updateComment(comment);
         this.handleCloseCommentEditModal();
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "コメントを編集しました",
+        type: "light-blue",
+        status: true,
+      },
+      { root: true }
+    )
       } catch (error) {
+        this.$store.dispatch(
+      "flashMessage/showMessage",
+      {
+        message: "コメントの編集に失敗しました",
+        type: "error",
+        status: true,
+      },
+      { root: true }
+    )
         console.log(error);
       }
     },

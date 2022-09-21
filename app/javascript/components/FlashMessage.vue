@@ -5,6 +5,7 @@
     left
     top
     :color="type"
+    rounded="pill"
   >
     <div class="ml-5 font-weight-bold white--text">
       {{ message }}

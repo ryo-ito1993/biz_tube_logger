@@ -106,7 +106,7 @@ export default {
       "flashMessage/showMessage",
       {
         message: "ユーザー登録が完了しました",
-        type: "success",
+        type: "light-blue",
         status: true,
       },
       { root: true }

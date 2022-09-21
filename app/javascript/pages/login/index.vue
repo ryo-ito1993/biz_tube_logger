@@ -81,7 +81,7 @@ export default {
       "flashMessage/showMessage",
       {
         message: "ログインしました",
-        type: "success",
+        type: "light-blue",
         status: true,
       },
       { root: true }
