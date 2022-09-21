@@ -67,6 +67,8 @@
     name: "EditModal",
     props: {
       output: {
+        type: Object,
+        required: true,
         id: {
         type: Number,
         required: true

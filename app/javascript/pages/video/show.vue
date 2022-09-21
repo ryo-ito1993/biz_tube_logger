@@ -3,7 +3,7 @@
     <v-card class="pa-5 top-frame">
       <!-- video -->
       <div
-        v-for="video in video"
+        v-for="video in videos"
         :key="'video' + video.id"
       >
         <iframe
@@ -168,7 +168,7 @@
       max-width="500"
     >
       <CommentCreateModal
-        :output-id="this.outputId"
+        :output-id="outputId"
         @close-modal="handleCloseCommentModal"
         @create-comment="handleCreateComment"
       />
@@ -179,7 +179,7 @@
       max-width="500"
     >
       <CommentEditModal
-        :comment="this.commentEdit"
+        :comment="commentEdit"
         @close-modal="handleCloseCommentEditModal"
         @update-comment="handleUpdateComment"
       />
@@ -201,17 +201,22 @@ export default {
     CommentCreateModal,
     CommentEditModal
   },
-  props: ["id"],
+  props: {
+    id:{
+      type: String,
+      required: true
+    }
+  } ,
   data() {
     return {
-      video: null,
+      videos: null,
       outputEdit: {},
       commentEdit: {},
       outputId: '',
       isVisibleEditModal: false,
       isVisibleCreateModal: false,
       isVisibleCommentModal: false,
-      isVisibleCommentEditModal: false
+      isVisibleCommentEditModal: false,
     }
   },
   created: function () {
@@ -234,7 +239,7 @@ export default {
     ]),
     fetchVideoDetail() {
       this.$axios.get("/videos/" + this.id)
-        .then(res => this.video = res.data)
+        .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
     handleShowEditModal(output) {

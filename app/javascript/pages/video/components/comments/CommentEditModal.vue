@@ -44,10 +44,12 @@
     name: "CommentEditModal",
     props: {
       comment: {
+        type: Object,
+        required: true,
         id: {
         type: Number,
         required: true
-      },
+        },
         body: {
           type: Text,
           required: true
@@ -57,7 +59,6 @@
           required: true
         }
       },
-
     },
     methods: {
       handleCloseModal(){
