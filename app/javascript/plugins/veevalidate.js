@@ -49,7 +49,7 @@ extend('password_confirmed', {
 extend('url_format', {
   validate(value) {
     const pattern = /\b(?:https?):\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[\w!?/+\-|:=~;.,*&@#$%()'"[\]]+/g;
-    return value.match(pattern) && (value.length === 28 || value.length === 43)
+    return value.match(pattern) && value.length >= 28
   },
   message: 'YouTube動画URLを正しい形式で入力してください'
 });

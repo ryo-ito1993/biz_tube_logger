@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 export default {
     data: () => ({
       categories: [],
@@ -89,29 +90,26 @@ export default {
       this.fetchCategories();
     },
     methods: {
+      ...mapActions("flashMessage", ["showMessage"]),
       createVideo() {
       this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
         .then(res => {
           this.$router.push({ name:'VideoIndex' })
-          this.$store.dispatch(
-      "flashMessage/showMessage",
+          this.showMessage(
       {
         message: "投稿しました",
         type: "light-blue",
         status: true,
       },
-      { root: true }
     )
         })
         .catch(err => {
-          this.$store.dispatch(
-      "flashMessage/showMessage",
+          this.showMessage(
       {
         message: "投稿に失敗しました",
         type: "error",
         status: true,
       },
-      { root: true }
     )
           console.log(err)
         })
