@@ -52,7 +52,16 @@ const actions = {
         console.log(res.data)
         const video = res.data[0]
         if ('title' in video) {
-          router.push({ name: 'VideoIndex' });
+          router.push({ name: 'VideoIndex' })
+          dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "投稿を削除しました。",
+              type: "warning",
+              status: true,
+            },
+            { root: true }
+          )
         }
       })
   },
