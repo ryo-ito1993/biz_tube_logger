@@ -1,9 +1,22 @@
 <template>
-  <v-footer dark color="#555555">
+  <v-footer
+    dark
+    color="#555555"
+  >
     <v-spacer />
     <div>
-      <v-btn dense text>利用規約</v-btn>
-      <v-btn dense text>プライバシーポリシー</v-btn>
+      <v-btn
+        dense
+        text
+      >
+        利用規約
+      </v-btn>
+      <v-btn
+        dense
+        text
+      >
+        プライバシーポリシー
+      </v-btn>
       <small>&copy; BizTubeLogger 2022.</small>
     </div>
   </v-footer>

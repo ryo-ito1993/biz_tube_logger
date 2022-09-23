@@ -40,7 +40,7 @@ export default {
   props: {
     videos: {
       type: Array,
-      required: false,
+      default: null
     }
   }
 }
