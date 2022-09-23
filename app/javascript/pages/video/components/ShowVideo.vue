@@ -19,7 +19,7 @@
       <div class="wrap-box ml-5 mb-4 pt-2">
         <span class="count">再生回数:{{ video.view_count }}回</span>
         <span class="box-right category">
-          <v-icon> mdi-tag</v-icon>
+          <v-icon color="primary"> mdi-tag</v-icon>
           <v-chip
             v-for="category in video.categories"
             :key="category.id"
@@ -28,6 +28,25 @@
           >
             {{ category.name }}
           </v-chip>
+          <template v-if="authUser">
+            <template v-if="isAuthUserBookmark(video)">
+              <span>
+                <v-icon
+                  large
+                  color="green"
+                  @click="unbookmark(video)"
+                >mdi-bookmark-check</v-icon>
+              </span>
+            </template>
+            <template v-else>
+              <span>
+                <v-icon
+                  large
+                  @click="bookmark(video)"
+                >mdi-bookmark-outline</v-icon>
+              </span>
+            </template>
+          </template>
         </span>
       </div>
     </div>
@@ -35,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
   name: "ShowVideo",
   props: {
@@ -42,7 +62,39 @@ export default {
       type: Array,
       default: null
     }
-  }
+  },
+  computed: {
+  ...mapGetters("users", ["authUser"]),
+  ...mapGetters("bookmarks", ["bookmarks"]),
+  },
+  created () {
+    this.fetchmyBookmarks();
+  },
+  methods: {
+    ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
+    ...mapActions("flashMessage", ["showMessage"]),
+    bookmark(video){
+      this.createBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークしました",
+        type: "light-blue",
+        status: true,
+      })
+    },
+    unbookmark(video){
+      this.deleteBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークを解除しました",
+        type: "warning",
+        status: true,
+      })
+    },
+    isAuthUserBookmark(video) {
+      return this.bookmarks.some(v => v.id === video.id)
+    }
+  },
 }
 </script>
 

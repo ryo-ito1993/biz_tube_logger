@@ -3,6 +3,7 @@ class Video < ApplicationRecord
   has_many :outputs, dependent: :destroy
   has_many :video_categories, dependent: :destroy
   has_many :categories, through: :video_categories
+  has_many :bookmarks, dependent: :destroy
   validates :youtube_id, presence: true
 
   GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
@@ -15,11 +16,11 @@ class Video < ApplicationRecord
   end
 
   def create_videodata_from_youtube(youtube_url)
-    youtube_id =  if youtube_url[0..16] == 'https://youtu.be/'
-      youtube_url[17..27]
-    else
-      youtube_url[32..42]
-    end
+    youtube_id = if youtube_url[0..16] == 'https://youtu.be/'
+                   youtube_url[17..27]
+                 else
+                   youtube_url[32..42]
+                 end
     set_yt
     yt_video = Yt::Video.new id: youtube_id
     self.youtube_id = youtube_id
@@ -37,5 +38,4 @@ class Video < ApplicationRecord
     end
     self.category_ids = categories_id
   end
-
 end
