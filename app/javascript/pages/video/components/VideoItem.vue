@@ -53,14 +53,14 @@
               </span>
               <template v-if="authUser">
                 <template v-if="isAuthUserBookmark(video)">
-                <span>
-                <v-icon @click="unbookmark(video)">mdi-bookmark</v-icon>
-              </span>
+                  <span>
+                    <v-icon @click="unbookmark(video)">mdi-bookmark-check</v-icon>
+                  </span>
                 </template>
                 <template v-else>
-                <span>
-                  <v-icon @click="bookmark(video)">mdi-bookmark-outline</v-icon>
-                </span>
+                  <span>
+                    <v-icon @click="bookmark(video)">mdi-bookmark-outline</v-icon>
+                  </span>
                 </template>
               </template>
             </v-card-text>

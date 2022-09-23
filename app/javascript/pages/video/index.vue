@@ -2,7 +2,7 @@
   <v-container>
     <h1>投稿一覧</h1>
     <VideoItem
-    :videos="videos"
+      :videos="videos"
     />
   </v-container>
 </template>

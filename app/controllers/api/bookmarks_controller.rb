@@ -2,9 +2,8 @@ class Api::BookmarksController < ApplicationController
   before_action :set_video, only: %i[create destroy]
 
   def index
-    @bookmarks = current_user.bookmark_videos.includes(:user, :categories, { outputs: [:user, :comments] })
-    @video_comments = Output.joins(:comments).group("outputs.video_id").count
-    render :index, formats: :json, handlers: 'jbuilder'
+    @bookmarks = current_user.bookmark_videos
+    render json: @bookmarks
   end
 
   def create
@@ -15,6 +14,12 @@ class Api::BookmarksController < ApplicationController
   def destroy
     current_user.unbookmark(@video)
     render json: @video
+  end
+
+  def bookmark_list
+    @bookmarks = current_user.bookmark_videos.includes(:user, :categories, { outputs: [:user, :comments] })
+    @video_comments = Output.joins(:comments).group("outputs.video_id").count
+    render :index, formats: :json, handlers: 'jbuilder'
   end
 
   private

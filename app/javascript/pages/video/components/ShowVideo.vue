@@ -28,6 +28,24 @@
           >
             {{ category.name }}
           </v-chip>
+          <template v-if="authUser">
+            <template v-if="isAuthUserBookmark(video)">
+              <span>
+                <v-icon
+                  large
+                  @click="unbookmark(video)"
+                >mdi-bookmark-check</v-icon>
+              </span>
+            </template>
+            <template v-else>
+              <span>
+                <v-icon
+                  large
+                  @click="bookmark(video)"
+                >mdi-bookmark-outline</v-icon>
+              </span>
+            </template>
+          </template>
         </span>
       </div>
     </div>
@@ -35,6 +53,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
   name: "ShowVideo",
   props: {
@@ -42,7 +61,26 @@ export default {
       type: Array,
       default: null
     }
-  }
+  },
+  computed: {
+  ...mapGetters("users", ["authUser"]),
+  ...mapGetters("bookmarks", ["bookmarks"]),
+  },
+  created () {
+    this.fetchmyBookmarks();
+  },
+  methods: {
+    ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
+    bookmark(video){
+      this.createBookmark(video)
+    },
+    unbookmark(video){
+      this.deleteBookmark(video)
+    },
+    isAuthUserBookmark(video) {
+      return this.bookmarks.some(v => v.id === video.id)
+    }
+  },
 }
 </script>
 
