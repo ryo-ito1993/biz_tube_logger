@@ -73,28 +73,25 @@ export default {
       "loginUser",
       "fetchUser",
     ]),
+    ...mapActions("flashMessage", ["showMessage"]),
     async login() {
       try {
         await this.loginUser(this.user);
         this.$router.push({ name: 'VideoIndex' })
-        this.$store.dispatch(
-      "flashMessage/showMessage",
+        this.showMessage(
       {
         message: "ログインしました",
         type: "light-blue",
         status: true,
       },
-      { root: true }
     )
       } catch (error) {
-        this.$store.dispatch(
-      "flashMessage/showMessage",
+        this.showMessage(
       {
         message: "ログインに失敗しました",
         type: "error",
         status: true,
       },
-      { root: true }
     )
         console.log(error);
       }

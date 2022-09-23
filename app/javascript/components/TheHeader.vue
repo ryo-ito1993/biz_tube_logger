@@ -62,11 +62,26 @@ export default {
   },
   methods: {
     ...mapActions("users", ["logoutUser"]),
+    ...mapActions("flashMessage", ["showMessage"]),
     async handleLogout() {
       try {
         await this.logoutUser()
         this.$router.push({name: 'TopIndex'})
+        this.showMessage(
+      {
+        message: "ログアウトしました",
+        type: "warning",
+        status: true,
+      },
+    )
       } catch (error) {
+        this.showMessage(
+      {
+        message: "ログアウトに失敗しました",
+        type: "error",
+        status: true,
+      },
+    )
         console.log(error)
       }
     }

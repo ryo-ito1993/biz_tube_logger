@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 export default {
   name: "RegisterIndex",
   data () {
@@ -99,19 +100,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions("flashMessage", ["showMessage"]),
     register() {
       this.$axios.post('users', { user: this.user })
         .then(res => {
-          this.$store.dispatch(
-      "flashMessage/showMessage",
+          this.$router.push({ name:'LoginIndex' })
+          this.showMessage(
       {
         message: "ユーザー登録が完了しました",
         type: "light-blue",
         status: true,
       },
-      { root: true }
-    ),
-          this.$router.push({ name:'LoginIndex' })
+    )
         })
         .catch(err => {
           this.$store.dispatch(
