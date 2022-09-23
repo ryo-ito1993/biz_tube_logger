@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     resources :sessions
-    resources :videos
+    resources :videos, shallow: true do
+      resources :bookmarks, only: %i[create destroy]
+    end
     resources :outputs
     resources :categories
     resources :comments
+    resources :bookmarks, only: %i[index]
     resources :users, only: %i[create] do
       collection do
         get 'me'
