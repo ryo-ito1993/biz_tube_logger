@@ -1,46 +1,47 @@
 <template>
-<div>
-  <div class="wrap-box">
-          <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
-          <template v-if="isAuthUserOutput(output)">
-            <v-icon
-              large
-              right
-              color="green"
-              class="mr-10 box-right"
-              @click="handleShowEditModal(output)"
-            >
-              mdi-square-edit-outline
-            </v-icon>
-            <v-icon
-              large
-              right
-              color="red"
-              class="box-right"
-              @click="handleDeleteOutput(output)"
-            >
-              mdi-trash-can-outline
-            </v-icon>
-          </template>
-        </div>
-        <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
-        <v-card class="box">
-          <span class="box-title">動画内容のアウトプット</span>
-          <pre class="content">
+  <div>
+    <div class="wrap-box">
+      <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+      <template v-if="isAuthUserOutput(output)">
+        <v-icon
+          large
+          right
+          color="green"
+          class="mr-10 box-right"
+          @click="handleShowEditModal(output)"
+        >
+          mdi-square-edit-outline
+        </v-icon>
+        <v-icon
+          large
+          right
+          color="red"
+          class="box-right"
+          @click="handleDeleteOutput(output)"
+        >
+          mdi-trash-can-outline
+        </v-icon>
+      </template>
+    </div>
+    <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
+    <v-card class="box">
+      <span class="box-title">動画内容のアウトプット</span>
+      <pre class="content">
             {{ output.summary }}
           </pre>
-        </v-card>
-        <v-card class="box">
-          <span class="box-title">感想や今後に活かすこと</span>
-          <pre class="content">
+    </v-card>
+    <v-card class="box">
+      <span class="box-title">感想や今後に活かすこと</span>
+      <pre class="content">
             {{ output.impression }}
           </pre>
-        </v-card>
-        <v-dialog
+    </v-card>
+    <v-dialog
       v-if="isVisibleEditModal"
       v-model="isVisibleEditModal"
       max-width="800"
     >
+      <!-- モーダルコンポーネント -->
       <EditModal
         :youtube-id="videos[0].youtube_id"
         :output="outputEdit"
@@ -48,7 +49,7 @@
         @update-output="handleUpdateOutput"
       />
     </v-dialog>
-        </div>
+  </div>
 </template>
 
 <script>
@@ -58,13 +59,6 @@ export default {
   name: "ShowOutputs",
   components: {
     EditModal,
-  },
-  data() {
-    return {
-      outputEdit: {},
-      outputId: '',
-      isVisibleEditModal: false,
-    }
   },
   props: {
     videos: {
@@ -78,6 +72,13 @@ export default {
     authUser: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      outputEdit: {},
+      outputId: '',
+      isVisibleEditModal: false,
     }
   },
   methods: {
