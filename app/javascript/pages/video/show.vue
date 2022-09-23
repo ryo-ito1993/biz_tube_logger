@@ -12,42 +12,11 @@
         :key="'output' + output.id"
         class="frame pa-4 mt-3 shades rounded-lg"
       >
-        <div class="wrap-box">
-          <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
-          <template v-if="isAuthUserOutput(output)">
-            <v-icon
-              large
-              right
-              color="green"
-              class="mr-10 box-right"
-              @click="handleShowEditModal(output)"
-            >
-              mdi-square-edit-outline
-            </v-icon>
-            <v-icon
-              large
-              right
-              color="red"
-              class="box-right"
-              @click="handleDeleteOutput(output)"
-            >
-              mdi-trash-can-outline
-            </v-icon>
-          </template>
-        </div>
-        <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
-        <v-card class="box">
-          <span class="box-title">動画内容のアウトプット</span>
-          <pre class="content">
-            {{ output.summary }}
-          </pre>
-        </v-card>
-        <v-card class="box">
-          <span class="box-title">感想や今後に活かすこと</span>
-          <pre class="content">
-            {{ output.impression }}
-          </pre>
-        </v-card>
+        <ShowOutputs
+        :output="output"
+        :videos="videos"
+        :authUser="authUser"
+        />
 
         <!-- コメント一覧 -->
         <div v-if="output.comments && output.comments.length">
@@ -111,18 +80,6 @@
 
     <!-- モーダルコンポーネント -->
     <v-dialog
-      v-if="isVisibleEditModal"
-      v-model="isVisibleEditModal"
-      max-width="800"
-    >
-      <EditModal
-        :youtube-id="videos[0].youtube_id"
-        :output="outputEdit"
-        @close-modal="handleCloseEditModal"
-        @update-output="handleUpdateOutput"
-      />
-    </v-dialog>
-    <v-dialog
       v-if="isVisibleCreateModal"
       v-model="isVisibleCreateModal"
       max-width="800"
@@ -160,20 +117,20 @@
 </template>
 
 <script>
-import EditModal from "./components/EditModal"
 import OutputCreateModal from "./components/OutputCreateModal.vue"
 import CommentCreateModal from "./components/comments/CommentCreateModal.vue"
 import CommentEditModal from "./components/comments/CommentEditModal.vue"
 import ShowVideo from "./components/ShowVideo.vue"
+import ShowOutputs from "./components/ShowOutputs.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
-    EditModal,
     OutputCreateModal,
     CommentCreateModal,
     CommentEditModal,
-    ShowVideo
+    ShowVideo,
+    ShowOutputs
   },
   props: {
     id:{
@@ -204,8 +161,6 @@ export default {
   methods: {
     ...mapActions("outputs", [
       "fetchOutputs",
-      "updateOutput",
-      "deleteOutput",
       "createOutput",
       "createComment",
       "deleteComment",
@@ -217,14 +172,6 @@ export default {
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
-    handleShowEditModal(output) {
-      this.isVisibleEditModal = true;
-      this.outputEdit = Object.assign({}, output)
-    },
-    handleCloseEditModal() {
-      this.isVisibleEditModal = false;
-      this.outputEdit = {};
-    },
     handleShowCreateModal() {
       this.isVisibleCreateModal = true;
     },
@@ -232,52 +179,10 @@ export default {
       this.isVisibleCreateModal = false;
       this.output = {};
     },
-    isAuthUserOutput(output) {
-      if (this.authUser) {
-          return this.authUser.id === output.user.id
-        }
-    },
     isAuthUserComment(comment) {
       if (this.authUser) {
           return this.authUser.id === comment.user.id
         }
-    },
-
-    async handleUpdateOutput(output) {
-      try {
-        await this.updateOutput(output);
-        this.handleCloseEditModal();
-        this.showMessage(
-      {
-        message: "投稿を編集しました",
-        type: "light-blue",
-        status: true,
-      },
-    )
-      } catch (error) {
-        this.showMessage(
-      {
-        message: "投稿の編集に失敗しました",
-        type: "error",
-        status: true,
-      },
-    )
-        console.log(error);
-      }
-    },
-    async handleDeleteOutput(output) {
-      try {
-        await this.deleteOutput(output);
-      } catch (error) {
-        this.showMessage(
-      {
-        message: "投稿を削除しました",
-        type: "warning",
-        status: true,
-      },
-    )
-        console.log(error);
-      }
     },
     async handleCreateOutput(output) {
       try {
