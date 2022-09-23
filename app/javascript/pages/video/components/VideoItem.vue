@@ -51,9 +51,18 @@
               >
                 <template v-if="Number(value) === video.id">{{ key }}</template>
               </span>
-              <span>
-                <v-icon>mdi-bookmark-outline</v-icon>
+              <template v-if="authUser">
+                <template v-if="isAuthUserBookmark(video)">
+                <span>
+                <v-icon @click="unbookmark(video)">mdi-bookmark</v-icon>
               </span>
+                </template>
+                <template v-else>
+                <span>
+                  <v-icon @click="bookmark(video)">mdi-bookmark-outline</v-icon>
+                </span>
+                </template>
+              </template>
             </v-card-text>
             <div class="ml-3">
               投稿者：
@@ -85,6 +94,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoItem",
   props: {
@@ -92,6 +102,25 @@ export default {
       type: Array,
       default: null
     }
-  }
+  },
+  computed: {
+  ...mapGetters("users", ["authUser"]),
+  ...mapGetters("bookmarks", ["bookmarks"]),
+  },
+  created () {
+    this.fetchmyBookmarks();
+  },
+  methods: {
+    ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
+    bookmark(video){
+      this.createBookmark(video)
+    },
+    unbookmark(video){
+      this.deleteBookmark(video)
+    },
+    isAuthUserBookmark(video) {
+      return this.bookmarks.some(v => v.id === video.id)
+    }
+  },
 }
 </script>
