@@ -8,6 +8,7 @@ import LoginIndex from "../pages/login/index"
 import VideoIndex from "../pages/video/index"
 import VideoCreate from "../pages/video/create"
 import VideoShow from "../pages/video/show"
+import BookmarkIndex from "../pages/bookmark/index"
 
 Vue.use(Router)
 
@@ -45,7 +46,13 @@ const router = new Router({
       name: 'VideoShow',
       component: VideoShow,
       props: true
-    }
+    },
+    {
+      path: "/bookmarks",
+      component: BookmarkIndex,
+      name: "BookmarkIndex",
+      meta: { requiredAuth: true },
+    },
   ],
 })
 

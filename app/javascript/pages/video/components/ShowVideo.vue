@@ -19,7 +19,7 @@
       <div class="wrap-box ml-5 mb-4 pt-2">
         <span class="count">再生回数:{{ video.view_count }}回</span>
         <span class="box-right category">
-          <v-icon> mdi-tag</v-icon>
+          <v-icon color="primary"> mdi-tag</v-icon>
           <v-chip
             v-for="category in video.categories"
             :key="category.id"
@@ -33,6 +33,7 @@
               <span>
                 <v-icon
                   large
+                  color="green"
                   @click="unbookmark(video)"
                 >mdi-bookmark-check</v-icon>
               </span>
@@ -71,11 +72,24 @@ export default {
   },
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
+    ...mapActions("flashMessage", ["showMessage"]),
     bookmark(video){
       this.createBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークしました",
+        type: "light-blue",
+        status: true,
+      })
     },
     unbookmark(video){
       this.deleteBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークを解除しました",
+        type: "warning",
+        status: true,
+      })
     },
     isAuthUserBookmark(video) {
       return this.bookmarks.some(v => v.id === video.id)

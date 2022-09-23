@@ -54,7 +54,10 @@
               <template v-if="authUser">
                 <template v-if="isAuthUserBookmark(video)">
                   <span>
-                    <v-icon @click="unbookmark(video)">mdi-bookmark-check</v-icon>
+                    <v-icon
+                      color="green"
+                      @click="unbookmark(video)"
+                    >mdi-bookmark-check</v-icon>
                   </span>
                 </template>
                 <template v-else>
@@ -75,7 +78,9 @@
               </span>
             </div>
             <div class="mt-3 ml-3">
-              <v-icon> mdi-tag</v-icon>
+              <v-icon color="primary">
+                mdi-tag
+              </v-icon>
               <v-chip
                 v-for="category in video.categories"
                 :key="category.id"
@@ -112,11 +117,24 @@ export default {
   },
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
+    ...mapActions("flashMessage", ["showMessage"]),
     bookmark(video){
       this.createBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークしました",
+        type: "light-blue",
+        status: true,
+      })
     },
     unbookmark(video){
       this.deleteBookmark(video)
+      this.showMessage(
+      {
+        message: "ブックマークを解除しました",
+        type: "warning",
+        status: true,
+      })
     },
     isAuthUserBookmark(video) {
       return this.bookmarks.some(v => v.id === video.id)

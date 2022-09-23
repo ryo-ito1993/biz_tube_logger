@@ -42,6 +42,14 @@
           新規投稿
         </v-btn>
       </router-link>
+      <router-link :to="{ name: 'BookmarkIndex' }">
+        <v-btn
+          text
+          class="mr-5"
+        >
+          ブックマーク一覧
+        </v-btn>
+      </router-link>
       <router-link
         to="#"
         @click.native="handleLogout"

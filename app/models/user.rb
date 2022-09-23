@@ -22,5 +22,4 @@ class User < ApplicationRecord
   def unbookmark(video)
     bookmark_videos.destroy(video)
   end
-
 end

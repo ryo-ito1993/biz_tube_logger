@@ -17,9 +17,9 @@ class Api::BookmarksController < ApplicationController
   end
 
   def bookmark_list
-    @bookmarks = current_user.bookmark_videos.includes(:user, :categories, { outputs: [:user, :comments] })
-    @video_comments = Output.joins(:comments).group("outputs.video_id").count
-    render :index, formats: :json, handlers: 'jbuilder'
+    @bookmarks = current_user.bookmark_videos.includes(:user, :categories, { outputs: %i[user comments] })
+    @video_comments = Output.joins(:comments).group('outputs.video_id').count
+    render :bookmark_list, formats: :json, handlers: 'jbuilder'
   end
 
   private

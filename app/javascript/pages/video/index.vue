@@ -18,7 +18,6 @@ export default {
   data() {
     return {
       videos: [],
-      selected: null
     }
   },
     mounted() {

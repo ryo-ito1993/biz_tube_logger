@@ -78,13 +78,13 @@ export default {
       isVisibleCreateModal: false
     }
   },
-  created: function () {
-    this.fetchVideoDetail();
-    this.fetchOutputs(this.id);
-  },
   computed: {
   ...mapGetters("users", ["authUser"]),
   ...mapGetters("outputs", ["outputs"])
+  },
+  created: function () {
+    this.fetchVideoDetail();
+    this.fetchOutputs(this.id);
   },
   methods: {
     ...mapActions("outputs", [

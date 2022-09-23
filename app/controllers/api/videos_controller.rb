@@ -1,8 +1,7 @@
 class Api::VideosController < ApplicationController
-
   def index
-    @videos = Video.includes(:user, :categories, { outputs: [:user, :comments] }).order(created_at: :desc)
-    @video_comments = Output.joins(:comments).group("outputs.video_id").count
+    @videos = Video.includes(:user, :categories, { outputs: %i[user comments] }).order(created_at: :desc)
+    @video_comments = Output.joins(:comments).group('outputs.video_id').count
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
@@ -31,6 +30,7 @@ class Api::VideosController < ApplicationController
   end
 
   private
+
   def output_params
     params.require(:output).permit(:summary, :impression)
   end
