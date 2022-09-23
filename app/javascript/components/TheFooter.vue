@@ -1,13 +1,10 @@
 <template>
-  <v-footer color="#555555">
-    <div class="ma-auto">
-      <span class="ml-10">
-        プライバシーポリシー
-      </span>
-      <span class="ml-5">
-        利用規約
-      </span>
-      <p>Copyright BizTubeLogger 2022. All right reserved</p>
+  <v-footer dark color="#555555">
+    <v-spacer />
+    <div>
+      <v-btn dense text>利用規約</v-btn>
+      <v-btn dense text>プライバシーポリシー</v-btn>
+      <small>&copy; BizTubeLogger 2022.</small>
     </div>
   </v-footer>
 </template>
@@ -20,4 +17,11 @@ export default {
 </script>
 
 <style scoped>
+small {
+  margin-left: 20px;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+  padding: 0 5px;
+}
+
 </style>
