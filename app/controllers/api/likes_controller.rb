@@ -1,4 +1,4 @@
-class Api::OutputsController < ApplicationController
+class Api::LikesController < ApplicationController
   before_action :set_output, only: %i[create destroy]
 
   def index
