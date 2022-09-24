@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
     resources :outputs, shallow: true do
       resources :likes, only: %i[create destroy]
+      get :output_likes, on: :member
     end
     resources :categories
     resources :comments

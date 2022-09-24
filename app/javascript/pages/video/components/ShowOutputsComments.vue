@@ -90,7 +90,7 @@ export default {
     },
     authUser: {
       type: Object,
-      required: true
+      default: null
     }
   },
   data() {

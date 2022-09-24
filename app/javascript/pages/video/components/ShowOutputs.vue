@@ -6,6 +6,7 @@
     >
       <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
       <v-spacer />
+      <template v-if="authUser">
       <template v-if="isAuthUserLike(output)">
         <v-btn
         class="font-weight-bold"
@@ -20,7 +21,7 @@
         >
           mdi-thumb-up
         </v-icon>
-        参考になった {{  }}
+        参考になった  {{outputLikesLength}}
       </v-btn>
       </template>
       <template v-else>
@@ -38,7 +39,26 @@
         >
           mdi-thumb-up-outline
         </v-icon>
-        参考になった {{  }}
+        参考になった {{outputLikesLength}}
+      </v-btn>
+      </template>
+      </template>
+      <template v-else>
+        <v-btn
+        class="font-weight-bold"
+        rounded
+        outlined
+        color="primary"
+        @click="showAlert()"
+      >
+        <v-icon
+          medium
+          left
+          dark
+        >
+          mdi-thumb-up-outline
+        </v-icon>
+        参考になった {{outputLikesLength}}
       </v-btn>
       </template>
       <template v-if="isAuthUserOutput(output)">
@@ -109,11 +129,11 @@ export default {
     },
     output: {
       type:Object,
-      required: true,
+      default: null
     },
     authUser: {
       type: Object,
-      required: true
+      default: null,
     }
   },
   data() {
@@ -121,13 +141,17 @@ export default {
       outputEdit: {},
       outputId: '',
       isVisibleEditModal: false,
+      outputLikesLength: ''
     }
   },
   computed: {
   ...mapGetters("likes", ["likes"]),
   },
   created () {
+    if(this.authUser){
     this.fetchmyLikes();
+    }
+    this.fetchOutputLikesLength(this.output)
   },
   methods: {
     ...mapActions("outputs", [
@@ -187,12 +211,26 @@ export default {
     },
     like(output){
       this.createLike(output)
+      this.outputLikesLength = this.outputLikesLength + 1
     },
     unlike(output){
       this.deleteLike(output)
+      this.outputLikesLength = this.outputLikesLength - 1
     },
     isAuthUserLike(output) {
       return this.likes.some(v => v.id === output.id)
+    },
+    fetchOutputLikesLength(output) {
+      this.outputLikesLength = output.likes.length
+    },
+    showAlert(){
+      this.showMessage(
+      {
+        message: "この操作にはログインが必要です",
+        type: "warning",
+        status: true,
+      },
+    )
     }
   }
 }

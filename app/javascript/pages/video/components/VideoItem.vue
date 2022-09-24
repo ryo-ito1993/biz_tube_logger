@@ -118,7 +118,9 @@ export default {
   ...mapGetters("bookmarks", ["bookmarks"]),
   },
   created () {
+    if(this.authUser){
     this.fetchmyBookmarks();
+    }
   },
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),
