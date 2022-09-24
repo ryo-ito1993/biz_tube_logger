@@ -36,9 +36,14 @@
             <v-card-text class="d-flex text-caption">
               {{ video.created_at }}
               <v-spacer />
-              <span class="mr-2">
+              <span class="mr-1">
                 <v-icon>mdi-thumb-up-outline</v-icon>
-                {{ }}
+              </span>
+              <span
+                v-for="(key, value) in video.video_likes"
+                :key="key.id"
+              >
+                <template v-if="Number(value) === video.id">{{ key }}</template>
               </span>
               <span>
                 <v-icon class="mr-1">
@@ -113,7 +118,9 @@ export default {
   ...mapGetters("bookmarks", ["bookmarks"]),
   },
   created () {
+    if(this.authUser){
     this.fetchmyBookmarks();
+    }
   },
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarks", "createBookmark", "deleteBookmark"]),

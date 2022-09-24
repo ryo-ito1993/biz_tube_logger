@@ -1,13 +1,72 @@
 <template>
   <div>
-    <div class="wrap-box">
+    <v-col
+      cols="12"
+      class="d-flex"
+    >
       <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+      <v-spacer />
+      <template v-if="authUser">
+      <template v-if="isAuthUserLike(output)">
+        <v-btn
+        class="font-weight-bold"
+        color="primary"
+        rounded
+        @click="unlike(output)"
+      >
+        <v-icon
+          medium
+          left
+          dark
+        >
+          mdi-thumb-up
+        </v-icon>
+        参考になった  {{outputLikesLength}}
+      </v-btn>
+      </template>
+      <template v-else>
+      <v-btn
+        class="font-weight-bold"
+        rounded
+        outlined
+        color="primary"
+        @click="like(output)"
+      >
+        <v-icon
+          medium
+          left
+          dark
+        >
+          mdi-thumb-up-outline
+        </v-icon>
+        参考になった {{outputLikesLength}}
+      </v-btn>
+      </template>
+      </template>
+      <template v-else>
+        <v-btn
+        class="font-weight-bold"
+        rounded
+        outlined
+        color="primary"
+        @click="showAlert()"
+      >
+        <v-icon
+          medium
+          left
+          dark
+        >
+          mdi-thumb-up-outline
+        </v-icon>
+        参考になった {{outputLikesLength}}
+      </v-btn>
+      </template>
       <template v-if="isAuthUserOutput(output)">
         <v-icon
           large
           right
           color="green"
-          class="mr-10 box-right"
+          class=""
           @click="handleShowEditModal(output)"
         >
           mdi-square-edit-outline
@@ -16,14 +75,16 @@
           large
           right
           color="red"
-          class="box-right"
+          class=""
           @click="handleDeleteOutput(output)"
         >
           mdi-trash-can-outline
         </v-icon>
       </template>
-    </div>
-    <v-card-subtitle>投稿日{{ output.created_at }}</v-card-subtitle>
+    </v-col>
+    <v-card-subtitle class="pt-0 pb-0">
+      投稿日{{ output.created_at }}
+    </v-card-subtitle>
     <v-card class="box">
       <span class="box-title">動画内容のアウトプット</span>
       <pre class="content">
@@ -36,12 +97,13 @@
             {{ output.impression }}
           </pre>
     </v-card>
+
+    <!-- モーダルコンポーネント -->
     <v-dialog
       v-if="isVisibleEditModal"
       v-model="isVisibleEditModal"
       max-width="800"
     >
-      <!-- モーダルコンポーネント -->
       <EditModal
         :youtube-id="videos[0].youtube_id"
         :output="outputEdit"
@@ -54,7 +116,7 @@
 
 <script>
 import EditModal from "./EditModal"
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 export default {
   name: "ShowOutputs",
   components: {
@@ -67,11 +129,11 @@ export default {
     },
     output: {
       type:Object,
-      required: true,
+      default: null
     },
     authUser: {
       type: Object,
-      required: true
+      default: null,
     }
   },
   data() {
@@ -79,15 +141,26 @@ export default {
       outputEdit: {},
       outputId: '',
       isVisibleEditModal: false,
+      outputLikesLength: ''
     }
+  },
+  computed: {
+  ...mapGetters("likes", ["likes"]),
+  },
+  created () {
+    if(this.authUser){
+    this.fetchmyLikes();
+    }
+    this.fetchOutputLikesLength(this.output)
   },
   methods: {
     ...mapActions("outputs", [
       "updateOutput",
       "deleteOutput",
     ]),
+    ...mapActions("likes", ["fetchmyLikes", "createLike", "deleteLike"]),
     ...mapActions("flashMessage", ["showMessage"]),
-  handleShowEditModal(output) {
+    handleShowEditModal(output) {
       this.isVisibleEditModal = true;
       this.outputEdit = Object.assign({}, output)
     },
@@ -136,6 +209,29 @@ export default {
         console.log(error);
       }
     },
+    like(output){
+      this.createLike(output)
+      this.outputLikesLength = this.outputLikesLength + 1
+    },
+    unlike(output){
+      this.deleteLike(output)
+      this.outputLikesLength = this.outputLikesLength - 1
+    },
+    isAuthUserLike(output) {
+      return this.likes.some(v => v.id === output.id)
+    },
+    fetchOutputLikesLength(output) {
+      this.outputLikesLength = output.likes.length
+    },
+    showAlert(){
+      this.showMessage(
+      {
+        message: "この操作にはログインが必要です",
+        type: "warning",
+        status: true,
+      },
+    )
+    }
   }
 }
 </script>
@@ -165,14 +261,6 @@ export default {
 .box p {
   margin: 0;
   padding: 0;
-}
-
-.wrap-box {
-  position: relative;
-}
-.wrap-box .box-right {
-  position: absolute;
-  right: 0;
 }
 .content {
   white-space: pre-line;
