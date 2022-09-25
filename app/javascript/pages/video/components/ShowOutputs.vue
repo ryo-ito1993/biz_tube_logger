@@ -58,7 +58,7 @@
         >
           mdi-thumb-up-outline
         </v-icon>
-        参考になった {{outputLikesLength}}
+        参考になった <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
       </v-btn>
       </template>
       <template v-if="isAuthUserOutput(output)">
