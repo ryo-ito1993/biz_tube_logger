@@ -221,7 +221,9 @@ export default {
       return this.likes.some(v => v.id === output.id)
     },
     fetchOutputLikesLength(output) {
+      if(output.likes.length){
       this.outputLikesLength = output.likes.length
+      }
     },
     showAlert(){
       this.showMessage(
