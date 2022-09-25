@@ -91,6 +91,20 @@ const actions = {
           commit('updateOutput', res.data)
         })
     },
+    createLike({ commit }, output) {
+      return axios.post('outputs/' + output.id + '/likes', output)
+        .then(res => {
+          console.log(res.data)
+          commit('updateOutput', res.data)
+        })
+    },
+    deleteLike({commit}, output) {
+      return axios.delete('likes/'+output.id)
+        .then(res => {
+          commit('updateOutput', res.data)
+          console.log(res.data)
+        })
+    },
 }
 
 export default {

@@ -21,7 +21,7 @@
         >
           mdi-thumb-up
         </v-icon>
-        参考になった  {{outputLikesLength}}
+        参考になった  <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
       </v-btn>
       </template>
       <template v-else>
@@ -39,7 +39,7 @@
         >
           mdi-thumb-up-outline
         </v-icon>
-        参考になった {{outputLikesLength}}
+        参考になった <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
       </v-btn>
       </template>
       </template>
@@ -116,7 +116,7 @@
 
 <script>
 import EditModal from "./EditModal"
-import { mapActions, mapGetters } from "vuex"
+import { mapActions } from "vuex"
 export default {
   name: "ShowOutputs",
   components: {
@@ -144,21 +144,13 @@ export default {
       outputLikesLength: ''
     }
   },
-  computed: {
-  ...mapGetters("likes", ["likes"]),
-  },
-  created () {
-    if(this.authUser){
-    this.fetchmyLikes();
-    }
-    this.fetchOutputLikesLength(this.output)
-  },
   methods: {
     ...mapActions("outputs", [
       "updateOutput",
       "deleteOutput",
+      "createLike",
+      "deleteLike"
     ]),
-    ...mapActions("likes", ["fetchmyLikes", "createLike", "deleteLike"]),
     ...mapActions("flashMessage", ["showMessage"]),
     handleShowEditModal(output) {
       this.isVisibleEditModal = true;
@@ -211,18 +203,13 @@ export default {
     },
     like(output){
       this.createLike(output)
-      this.outputLikesLength = this.outputLikesLength + 1
     },
     unlike(output){
       this.deleteLike(output)
-      this.outputLikesLength = this.outputLikesLength - 1
     },
     isAuthUserLike(output) {
-      return this.likes.some(v => v.id === output.id)
-    },
-    fetchOutputLikesLength(output) {
-      if(output.likes.length){
-      this.outputLikesLength = output.likes.length
+      if (output.likes) {
+      return output.likes.find(like => like.user_id === this.authUser.id)
       }
     },
     showAlert(){
