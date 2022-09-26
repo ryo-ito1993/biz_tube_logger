@@ -2,14 +2,19 @@
   <div class="top">
     <!-- メインヘッダー -->
     <div class="main">
-        <v-img src="image/main.jpg" max-height="700">
-        <v-container class="text-center main-text">
-          <h1 class="mt-10 white--text">BizTubeLogger</h1>
-          <h2 class="mt-10">
-            ビジネスYouTubeで学んだことをアウトプットしよう!
-          </h2>
+        <v-img src="image/black.png" max-height="580">
+        <v-container class="main-text">
+          <h1 class="white--text">BizTubeLogger</h1>
+          <h4 class="white--text pb-3">ビジネスYouTubeアウトプット記録・共有サービス</h4>
+          <h3 class="white--text mt-10">せっかく学んだ知識、活かせていますか？</h3>
+          <h3 class="white--text mt-3">アウトプットで知識を自分のモノにしましょう！</h3>
+          <router-link :to="{ name: 'RegisterIndex' }">
+            <v-btn class="success ml-10 mt-10">
+              さっそくはじめる
+            </v-btn>
+          </router-link>
           <router-link :to="{ name: 'VideoIndex' }">
-            <v-btn class="primary mt-10">
+            <v-btn class="primary ml-6 mt-10">
               みんなの投稿を覗いてみる
             </v-btn>
           </router-link>
@@ -19,7 +24,7 @@
     <!-- 最近の投稿 -->
     <div class="video-zone pb-3">
       <v-container>
-        <h2 class="text-center my-5">PICKUP OUTPUTS</h2>
+        <h1 class="text-center my-5 white--text">PICKUP OUTPUTS</h1>
         <VideoItem
       :videos="limitvideos"
     />
@@ -28,6 +33,7 @@
     <!-- アプリ紹介 -->
     <div class="features">
     <v-container class="main-content">
+      <h1 class="text-center my-5">HOW TO USE</h1>
       <v-row
         v-for="(description, index) in descriptions"
         :key="index"
@@ -109,11 +115,9 @@ export default {
   background-color: white;
 }
 .video-zone {
-  background-color: #BAD3FF;
+  background-color: gray;
 }
-.video-zone h2 {
-  color: #fff;
-}
+
 .features{
   background-color: white;
 }
@@ -126,6 +130,23 @@ export default {
 }
 
 .main-text{
-  margin-top: 100px;
+  margin-top: 30px;
+}
+
+.main h1{
+  font-family: 'Kaisei Tokumin', serif;
+  font-size: 1.5em;
+  font-size: 420%;
+}
+.main h4{
+  font-family: 'Kaisei Tokumin', serif;
+  margin-left: 60px;
+}
+.main h3{
+  margin-left: 60px;
+  opacity: 0.8;
+}
+a {
+  text-decoration: none;
 }
 </style>
