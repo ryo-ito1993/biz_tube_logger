@@ -1,19 +1,14 @@
 class Api::LikesController < ApplicationController
   before_action :set_output, only: %i[create destroy]
 
-  def index
-    @likes = current_user.like_outputs
-    render json: @likes
-  end
-
   def create
     current_user.like(@output)
-    render json: @output
+    render json: @output.to_json(include: [:user, :likes, { comments: { include: :user } }])
   end
 
   def destroy
     current_user.unlike(@output)
-    render json: @output
+    render json: @output.to_json(include: [:user, :likes, { comments: { include: :user } }])
   end
 
 

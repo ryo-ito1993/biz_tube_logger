@@ -13,4 +13,5 @@ json.array! @bookmarks do |video|
     json.name category.name
   end
   json.video_comments @video_comments
+  json.video_likes @video_likes
 end

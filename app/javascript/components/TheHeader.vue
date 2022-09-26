@@ -6,7 +6,7 @@
   >
     <router-link :to="{ name: 'TopIndex' }">
       <v-toolbar-title>
-        <h4>BizTubeLogger</h4>
+        <h3>BizTubeLogger</h3>
       </v-toolbar-title>
     </router-link>
     <div class="flex-grow-1" />
@@ -98,6 +98,9 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+  font-family: 'Kaisei Tokumin', serif;
+}
 a {
   text-decoration: none;
   }

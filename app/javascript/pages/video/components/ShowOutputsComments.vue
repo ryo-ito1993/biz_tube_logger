@@ -44,6 +44,7 @@
       type="submit"
       color="success"
       @click="handleShowCommentModal(output.id)"
+      v-if="authUser"
     >
       コメントする
     </v-btn>
