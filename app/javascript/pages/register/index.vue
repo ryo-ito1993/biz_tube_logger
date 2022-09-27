@@ -7,7 +7,7 @@
       >
         mdi-account-plus
       </v-icon>
-      新規登録
+      Sign Up
     </h2>
     <v-divider
       class="mb-4"

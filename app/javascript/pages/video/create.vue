@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-5 shades white rounded-lg mb-5">
     <p class="text-h4 pt-5 title font-weight-bold text-center">
-      アウトプット投稿
+      NEW OUTPUT
     </p>
     <ValidationObserver v-slot="{ invalid }">
       <ValidationProvider

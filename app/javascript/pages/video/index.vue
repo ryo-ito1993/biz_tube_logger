@@ -1,10 +1,26 @@
 <template>
-  <v-container>
-    <h1>投稿一覧</h1>
+<v-row class="grey lighten-3">
+  <v-col cols=2>
+    <v-container class="red mt-10 ml-5">
+      <v-card height="500">
+        <v-btn x-large color="primary">
+          NEW OUTPUT
+        </v-btn>
+
+      </v-card>
+
+    </v-container>
+  </v-col>
+  <v-col cols=10>
+  <v-container class="mt-5 mb-5 shades rounded-lg">
+    <p class="text-h5 text-center title font-weight-bold">OUTPUT LIST</p>
+      <v-divider class="pb-5"></v-divider>
     <VideoItem
       :videos="videos"
     />
   </v-container>
+  </v-col>
+  </v-row>
 </template>
 
 

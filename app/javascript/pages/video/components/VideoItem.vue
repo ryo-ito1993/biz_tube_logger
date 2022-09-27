@@ -5,14 +5,14 @@
         v-for="video in videos"
         :key="video.id"
         cols="12"
-        sm="4"
+        sm="6"
         md="4"
       >
         <v-hover v-slot:default="{ hover }">
           <v-card
-            class="mx-auto mt-4"
+            class="mx-auto mt-4 grey lighten-3"
             max-width="360"
-            height="405"
+            max-height="450"
             :elevation="hover ? 12 : 2"
           >
             <router-link :to="{ path: `/video/${video.id}` }">
@@ -29,30 +29,28 @@
               </v-card-title>
             </router-link>
 
-            <v-card-subtitle class="pt-0 pb-1">
-              {{ video.view_count }}回再生
-            </v-card-subtitle>
-
-            <v-card-text class="d-flex text-caption">
-              {{ video.created_at }}
+            <v-card-subtitle class="pt-0 pb-1 d-flex">
+              {{ video.view_count.toLocaleString() }}回再生
               <v-spacer />
               <span class="mr-1">
-                <v-icon>mdi-thumb-up-outline</v-icon>
+                <v-icon color="primary">mdi-thumb-up-outline</v-icon>
               </span>
               <span
                 v-for="(key, value) in video.video_likes"
                 :key="key.id"
+                class="primary--text"
               >
                 <template v-if="Number(value) === video.id">{{ key }}</template>
               </span>
               <span>
-                <v-icon class="mr-1">
+                <v-icon color="primary" class="mr-1">
                   mdi-comment-outline
                 </v-icon>
               </span>
               <span
                 v-for="(key, value) in video.video_comments"
                 :key="key.id"
+                class="primary--text"
               >
                 <template v-if="Number(value) === video.id">{{ key }}</template>
               </span>
@@ -67,22 +65,18 @@
                 </template>
                 <template v-else>
                   <span>
-                    <v-icon @click="bookmark(video)">mdi-bookmark-outline</v-icon>
+                    <v-icon color="primary" @click="bookmark(video)">mdi-bookmark-outline</v-icon>
                   </span>
                 </template>
               </template>
+            </v-card-subtitle>
+
+            <v-card-text>
+              投稿日:{{ video.created_at | moment }}
+
             </v-card-text>
-            <div class="ml-3">
-              投稿者：
-              <span
-                v-for="output in video.outputs"
-                :key="output.id"
-                class="mr-2"
-              >
-                <v-icon>mdi-account-circle</v-icon>{{ output.name }}
-              </span>
-            </div>
-            <div class="mt-3 ml-3">
+
+            <div class="ml-3 pb-3">
               <v-icon color="primary">
                 mdi-tag
               </v-icon>
@@ -104,6 +98,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoItem",
@@ -113,6 +108,11 @@ export default {
       default: null
     }
   },
+  filters: {
+      moment: function(date) {
+        return moment(date).format("YYYY/MM/DD");
+      },
+    },
   computed: {
   ...mapGetters("users", ["authUser"]),
   ...mapGetters("bookmarks", ["bookmarks"]),
@@ -149,3 +149,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.comment-count{
+  color: blue;
+}
+</style>

@@ -17,7 +17,7 @@
         {{ video.title }}
       </div>
       <div class="wrap-box ml-5 mb-4 pt-2">
-        <span class="count">再生回数:{{ video.view_count }}回</span>
+        <span class="count">再生回数:{{ video.view_count.toLocaleString() }}回</span>
         <span class="box-right category">
           <v-icon color="primary"> mdi-tag</v-icon>
           <v-chip
