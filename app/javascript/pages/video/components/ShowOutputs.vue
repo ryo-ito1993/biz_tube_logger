@@ -7,59 +7,65 @@
       <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
       <v-spacer />
       <template v-if="authUser">
-      <template v-if="isAuthUserLike(output)">
-        <v-btn
-        class="font-weight-bold"
-        color="primary"
-        rounded
-        @click="unlike(output)"
-      >
-        <v-icon
-          medium
-          left
-          dark
-        >
-          mdi-thumb-up
-        </v-icon>
-        参考になった  <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
-      </v-btn>
+        <template v-if="isAuthUserLike(output)">
+          <v-btn
+            class="font-weight-bold"
+            color="primary"
+            rounded
+            @click="unlike(output)"
+          >
+            <v-icon
+              medium
+              left
+              dark
+            >
+              mdi-thumb-up
+            </v-icon>
+            参考になった  <template v-if="output.likes && output.likes.length">
+              {{ output.likes.length }}
+            </template>
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn
+            class="font-weight-bold"
+            rounded
+            outlined
+            color="primary"
+            @click="like(output)"
+          >
+            <v-icon
+              medium
+              left
+              dark
+            >
+              mdi-thumb-up-outline
+            </v-icon>
+            参考になった <template v-if="output.likes && output.likes.length">
+              {{ output.likes.length }}
+            </template>
+          </v-btn>
+        </template>
       </template>
       <template v-else>
-      <v-btn
-        class="font-weight-bold"
-        rounded
-        outlined
-        color="primary"
-        @click="like(output)"
-      >
-        <v-icon
-          medium
-          left
-          dark
-        >
-          mdi-thumb-up-outline
-        </v-icon>
-        参考になった <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
-      </v-btn>
-      </template>
-      </template>
-      <template v-else>
         <v-btn
-        class="font-weight-bold"
-        rounded
-        outlined
-        color="primary"
-        @click="showAlert()"
-      >
-        <v-icon
-          medium
-          left
-          dark
+          class="font-weight-bold"
+          rounded
+          outlined
+          color="primary"
+          @click="showAlert()"
         >
-          mdi-thumb-up-outline
-        </v-icon>
-        参考になった <template v-if="output.likes && output.likes.length">{{output.likes.length}}</template>
-      </v-btn>
+          <v-icon
+            medium
+            left
+            dark
+          >
+            mdi-thumb-up-outline
+          </v-icon>
+          参考になった <template v-if="output.likes && output.likes.length">
+            {{ output.likes.length }}
+          </template>
+        </v-btn>
       </template>
       <template v-if="isAuthUserOutput(output)">
         <v-icon

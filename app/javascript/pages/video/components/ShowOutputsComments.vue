@@ -40,11 +40,11 @@
       </v-container>
     </div>
     <v-btn
+      v-if="authUser"
       class="mr-4 font-weight-bold"
       type="submit"
       color="success"
       @click="handleShowCommentModal(output.id)"
-      v-if="authUser"
     >
       コメントする
     </v-btn>
