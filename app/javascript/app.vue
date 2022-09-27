@@ -2,7 +2,7 @@
   <v-app>
     <TheHeader />
     <FlashMessage />
-    <v-main class="grey lighten-4 accent-1">
+    <v-main>
       <router-view />
     </v-main>
     <TheFooter />
