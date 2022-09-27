@@ -44,7 +44,7 @@
           <div v-html="description.text" />
         </v-col>
         <v-col :md="5">
-          <v-img max-height="270" :alt="description.title" :src="description.imgSrc" />
+          <v-img max-height="270" max-width="500" :alt="description.title" :src="description.imgSrc" />
         </v-col>
       </v-row>
     </v-container>

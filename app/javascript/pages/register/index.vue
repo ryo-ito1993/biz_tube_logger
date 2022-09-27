@@ -100,11 +100,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions("users", ["createUser"]),
     ...mapActions("flashMessage", ["showMessage"]),
     register() {
-      this.$axios.post('users', { user: this.user })
+      this.createUser(this.user)
         .then(res => {
-          this.$router.push({ name:'LoginIndex' })
+          this.$router.push({ name:'VideoIndex' })
           this.showMessage(
       {
         message: "ユーザー登録が完了しました",

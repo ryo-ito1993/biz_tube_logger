@@ -15,6 +15,13 @@ const mutations = {
 }
 
 const actions = {
+  async createUser({ commit }, user ) {
+    const sessionsResponse = await axios.post('users', { user: user })
+    localStorage.auth_token = sessionsResponse.data.token
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.auth_token}`
+    const userResponse = await axios.get('users/me')
+    commit('setUser', userResponse.data)
+  },
   async loginUser({ commit }, user) {
     const sessionsResponse = await axios.post('sessions', user)
     localStorage.auth_token = sessionsResponse.data.token
