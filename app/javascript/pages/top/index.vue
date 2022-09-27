@@ -2,12 +2,23 @@
   <div class="top">
     <!-- メインヘッダー -->
     <div class="main">
-        <v-img src="image/black.png" max-height="580">
+      <v-img
+        src="image/black.png"
+        max-height="580"
+      >
         <v-container class="main-text">
-          <h1 class="white--text">BizTubeLogger</h1>
-          <h4 class="white--text pb-3">ビジネスYouTubeアウトプット記録・共有サービス</h4>
-          <h3 class="white--text mt-10">せっかく学んだ知識、活かせていますか？</h3>
-          <h3 class="white--text mt-3">アウトプットで知識を自分のモノにしましょう！</h3>
+          <h1 class="white--text">
+            BizTubeLogger
+          </h1>
+          <h4 class="white--text pb-3">
+            ビジネスYouTubeアウトプット記録・共有サービス
+          </h4>
+          <h3 class="white--text mt-10">
+            せっかく学んだ知識、活かせていますか？
+          </h3>
+          <h3 class="white--text mt-3">
+            アウトプットで知識を自分のモノにしましょう！
+          </h3>
           <router-link :to="{ name: 'RegisterIndex' }">
             <v-btn class="success ml-10 mt-10">
               さっそくはじめる
@@ -19,35 +30,51 @@
             </v-btn>
           </router-link>
         </v-container>
-        </v-img>
+      </v-img>
     </div>
     <!-- 最近の投稿 -->
     <div class="video-zone pb-3">
       <v-container>
-        <h1 class="text-center my-5 white--text">PICKUP OUTPUTS</h1>
+        <h1 class="text-center my-5 white--text">
+          PICKUP OUTPUTS
+        </h1>
         <VideoItem
-      :videos="limitvideos"
-    />
+          :videos="limitvideos"
+        />
       </v-container>
     </div>
     <!-- アプリ紹介 -->
     <div class="features">
-    <v-container class="main-content">
-      <h1 class="text-center my-5">HOW TO USE</h1>
-      <v-row
-        v-for="(description, index) in descriptions"
-        :key="index"
-        :class="'flex-row' + description.line"
-      >
-        <v-col class="align-self-center" :md="7">
-          <h2 class="mb-5">{{ description.title }}</h2>
-          <div v-html="description.text" />
-        </v-col>
-        <v-col :md="5">
-          <v-img max-height="270" max-width="500" :alt="description.title" :src="description.imgSrc" />
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-container class="main-content">
+        <h1 class="text-center my-5">
+          HOW TO USE
+        </h1>
+        <v-row
+          v-for="(description, index) in descriptions"
+          :key="index"
+          :class="'flex-row' + description.line"
+        >
+          <v-col
+            class="align-self-center"
+            :md="7"
+          >
+            <h2 class="mb-5">
+              {{ description.title }}
+            </h2>
+            <!-- eslint-disable -->
+            <div v-html="description.text" />
+            <!-- eslint-enable -->
+          </v-col>
+          <v-col :md="5">
+            <v-img
+              max-height="270"
+              max-width="500"
+              :alt="description.title"
+              :src="description.imgSrc"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
@@ -62,16 +89,6 @@ export default {
     return {
       videos: [],
     }
-  },
-    mounted() {
-    this.fetchVideos();
-  },
-  methods: {
-    fetchVideos() {
-      this.$axios.get("videos")
-        .then(res => this.videos = res.data)
-        .catch(err => console.log(err.status));
-    },
   },
   computed: {
     descriptions() {
@@ -103,6 +120,16 @@ export default {
       return this.videos.slice(0,3)
     }
 
+  },
+    mounted() {
+    this.fetchVideos();
+  },
+  methods: {
+    fetchVideos() {
+      this.$axios.get("videos")
+        .then(res => this.videos = res.data)
+        .catch(err => console.log(err.status));
+    },
   }
 }
 </script>
