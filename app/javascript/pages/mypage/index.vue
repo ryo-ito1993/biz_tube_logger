@@ -23,7 +23,7 @@
     <v-tab-item class="rounded grey lighten-2">
       <v-container>
       <VideoItem
-      :videos="uservideos"
+      :videos="videos"
     />
     </v-container>
     </v-tab-item>
@@ -70,7 +70,7 @@ export default {
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarkList"]),
     fetchVideos() {
-      this.$axios.get("videos")
+      this.$axios.get("/users/" + this.authUser.id)
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
