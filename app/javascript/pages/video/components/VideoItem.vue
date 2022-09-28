@@ -14,6 +14,8 @@
             max-width="360"
             max-height="450"
             :elevation="hover ? 12 : 2"
+            outlined
+            tile
           >
             <router-link :to="{ path: `/video/${video.id}` }">
               <v-img
@@ -153,5 +155,8 @@ export default {
 <style scoped>
 .comment-count{
   color: blue;
+}
+.card{
+  border-radius: 50px;
 }
 </style>
