@@ -89,7 +89,7 @@
       </template>
     </v-col>
     <v-card-subtitle class="pt-0 pb-0">
-      投稿日{{ output.created_at }}
+      投稿日:{{ output.created_at | moment }}
     </v-card-subtitle>
     <v-card class="box">
       <span class="box-title">動画内容のアウトプット</span>
@@ -121,6 +121,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import EditModal from "./EditModal"
 import { mapActions } from "vuex"
 export default {
@@ -150,6 +151,11 @@ export default {
       outputLikesLength: ''
     }
   },
+  filters: {
+      moment: function(date) {
+        return moment(date).format("YYYY/MM/DD");
+      },
+    },
   methods: {
     ...mapActions("outputs", [
       "updateOutput",

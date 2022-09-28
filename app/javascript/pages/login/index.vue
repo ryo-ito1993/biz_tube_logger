@@ -7,7 +7,7 @@
       >
         mdi-login
       </v-icon>
-      ログイン
+      Login
     </h2>
     <v-divider
       class="mb-4"

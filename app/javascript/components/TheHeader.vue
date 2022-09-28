@@ -15,7 +15,7 @@
         text
         class="mr-5"
       >
-        投稿一覧
+        LIST
       </v-btn>
     </router-link>
     <template v-if="!authUser">
@@ -24,12 +24,12 @@
           text
           class="mr-5"
         >
-          新規登録
+          SIGN UP
         </v-btn>
       </router-link>
       <router-link :to="{ name: 'LoginIndex' }">
         <v-btn text>
-          ログイン
+          LOGIN
         </v-btn>
       </router-link>
     </template>
@@ -39,7 +39,7 @@
           text
           class="mr-5"
         >
-          新規投稿
+          NEW Output
         </v-btn>
       </router-link>
       <router-link :to="{ name: 'BookmarkIndex' }">
@@ -47,14 +47,14 @@
           text
           class="mr-5"
         >
-          ブックマーク一覧
+          Bookmarks
         </v-btn>
       </router-link>
       <router-link
         to="#"
         @click.native="handleLogout"
       >
-        ログアウト
+        LOGOUT
       </router-link>
     </template>
   </v-app-bar>
