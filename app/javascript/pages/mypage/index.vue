@@ -58,18 +58,14 @@ export default {
   computed: {
     ...mapGetters("users", ["authUser"]),
     ...mapGetters("bookmarks", ["bookmarks"]),
-    uservideos() {
-    return this.videos.filter(
-      video => video.user_id === this.authUser.id)
-    },
   },
   created () {
-    this.fetchVideos();
+    this.fetchmyVideos();
     this.fetchmyBookmarkList();
   },
   methods: {
     ...mapActions("bookmarks", ["fetchmyBookmarkList"]),
-    fetchVideos() {
+    fetchmyVideos() {
       this.$axios.get("/users/" + this.authUser.id)
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));

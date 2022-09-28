@@ -10,8 +10,8 @@
       >
         <v-hover v-slot:default="{ hover }">
           <v-card
-            class="mx-auto mt-4 grey lighten-3"
-            max-width="360"
+            class=" mt-4 grey lighten-3"
+            max-width="400"
             max-height="450"
             :elevation="hover ? 12 : 2"
             outlined
