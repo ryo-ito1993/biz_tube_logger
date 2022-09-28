@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :bookmarks, only: %i[index] do
       get :bookmark_list, on: :collection
     end
-    resources :users, only: %i[create] do
+    resources :users, only: %i[show create] do
       collection do
         get 'me'
       end

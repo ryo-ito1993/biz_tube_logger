@@ -42,12 +42,12 @@
           NEW Output
         </v-btn>
       </router-link>
-      <router-link :to="{ name: 'BookmarkIndex' }">
+      <router-link :to="{ name: 'MypageIndex' }">
         <v-btn
           text
           class="mr-5"
         >
-          Bookmarks
+          MYPAGE
         </v-btn>
       </router-link>
       <router-link
