@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let baseUrl ;
 if ( process.env.NODE_ENV == 'production' ) {
-  baseUrl = 'https://biztube-logger.herokuapp.com/api'
+  baseUrl = 'https://www.biztube-logger.com/api'
 } else {
   baseUrl = 'http://localhost:3000/api/'
 }
