@@ -1,8 +1,12 @@
 <template>
   <v-container class="mt-5 shades white rounded-lg mb-5">
-    <p class="text-h4 pt-5 title font-weight-bold text-center">
+    <p class="text-h6 pt-2 mb-3 font-weight-bold text-center">
       {{ output.user.name }}さんのアウトプット編集
     </p>
+    <v-divider
+      class="mb-4"
+      style="max-width: 1200px; margin: auto"
+    />
 
     <iframe
       width="672"

@@ -2,9 +2,9 @@
   <div>
     <v-col
       cols="12"
-      class="d-flex"
+      class="d-flex pt-0 pb-0"
     >
-      <span class="text-h5 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+      <span class="text-h6 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
       <v-spacer />
       <template v-if="authUser">
         <template v-if="isAuthUserLike(output)">
@@ -91,6 +91,10 @@
     <v-card-subtitle class="pt-0 pb-0">
       投稿日:{{ output.created_at | moment }}
     </v-card-subtitle>
+    <v-divider
+      class="mb-4"
+      style="max-width: 1200px; margin: auto"
+    />
     <v-card class="box">
       <span class="box-title">動画内容のアウトプット</span>
       <pre class="content">
@@ -129,6 +133,11 @@ export default {
   components: {
     EditModal,
   },
+  filters: {
+      moment: function(date) {
+        return moment(date).format("YYYY/MM/DD");
+      },
+    },
   props: {
     videos: {
       type: Array,
@@ -151,11 +160,6 @@ export default {
       outputLikesLength: ''
     }
   },
-  filters: {
-      moment: function(date) {
-        return moment(date).format("YYYY/MM/DD");
-      },
-    },
   methods: {
     ...mapActions("outputs", [
       "updateOutput",
@@ -254,7 +258,7 @@ export default {
   height: 25px;
   line-height: 25px;
   font-size: 18px;
-  background: #9999CC;
+  background: rgb(67, 139, 241);
   color: white;
   font-weight: bold;
   border-radius: 5px 5px 0 0;

@@ -1,95 +1,100 @@
 <template>
-<div>
-
+  <div>
     <v-row>
-      <v-col md=2 xs=12>
-      <v-container class="ml-4 mt-4">
-      <v-card class="pt-1 pb-1" color="grey lighten-3">
-        <v-card-sub-title class="mt-2 ml-3">Category</v-card-sub-title>
-        <div class="mb-5 ml-3 mt-2">
+      <v-col
+        md="2"
+        xs="12"
+      >
+        <v-container class="ml-4 mt-4">
+          <v-card
+            class="pt-1 pb-1"
+            color="grey lighten-3"
+            elevation="3"
+          >
+            <v-card-sub-title class="mt-2 ml-3">
+              CATEGORY
+            </v-card-sub-title>
+            <div class="mb-5 ml-3 mt-2">
               <v-btn
                 v-for="category in categories"
                 :key="category.id"
                 class="mr-4 mb-1"
                 color="primary"
-                @click="categorysearch(category)"
                 tile
+                @click="categorysearch(category)"
               >
                 {{ category.name }}
               </v-btn>
+            </div>
+          </v-card>
+        </v-container>
+      </v-col>
+      <v-col cols="10">
+        <v-tabs
+          v-model="tab"
+          fixed-tabs
+          class="rounded mt-7"
+          dark
+        >
+          <v-tab>
+            LIST
+          </v-tab>
+          <v-tab>
+            Category
+          </v-tab>
+          <v-tab>
+            Search
+          </v-tab>
+
+          <v-tab-item class="rounded lighten-2 grey">
+            <v-container>
+              <VideoItem
+                :videos="videos"
+              />
+            </v-container>
+          </v-tab-item>
+
+          <v-tab-item class="rounded grey lighten-2">
+            <v-container class="pb-10">
+              <div class="mt-5 mb-5">
+                <v-btn
+                  v-for="category in categories"
+                  :key="category.id"
+                  class="mr-4 mb-1"
+                  color="primary"
+                  tile
+                  @click="categorysearch(category)"
+                >
+                  {{ category.name }}
+                </v-btn>
               </div>
-      </v-card>
+              <VideoItem
+                :videos="categorysearchlists"
+              />
+            </v-container>
+          </v-tab-item>
 
-              </v-container>
-    </v-col>
-    <v-col cols=10>
-    <v-tabs
-    fixed-tabs
-    class="rounded mt-7"
-    v-model="tab"
-    dark
-  >
-    <v-tab>
-      LIST
-    </v-tab>
-    <v-tab>
-      Category
-    </v-tab>
-    <v-tab>
-      Search
-    </v-tab>
-
-    <v-tab-item class="rounded lighten-1 grey">
-      <v-container>
-      <VideoItem
-      :videos="videos"
-    />
-    </v-container>
-    </v-tab-item>
-
-    <v-tab-item class="rounded grey lighten-2">
-      <v-container class="pb-10">
-        <div class="mt-5 mb-5">
-              <v-btn
-                v-for="category in categories"
-                :key="category.id"
-                class="mr-4 mb-1"
-                color="primary"
-                @click="categorysearch(category)"
-                tile
-              >
-                {{ category.name }}
-              </v-btn>
+          <v-tab-item class="rounded grey lighten-2">
+            <v-container>
+              <div class="field">
+                <div class="control">
+                  <v-text-field
+                    v-model="keyword"
+                    class="input"
+                    type="text"
+                    placeholder="Search"
+                    solo
+                  />
+                </div>
               </div>
-      <VideoItem
-      :videos="categorysearchlists"
-    />
-    </v-container>
-    </v-tab-item>
-
-    <v-tab-item class="rounded grey lighten-2">
-      <v-container>
-      <div class="field">
-        <div class="control">
-          <v-text-field
-            v-model="keyword"
-            class="input"
-            type="text"
-            placeholder="Search"
-            solo
-          />
-        </div>
-      </div>
-    <VideoItem
-      :videos="searchLists"
-    />
-    </v-container>
-    </v-tab-item>
-
-  </v-tabs>
-  </v-col>
-
-  </v-row>
+              <VideoItem
+                :videos="searchLists"
+              />
+            </v-container>
+          </v-tab-item>
+        </v-tabs>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -110,10 +115,6 @@ export default {
       tab: null
     }
   },
-    mounted() {
-    this.fetchVideos();
-    this.fetchCategories();
-  },
   computed: {
     searchLists: function() {
       var searchlists = [];
@@ -126,6 +127,10 @@ export default {
       }
       return searchlists;
     },
+  },
+    mounted() {
+    this.fetchVideos();
+    this.fetchCategories();
   },
   methods: {
     fetchVideos() {

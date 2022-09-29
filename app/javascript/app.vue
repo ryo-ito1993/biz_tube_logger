@@ -24,7 +24,5 @@ export default {
 </script>
 
 <style scoped>
-.v-main{
-  background-image: linear-gradient(180deg, #E9E9E7 2%, #EFEEEC 27%, #EEEEEC 58%, #D5D4D0 94%);
-}
+
 </style>

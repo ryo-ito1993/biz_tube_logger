@@ -1,107 +1,113 @@
 <template>
-<header>
-  <v-app-bar
-    dark
-    app
-  >
-    <router-link :to="{ name: 'TopIndex' }">
-      <v-toolbar-title>
-        <h3>BizTubeLogger</h3>
-      </v-toolbar-title>
-    </router-link>
-    <div class="flex-grow-1" />
-    <router-link :to="{ name: 'VideoIndex' }">
-      <v-btn
-        text
-        class="mr-5"
-        v-if="!$vuetify.breakpoint.xsOnly"
-      >
-        LIST
-      </v-btn>
-    </router-link>
-    <template v-if="!authUser">
-      <router-link :to="{ name: 'RegisterIndex' }">
+  <header>
+    <v-app-bar
+      dark
+      app
+    >
+      <router-link :to="{ name: 'TopIndex' }">
+        <v-toolbar-title>
+          <h3>BizTubeLogger</h3>
+        </v-toolbar-title>
+      </router-link>
+      <div class="flex-grow-1" />
+      <router-link :to="{ name: 'VideoIndex' }">
         <v-btn
+          v-if="!$vuetify.breakpoint.xsOnly"
           text
           class="mr-5"
-          v-if="!$vuetify.breakpoint.xsOnly"
         >
-          SIGN UP
+          LIST
         </v-btn>
       </router-link>
-      <router-link :to="{ name: 'LoginIndex' }">
-        <v-btn text v-if="!$vuetify.breakpoint.xsOnly">
-          LOGIN
-        </v-btn>
-      </router-link>
-    </template>
-    <template v-else>
-      <router-link :to="{ name: 'VideoCreate' }">
-        <v-btn
-          text
-          class="mr-5"
+      <template v-if="!authUser">
+        <router-link :to="{ name: 'RegisterIndex' }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.xsOnly"
+            text
+            class="mr-5"
+          >
+            SIGN UP
+          </v-btn>
+        </router-link>
+        <router-link :to="{ name: 'LoginIndex' }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.xsOnly"
+            text
+          >
+            LOGIN
+          </v-btn>
+        </router-link>
+      </template>
+      <template v-else>
+        <router-link :to="{ name: 'VideoCreate' }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.xsOnly"
+            text
+            class="mr-5"
+          >
+            NEW Output
+          </v-btn>
+        </router-link>
+        <router-link :to="{ name: 'MypageIndex' }">
+          <v-btn
+            v-if="!$vuetify.breakpoint.xsOnly"
+            text
+            class="mr-5"
+          >
+            MYPAGE
+          </v-btn>
+        </router-link>
+        <router-link
           v-if="!$vuetify.breakpoint.xsOnly"
+          to="#"
+          @click.native="handleLogout"
         >
-          NEW Output
-        </v-btn>
-      </router-link>
-      <router-link :to="{ name: 'MypageIndex' }">
-        <v-btn
-          text
-          class="mr-5"
-          v-if="!$vuetify.breakpoint.xsOnly"
-        >
-          MYPAGE
-        </v-btn>
-      </router-link>
-      <router-link
-        to="#"
-        @click.native="handleLogout"
-        v-if="!$vuetify.breakpoint.xsOnly"
+          LOGOUT
+        </router-link>
+      </template>
+      <v-app-bar-nav-icon
+        v-if="$vuetify.breakpoint.xsOnly"
+        @click="drawer = true"
+      />
+    </v-app-bar>
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      temporary
+      right
+      class="grey lighten-1"
+    >
+      <v-list
+        nav
+        dense
       >
-        LOGOUT
-      </router-link>
-    </template>
-    <v-app-bar-nav-icon @click="drawer = true" v-if="$vuetify.breakpoint.xsOnly"></v-app-bar-nav-icon>
-  </v-app-bar>
-  <v-navigation-drawer
-        v-model="drawer"
-        fixed
-        temporary
-        right
-        class="grey lighten-1"
-      >
-        <v-list
-          nav
-          dense
-        >
-          <v-list-item-group>
-              <v-list-item :to="{ name: 'VideoIndex' }">
-                LIST
-              </v-list-item>
-            <template v-if="!authUser">
+        <v-list-item-group>
+          <v-list-item :to="{ name: 'VideoIndex' }">
+            LIST
+          </v-list-item>
+          <template v-if="!authUser">
             <v-list-item :to="{ name: 'RegisterIndex' }">
-                SIGN UP
+              SIGN UP
             </v-list-item>
             <v-list-item :to="{ name: 'LoginIndex' }">
-                LOGIN
-              </v-list-item>
-            </template>
+              LOGIN
+            </v-list-item>
+          </template>
           <template v-else>
             <v-list-item :to="{ name: 'VideoCreate' }">
-                NEW OUTPUT
+              NEW OUTPUT
             </v-list-item>
             <v-list-item :to="{ name: 'MypageIndex' }">
-                MYPAGE
+              MYPAGE
             </v-list-item>
             <v-list-item @click.native="handleLogout">
-                LOGOUT
+              LOGOUT
             </v-list-item>
-            </template>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
-      </header>
+          </template>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </header>
 </template>
 
 <script>

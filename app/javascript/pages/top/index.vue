@@ -33,7 +33,7 @@
       </v-img>
     </div>
     <!-- 最近の投稿 -->
-    <div class="video-zone pb-3">
+    <div class="video-zone pb-3 grey lighten-1">
       <v-container>
         <h1 class="text-center my-5 white--text">
           PICKUP OUTPUTS
@@ -102,9 +102,9 @@ export default {
         },
         {
           title: "アウトプットを積み上げて自分のスキルにしよう",
-          imgSrc: "/image/step.png",
+          imgSrc: "/image/notes.png",
           text:
-            "<p>継続してアウトプットすることで知識がどんどん増えていきます。</p><p>積み上げ記録はマイページで確認しましょう！</p>",
+            "<p>継続してアウトプットすることで知識がどんどん増えていきます。</p><p>アウトプットを積み上げてマイページから振り返ろう！</p>",
           line: "-reverse"
         },
         {
@@ -140,9 +140,6 @@ export default {
 }
 .main {
   background-color: white;
-}
-.video-zone {
-  background-color: gray;
 }
 
 .features{

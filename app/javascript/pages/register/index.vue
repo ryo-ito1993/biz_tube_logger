@@ -1,22 +1,22 @@
 <template>
   <v-container>
-    <h2 class="mb-1 d-flex align-center justify-center">
-      <v-icon
-        left
-        bottom
-      >
-        mdi-account-plus
-      </v-icon>
-      Sign Up
-    </h2>
-    <v-divider
-      class="mb-4"
-      style="max-width: 700px; margin: auto"
-    />
     <v-card
       max-width="600px"
       class="mx-auto mt-5"
     >
+      <h2 class="pt-3 mb-3 d-flex align-center justify-center">
+        <v-icon
+          left
+          bottom
+          color="primary"
+        >
+          mdi-account-plus
+        </v-icon>
+        Sign Up
+      </h2>
+      <v-divider
+        style="max-width: 700px; margin: auto"
+      />
       <v-card-text>
         <ValidationObserver v-slot="{ invalid }">
           <v-form>

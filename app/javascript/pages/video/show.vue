@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-card class="pa-5 top-frame">
+    <v-card
+      class="pa-5 top-frame"
+      tile
+    >
       <!-- video -->
       <ShowVideo
         :videos="videos"
@@ -10,7 +13,9 @@
       <v-card
         v-for="output in outputs"
         :key="'output' + output.id"
-        class="frame pa-4 mt-3 shades rounded-lg"
+        class="frame pa-4 mt-3 shades"
+        elevation="20"
+        tile
       >
         <ShowOutputs
           :output="output"
@@ -133,8 +138,6 @@ export default {
 
 <style scoped>
 .top-frame{
-  background: -webkit-linear-gradient(top, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), -webkit-linear-gradient(top, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), -webkit-linear-gradient(57deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
-  background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%), linear-gradient(33deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  background-image: linear-gradient(180deg, #E9E9E7 2%, #EFEEEC 27%, #EEEEEC 58%, #D5D4D0 94%);
 }
-
 </style>

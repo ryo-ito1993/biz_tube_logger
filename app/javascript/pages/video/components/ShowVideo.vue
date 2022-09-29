@@ -13,7 +13,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       />
-      <div class=" pt-5 title text-h5 font-weight-bold">
+      <div class="pt-5 ml-3 mr-3 title text-h5 font-weight-bold">
         {{ video.title }}
       </div>
       <div class="wrap-box ml-5 mb-4 pt-2">

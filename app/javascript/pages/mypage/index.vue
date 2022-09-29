@@ -1,41 +1,54 @@
 <template>
-<div>
-<v-container class="text-center justify-center py-6">
-      <h3>
-        {{authUser.name}}さんのMY PAGE
-      </h3>
+  <div>
+    <v-container class="text-center justify-center pb-0 d-flex">
+      <span class="text-h6 mb-0 font-weight-bold">
+        {{ authUser.name }}さんのMY PAGE
+      </span>
+      <v-spacer />
+      <v-btn color="success">
+        Edit Profile
+      </v-btn>
     </v-container>
     <v-container class="text-center justify-center py-6">
       <v-card elevation="10">
         <v-row>
           <v-col>
-            <v-icon large color="#00AA00">
+            <v-icon
+              large
+              color="#00AA00"
+            >
               mdi-pen-plus
             </v-icon>
             <h3 class="output">
-              {{videos.length}}
+              {{ videos.length }}
             </h3>
             <h3 class="output">
               投稿数
             </h3>
           </v-col>
           <v-col>
-            <v-icon large color="#2C7CFF">
+            <v-icon
+              large
+              color="#2C7CFF"
+            >
               mdi-thumb-up-outline
             </v-icon>
             <h3 class="like">
-              {{likesCommentsCount.likes_count}}
+              {{ likesCommentsCount.likes_count }}
             </h3>
             <h3 class="like">
               参考になった数
             </h3>
           </v-col>
           <v-col>
-            <v-icon large color="black">
+            <v-icon
+              large
+              color="black"
+            >
               mdi-comment-outline
             </v-icon>
             <h3>
-              {{likesCommentsCount.comments_count}}
+              {{ likesCommentsCount.comments_count }}
             </h3>
             <h3>
               コメント数
@@ -43,40 +56,39 @@
           </v-col>
         </v-row>
       </v-card>
-
     </v-container>
     <v-col>
-    <v-tabs
-    fixed-tabs
-    dark
-    class="rounded"
-    v-model="tab"
-  >
-    <v-tab>
-      MY OUTPUTS
-    </v-tab>
-    <v-tab>
-      BOOKMARKS
-    </v-tab>
+      <v-tabs
+        v-model="tab"
+        fixed-tabs
+        dark
+        class="rounded"
+      >
+        <v-tab>
+          MY OUTPUTS
+        </v-tab>
+        <v-tab>
+          BOOKMARKS
+        </v-tab>
 
 
-    <v-tab-item class="rounded grey lighten-2">
-      <v-container>
-      <VideoItem
-      :videos="videos"
-    />
-    </v-container>
-    </v-tab-item>
+        <v-tab-item class="rounded grey lighten-2">
+          <v-container>
+            <VideoItem
+              :videos="videos"
+            />
+          </v-container>
+        </v-tab-item>
 
-    <v-tab-item class="rounded grey lighten-2">
-      <v-container class="pb-10">
-      <VideoItem
-      :videos="bookmarks"
-    />
-    </v-container>
-    </v-tab-item>
-  </v-tabs>
-  </v-col>
+        <v-tab-item class="rounded grey lighten-2">
+          <v-container class="pb-10">
+            <VideoItem
+              :videos="bookmarks"
+            />
+          </v-container>
+        </v-tab-item>
+      </v-tabs>
+    </v-col>
   </div>
 </template>
 

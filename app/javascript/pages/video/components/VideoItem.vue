@@ -45,7 +45,10 @@
                 <template v-if="Number(value) === video.id">{{ key }}</template>
               </span>
               <span>
-                <v-icon color="primary" class="mr-1">
+                <v-icon
+                  color="primary"
+                  class="mr-1"
+                >
                   mdi-comment-outline
                 </v-icon>
               </span>
@@ -67,7 +70,10 @@
                 </template>
                 <template v-else>
                   <span>
-                    <v-icon color="primary" @click="bookmark(video)">mdi-bookmark-outline</v-icon>
+                    <v-icon
+                      color="primary"
+                      @click="bookmark(video)"
+                    >mdi-bookmark-outline</v-icon>
                   </span>
                 </template>
               </template>
@@ -75,7 +81,6 @@
 
             <v-card-text>
               最新投稿日:{{ video.outputs[0].created_at | moment }}
-
             </v-card-text>
 
             <div class="ml-3 pb-3">
@@ -104,17 +109,17 @@ import moment from "moment";
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoItem",
+  filters: {
+      moment: function(date) {
+        return moment(date).format("YYYY/MM/DD");
+      },
+    },
   props: {
     videos: {
       type: Array,
       default: null
     }
   },
-  filters: {
-      moment: function(date) {
-        return moment(date).format("YYYY/MM/DD");
-      },
-    },
   computed: {
   ...mapGetters("users", ["authUser"]),
   ...mapGetters("bookmarks", ["bookmarks"]),
