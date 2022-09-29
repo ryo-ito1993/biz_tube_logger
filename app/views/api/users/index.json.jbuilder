@@ -8,6 +8,9 @@ json.array! @videos do |video|
   json.categories video.categories do |category|
     json.name category.name
   end
+  json.outputs video.outputs do |output|
+    json.created_at output.created_at
+  end
   json.video_comments @video_comments
   json.video_likes @video_likes
 end

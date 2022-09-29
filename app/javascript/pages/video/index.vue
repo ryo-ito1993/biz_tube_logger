@@ -1,11 +1,12 @@
 <template>
 <div>
 <v-container class="text-center justify-center py-6">
-      <h3 class="font-weight-bold text-h4">
+      <h3 class="font-weight-bold text-h4 ">
         OUTPUT LIST
       </h3>
     </v-container>
-    <v-col>
+    <v-row>
+    <v-col cols=10>
     <v-tabs
     fixed-tabs
     dark
@@ -22,7 +23,7 @@
       Search
     </v-tab>
 
-    <v-tab-item class="rounded grey lighten-2">
+    <v-tab-item class="rounded lighten-2 grey">
       <v-container>
       <VideoItem
       :videos="videos"
@@ -71,6 +72,24 @@
 
   </v-tabs>
   </v-col>
+  <v-col md=2 xs=12>
+      <v-container>
+        <h2>Category</h2>
+      </v-container>
+      <div class="mt-5 mb-5">
+              <v-btn
+                v-for="category in categories"
+                :key="category.id"
+                class="mr-4 mb-1"
+                color="primary"
+                @click="categorysearch(category)"
+                tile
+              >
+                {{ category.name }}
+              </v-btn>
+              </div>
+    </v-col>
+  </v-row>
   </div>
 </template>
 
