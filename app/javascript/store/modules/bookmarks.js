@@ -23,11 +23,6 @@ const actions = {
       .then(res => { commit('setBookmarks', res.data) })
       .catch(err => console.log(err.response));
   },
-  fetchmyBookmarkList({ commit }) {
-    axios.get('bookmarks/bookmark_list')
-      .then(res => { commit('setBookmarks', res.data) })
-      .catch(err => console.log(err.response));
-  },
   createBookmark({ commit }, video) {
     return axios.post('videos/' + video.id + '/bookmarks', video)
     .then(res => { commit('addBookmark', res.data) })

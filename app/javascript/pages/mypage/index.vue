@@ -42,7 +42,7 @@
 
 
 <script>
-import { mapGetters, mapActions } from "vuex"
+import { mapGetters } from "vuex"
 import VideoItem from "../video/components/VideoItem.vue"
 export default {
   name: "MypageIndex",
@@ -52,24 +52,28 @@ export default {
   data() {
     return {
       videos: [],
-      tab: null
+      tab: null,
+      bookmarks: []
     }
   },
   computed: {
     ...mapGetters("users", ["authUser"]),
-    ...mapGetters("bookmarks", ["bookmarks"]),
   },
   created () {
     this.fetchmyVideos();
     this.fetchmyBookmarkList();
   },
   methods: {
-    ...mapActions("bookmarks", ["fetchmyBookmarkList"]),
     fetchmyVideos() {
       this.$axios.get("/users/" + this.authUser.id)
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
+    fetchmyBookmarkList(){
+      this.$axios.get('bookmarks/bookmark_list')
+        .then(res => this.bookmarks = res.data)
+        .catch(err => console.log(err.status));
+    }
   }
 }
 </script>
