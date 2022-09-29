@@ -10,8 +10,8 @@
       >
         <v-hover v-slot:default="{ hover }">
           <v-card
-            class="mx-auto mt-4 grey lighten-3"
-            max-width="360"
+            class="grey lighten-3"
+            max-width="400"
             max-height="450"
             :elevation="hover ? 12 : 2"
             outlined
@@ -74,7 +74,7 @@
             </v-card-subtitle>
 
             <v-card-text>
-              投稿日:{{ video.created_at | moment }}
+              最新投稿日:{{ video.outputs[0].created_at | moment }}
 
             </v-card-text>
 

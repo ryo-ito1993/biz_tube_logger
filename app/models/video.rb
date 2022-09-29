@@ -15,12 +15,7 @@ class Video < ApplicationRecord
     end
   end
 
-  def create_videodata_from_youtube(youtube_url)
-    youtube_id = if youtube_url[0..16] == 'https://youtu.be/'
-                   youtube_url[17..27]
-                 else
-                   youtube_url[32..42]
-                 end
+  def create_videodata_from_youtube(youtube_id)
     set_yt
     yt_video = Yt::Video.new id: youtube_id
     self.youtube_id = youtube_id
