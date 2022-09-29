@@ -1,6 +1,6 @@
 <template>
+<header>
   <v-app-bar
-    color="#555555"
     dark
     app
   >
@@ -14,6 +14,7 @@
       <v-btn
         text
         class="mr-5"
+        v-if="!$vuetify.breakpoint.xsOnly"
       >
         LIST
       </v-btn>
@@ -23,12 +24,13 @@
         <v-btn
           text
           class="mr-5"
+          v-if="!$vuetify.breakpoint.xsOnly"
         >
           SIGN UP
         </v-btn>
       </router-link>
       <router-link :to="{ name: 'LoginIndex' }">
-        <v-btn text>
+        <v-btn text v-if="!$vuetify.breakpoint.xsOnly">
           LOGIN
         </v-btn>
       </router-link>
@@ -38,6 +40,7 @@
         <v-btn
           text
           class="mr-5"
+          v-if="!$vuetify.breakpoint.xsOnly"
         >
           NEW Output
         </v-btn>
@@ -46,6 +49,7 @@
         <v-btn
           text
           class="mr-5"
+          v-if="!$vuetify.breakpoint.xsOnly"
         >
           MYPAGE
         </v-btn>
@@ -53,11 +57,51 @@
       <router-link
         to="#"
         @click.native="handleLogout"
+        v-if="!$vuetify.breakpoint.xsOnly"
       >
         LOGOUT
       </router-link>
     </template>
+    <v-app-bar-nav-icon @click="drawer = true" v-if="$vuetify.breakpoint.xsOnly"></v-app-bar-nav-icon>
   </v-app-bar>
+  <v-navigation-drawer
+        v-model="drawer"
+        fixed
+        temporary
+        right
+        class="grey lighten-1"
+      >
+        <v-list
+          nav
+          dense
+        >
+          <v-list-item-group>
+              <v-list-item :to="{ name: 'VideoIndex' }">
+                LIST
+              </v-list-item>
+            <template v-if="!authUser">
+            <v-list-item :to="{ name: 'RegisterIndex' }">
+                SIGN UP
+            </v-list-item>
+            <v-list-item :to="{ name: 'LoginIndex' }">
+                LOGIN
+              </v-list-item>
+            </template>
+          <template v-else>
+            <v-list-item :to="{ name: 'VideoCreate' }">
+                NEW OUTPUT
+            </v-list-item>
+            <v-list-item :to="{ name: 'MypageIndex' }">
+                MYPAGE
+            </v-list-item>
+            <v-list-item @click.native="handleLogout">
+                LOGOUT
+            </v-list-item>
+            </template>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+      </header>
 </template>
 
 <script>
@@ -65,6 +109,11 @@ import { mapGetters, mapActions } from "vuex"
 
 export default {
   name: "TheHeader",
+  data () {
+    return {
+      drawer: false
+    }
+  },
   computed: {
     ...mapGetters("users", ["authUser"])
   },

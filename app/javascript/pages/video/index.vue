@@ -9,9 +9,9 @@
     <v-col cols=10>
     <v-tabs
     fixed-tabs
-    dark
     class="rounded"
     v-model="tab"
+    color="dark"
   >
     <v-tab>
       LIST
