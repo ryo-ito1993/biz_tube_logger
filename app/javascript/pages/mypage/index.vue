@@ -1,9 +1,49 @@
 <template>
 <div>
 <v-container class="text-center justify-center py-6">
-      <h3 class="font-weight-bold text-h4">
-        MY PAGE
+      <h3>
+        {{authUser.name}}さんのMY PAGE
       </h3>
+    </v-container>
+    <v-container class="text-center justify-center py-6">
+      <v-card elevation="10">
+        <v-row>
+          <v-col>
+            <v-icon large color="#00AA00">
+              mdi-pen-plus
+            </v-icon>
+            <h3 class="output">
+              {{videos.length}}
+            </h3>
+            <h3 class="output">
+              投稿数
+            </h3>
+          </v-col>
+          <v-col>
+            <v-icon large color="#2C7CFF">
+              mdi-thumb-up-outline
+            </v-icon>
+            <h3 class="like">
+              {{likesCommentsCount.likes_count}}
+            </h3>
+            <h3 class="like">
+              参考になった数
+            </h3>
+          </v-col>
+          <v-col>
+            <v-icon large color="black">
+              mdi-comment-outline
+            </v-icon>
+            <h3>
+              {{likesCommentsCount.comments_count}}
+            </h3>
+            <h3>
+              コメント数
+            </h3>
+          </v-col>
+        </v-row>
+      </v-card>
+
     </v-container>
     <v-col>
     <v-tabs
@@ -13,7 +53,7 @@
     v-model="tab"
   >
     <v-tab>
-      MY LIST
+      MY OUTPUTS
     </v-tab>
     <v-tab>
       BOOKMARKS
@@ -53,7 +93,8 @@ export default {
     return {
       videos: [],
       tab: null,
-      bookmarks: []
+      bookmarks: [],
+      likesCommentsCount: []
     }
   },
   computed: {
@@ -62,10 +103,11 @@ export default {
   created () {
     this.fetchmyVideos();
     this.fetchmyBookmarkList();
+    this.fetchmyLikesCommentsCount();
   },
   methods: {
     fetchmyVideos() {
-      this.$axios.get("/users/" + this.authUser.id)
+      this.$axios.get("/mypages/" + this.authUser.id)
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
@@ -73,11 +115,31 @@ export default {
       this.$axios.get('bookmarks/bookmark_list')
         .then(res => this.bookmarks = res.data)
         .catch(err => console.log(err.status));
-    }
+    },
+    fetchmyLikesCommentsCount(){
+      this.$axios.get('mypages/' + this.authUser.id + '/likes_comments_count')
+        .then(res => this.likesCommentsCount = res.data)
+        .catch(err => console.log(err.status));
+    },
   }
 }
 </script>
 
 <style scoped>
-
+.v-icon{
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.v-card{
+  background-image: linear-gradient(180deg, #E9E9E7 2%, #EFEEEC 27%, #EEEEEC 58%, #D5D4D0 94%);
+}
+.v-card h3{
+  margin-bottom: 15px;
+}
+.like{
+  color: #2C7CFF;
+}
+.output{
+  color: #00AA00	;
+}
 </style>

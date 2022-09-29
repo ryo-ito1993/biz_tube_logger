@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     end
     resources :categories
     resources :comments
+    resources :mypages do
+      get :likes_comments_count, on: :member
+    end
     resources :bookmarks, only: %i[index] do
       get :bookmark_list, on: :collection
     end
