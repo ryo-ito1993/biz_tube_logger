@@ -13,7 +13,7 @@
         >
           mdi-pen-plus
         </v-icon>
-        NEW OUTPUT
+        New Output
       </h2>
       <v-divider
         class="mb-4"

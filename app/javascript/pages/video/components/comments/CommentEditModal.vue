@@ -8,7 +8,7 @@
       >
         mdi-square-edit-outline
       </v-icon>
-      EDIT COMMENT
+      Edit Comment
     </p>
     <v-divider
       class="mb-4"

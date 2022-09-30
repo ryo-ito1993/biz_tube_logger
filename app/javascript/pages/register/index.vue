@@ -13,7 +13,7 @@
         >
           mdi-account-plus
         </v-icon>
-        Sign Up
+        SignUp
       </h2>
       <v-divider
         style="max-width: 700px; margin: auto"

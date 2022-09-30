@@ -127,26 +127,31 @@
       max-width="400"
     >
       <v-card>
-          <v-card-title>
-            <div>
-              <v-icon color="warning">
-                mdi-alert-circle
-              </v-icon>
-              Confirmation
-              </div>
-          </v-card-title>
-          <v-card-text>
-            <p>削除してよろしいですか？</p>
-          </v-card-text>
+        <v-card-title>
+          <div>
+            <v-icon color="warning">
+              mdi-alert-circle
+            </v-icon>
+            Confirmation
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <p>削除してよろしいですか？</p>
+        </v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="isVisibleConfirmModal = false">キャンセル</v-btn>
-            <v-btn @click="handleDeleteOutput(confirmOutput)" color="error"
-              >OK</v-btn
-            >
-          </v-card-actions>
-        </v-card>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn @click="isVisibleConfirmModal = false">
+            キャンセル
+          </v-btn>
+          <v-btn
+            color="error"
+            @click="handleDeleteOutput(confirmOutput)"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
   </div>
 </template>
