@@ -8,7 +8,7 @@
       >
         mdi-square-edit-outline
       </v-icon>
-      EDIT OUTPUT
+      Edit Output
     </p>
     <v-divider
       class="mb-4"

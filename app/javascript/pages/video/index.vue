@@ -2,25 +2,26 @@
   <div>
     <v-row>
       <v-col
-        md="2"
+        lg="2"
         xs="12"
       >
-        <v-container class="ml-4 mt-4">
+        <v-container class="ml-2 mt-4">
           <v-card
             class="pt-1 pb-1"
             color="grey lighten-3"
             elevation="3"
           >
-            <v-card-sub-title class="mt-2 ml-3">
+            <v-card-subtitle class="font-weight-bold ml-3">
               CATEGORY
-            </v-card-sub-title>
-            <div class="mb-5 ml-3 mt-2">
+            </v-card-subtitle>
+            <div class="mb-5 ml-3">
               <v-btn
                 v-for="category in categories"
                 :key="category.id"
-                class="mr-4 mb-1"
+                class="ml-2 mr-4 mb-1"
                 color="primary"
                 tile
+                width="150"
                 @click="categorysearch(category)"
               >
                 {{ category.name }}
@@ -29,7 +30,10 @@
           </v-card>
         </v-container>
       </v-col>
-      <v-col cols="10">
+      <v-col
+        lg="10"
+        sm="12"
+      >
         <v-tabs
           v-model="tab"
           fixed-tabs

@@ -15,8 +15,9 @@
           v-if="!$vuetify.breakpoint.xsOnly"
           text
           class="mr-5"
+          style="text-transform: none"
         >
-          LIST
+          List
         </v-btn>
       </router-link>
       <template v-if="!authUser">
@@ -25,16 +26,18 @@
             v-if="!$vuetify.breakpoint.xsOnly"
             text
             class="mr-5"
+            style="text-transform: none"
           >
-            SIGN UP
+            SignUp
           </v-btn>
         </router-link>
         <router-link :to="{ name: 'LoginIndex' }">
           <v-btn
             v-if="!$vuetify.breakpoint.xsOnly"
             text
+            style="text-transform: none"
           >
-            LOGIN
+            Login
           </v-btn>
         </router-link>
       </template>
@@ -44,8 +47,9 @@
             v-if="!$vuetify.breakpoint.xsOnly"
             text
             class="mr-5"
+            style="text-transform: none"
           >
-            NEW Output
+            NewOutput
           </v-btn>
         </router-link>
         <router-link :to="{ name: 'MypageIndex' }">
@@ -53,16 +57,18 @@
             v-if="!$vuetify.breakpoint.xsOnly"
             text
             class="mr-5"
+            style="text-transform: none"
           >
-            MYPAGE
+            MyPage
           </v-btn>
         </router-link>
         <router-link
           v-if="!$vuetify.breakpoint.xsOnly"
           to="#"
+          style="text-transform: none"
           @click.native="handleLogout"
         >
-          LOGOUT
+          Logout
         </router-link>
       </template>
       <v-app-bar-nav-icon
@@ -83,7 +89,7 @@
       >
         <v-list-item-group>
           <v-list-item :to="{ name: 'VideoIndex' }">
-            LIST
+            List
           </v-list-item>
           <template v-if="!authUser">
             <v-list-item :to="{ name: 'RegisterIndex' }">

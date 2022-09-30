@@ -7,7 +7,7 @@
       >
         mdi-comment-processing-outline
       </v-icon>
-      COMMENT
+      Comment
     </p>
     <v-divider
       class="mb-4"
