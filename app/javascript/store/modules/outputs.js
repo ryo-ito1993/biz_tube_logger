@@ -50,8 +50,7 @@ const actions = {
       .then(res => {
         commit('deleteOutput', res.data)
         console.log(res.data)
-        const video = res.data[0]
-        if ('title' in video) {
+        if (res.data[0] && 'title' in res.data[0]) {
           router.push({ name: 'VideoIndex' })
           dispatch(
             "flashMessage/showMessage",

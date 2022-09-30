@@ -11,9 +11,9 @@
             color="grey lighten-3"
             elevation="3"
           >
-            <v-card-sub-title class="mt-2 ml-3">
+            <v-card-subtitle class="mt-2 ml-3">
               CATEGORY
-            </v-card-sub-title>
+            </v-card-subtitle>
             <div class="mb-5 ml-3 mt-2">
               <v-btn
                 v-for="category in categories"
