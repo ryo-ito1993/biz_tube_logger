@@ -2,7 +2,7 @@ class Api::OutputsController < ApplicationController
   before_action :set_output, only: %i[update destroy]
 
   def show
-    @outputs = Output.where(video_id: params[:id]).includes(:user, :likes, :comments)
+    @outputs = Output.where(video_id: params[:id]).includes(:user, :likes, :comments).order(created_at: :asc)
     render json: @outputs.to_json(include: [:user, :likes, { comments: { include: :user } }])
   end
 
