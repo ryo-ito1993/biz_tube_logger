@@ -4,7 +4,7 @@
       cols="12"
       class="d-flex pt-0 pb-0"
     >
-      <span class="text-h6 font-weight-bold">{{ output.user.name }}さんのアウトプット投稿</span>
+      <span class="text-h6 font-weight-bold">{{ output.user.name }}さんのアウトプット</span>
       <v-spacer />
       <template v-if="authUser">
         <template v-if="isAuthUserLike(output)">

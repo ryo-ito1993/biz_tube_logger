@@ -53,7 +53,13 @@ const actions = {
       commit('setUser', null)
       return null
     }
-  }
+  },
+  updateProfile({ commit, state }, user) {
+    return axios.patch('profile/' + state.authUser.id , user)
+      .then(res => {
+        commit('setUser', res.data)
+      })
+  },
 
 }
 

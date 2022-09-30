@@ -5,7 +5,10 @@
         {{ authUser.name }}さんのMY PAGE
       </span>
       <v-spacer />
-      <v-btn color="success">
+      <v-btn
+        color="success"
+        @click="handleShowProfileEditModal"
+      >
         Edit Profile
       </v-btn>
     </v-container>
@@ -89,24 +92,39 @@
         </v-tab-item>
       </v-tabs>
     </v-col>
+    <v-dialog
+      v-if="isVisibleProfileEditModal"
+      v-model="isVisibleProfileEditModal"
+      max-width="700"
+    >
+      <ProfileEditModal
+        :user="userEdit"
+        @close-modal="handleCloseProfileEditModal"
+        @update-profile="handleUpdateProfile"
+      />
+    </v-dialog>
   </div>
 </template>
 
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 import VideoItem from "../video/components/VideoItem.vue"
+import ProfileEditModal from "./components/ProfileEditModal.vue"
 export default {
   name: "MypageIndex",
     components: {
     VideoItem,
+    ProfileEditModal
   },
   data() {
     return {
       videos: [],
       tab: null,
       bookmarks: [],
-      likesCommentsCount: []
+      likesCommentsCount: [],
+      isVisibleProfileEditModal: false,
+      userEdit: {}
     }
   },
   computed: {
@@ -118,8 +136,10 @@ export default {
     this.fetchmyLikesCommentsCount();
   },
   methods: {
+    ...mapActions("users", ["updateProfile"]),
+    ...mapActions("flashMessage", ["showMessage"]),
     fetchmyVideos() {
-      this.$axios.get("/mypages/" + this.authUser.id)
+      this.$axios.get('mypages')
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
     },
@@ -129,9 +149,39 @@ export default {
         .catch(err => console.log(err.status));
     },
     fetchmyLikesCommentsCount(){
-      this.$axios.get('mypages/' + this.authUser.id + '/likes_comments_count')
+      this.$axios.get('mypages/likes_comments_count')
         .then(res => this.likesCommentsCount = res.data)
         .catch(err => console.log(err.status));
+    },
+    handleShowProfileEditModal() {
+      this.isVisibleProfileEditModal = true;
+      this.userEdit = Object.assign({}, this.authUser)
+    },
+    handleCloseProfileEditModal() {
+      this.isVisibleProfileEditModal = false;
+      this.userEdit = {};
+    },
+    async handleUpdateProfile(user) {
+      try {
+        await this.updateProfile(user);
+        this.handleCloseProfileEditModal();
+        this.showMessage(
+      {
+        message: "プロフィールを更新しました",
+        type: "light-blue",
+        status: true,
+      },
+    )
+      } catch (error) {
+        this.showMessage(
+      {
+        message: "プロフィールの更新に失敗しました",
+        type: "error",
+        status: true,
+      },
+    )
+        console.log(error);
+      }
     },
   }
 }

@@ -1,7 +1,14 @@
 <template>
   <v-container class="mt-5 shades white rounded-lg mb-5">
     <p class="text-h6 pt-2 mb-3 font-weight-bold text-center">
-      {{ output.user.name }}さんのアウトプット編集
+      <v-icon
+        left
+        bottom
+        color="#00AA00"
+      >
+        mdi-square-edit-outline
+      </v-icon>
+      EDIT OUTPUT
     </p>
     <v-divider
       class="mb-4"

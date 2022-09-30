@@ -3,6 +3,7 @@
     <v-card
       max-width="600px"
       class="mx-auto mt-5"
+      elevation="20"
     >
       <h2 class="pt-3 mb-3 d-flex align-center justify-center">
         <v-icon

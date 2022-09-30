@@ -1,7 +1,11 @@
 <template>
-  <v-container>
-    <v-container class="mt-5 shades white rounded-lg mb-5">
-      <h2 class="pt-2 mb-2 d-flex align-center justify-center">
+  <v-container class="text-center justify-center py-6">
+    <v-card
+      max-width="1500px"
+      elevation="20"
+      class="mx-auto mt-5"
+    >
+      <h2 class="pt-3 mb-3 d-flex align-center justify-center">
         <v-icon
           left
           bottom
@@ -15,75 +19,80 @@
         class="mb-4"
         style="max-width: 1200px; margin: auto"
       />
-      <ValidationObserver v-slot="{ invalid }">
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|url_format"
-        >
-          <v-text-field
-            v-model="youtube_url"
-            label="YouTube動画URL"
-            placeholder="YouTube動画URLを貼り付けてください"
-            outlined
-            :error-messages="errors"
-          />
-        </ValidationProvider>
+      <v-card-text>
+        <ValidationObserver v-slot="{ invalid }">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|url_format"
+          >
+            <v-text-field
+              v-model="youtube_url"
+              label="YouTube動画URL"
+              placeholder="YouTube動画URLを貼り付けてください"
+              outlined
+              :error-messages="errors"
+            />
+          </ValidationProvider>
 
-        <v-select
-          v-model="selected_categories"
-          item-text="name"
-          :items="categories"
-          class="hoge"
-          chips
-          label="カテゴリー"
-          multiple
-          outlined
-        >
-          <template #selection="{ item }">
-            <v-chip color="primary">
-              {{ item.name }}
-            </v-chip>
-          </template>
-        </v-select>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-        >
-          <v-textarea
-            v-model="output.summary"
-            label="動画内容のアウトプット"
-            placeholder="動画の要約やためになった内容をまとめてみよう！"
-            auto-grow
+          <v-select
+            v-model="selected_categories"
+            item-text="name"
+            :items="categories"
+            class="hoge"
+            chips
+            label="カテゴリー"
+            multiple
             outlined
-            :error-messages="errors"
-          />
-        </ValidationProvider>
+          >
+            <template #selection="{ item }">
+              <v-chip color="primary">
+                {{ item.name }}
+              </v-chip>
+            </template>
+          </v-select>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+          >
+            <v-textarea
+              v-model="output.summary"
+              label="動画内容のアウトプット"
+              placeholder="動画の要約やためになった内容をまとめてみよう！"
+              auto-grow
+              outlined
+              :error-messages="errors"
+            />
+          </ValidationProvider>
 
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-        >
-          <v-textarea
-            v-model="output.impression"
-            label="感想、今後に活かしたいこと"
-            placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
-            auto-grow
-            outlined
-            :error-messages="errors"
-          />
-        </ValidationProvider>
-
-        <v-btn
-          class="mr-4 font-weight-bold"
-          type="submit"
-          color="success"
-          :disabled="invalid"
-          @click="createVideo"
-        >
-          投稿する
-        </v-btn>
-      </ValidationObserver>
-    </v-container>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+          >
+            <v-textarea
+              v-model="output.impression"
+              label="感想、今後に活かしたいこと"
+              placeholder="動画の感想や今後に活かしたいことをまとめてみよう！"
+              auto-grow
+              outlined
+              :error-messages="errors"
+            />
+          </ValidationProvider>
+          <v-card-actions>
+            <v-btn
+              class="mr-4 font-weight-bold"
+              type="submit"
+              color="success"
+              :disabled="invalid"
+              large
+              width="100"
+              @click="createVideo"
+            >
+              投稿する
+            </v-btn>
+          </v-card-actions>
+        </ValidationObserver>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
