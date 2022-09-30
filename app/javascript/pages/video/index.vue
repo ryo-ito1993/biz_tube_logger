@@ -11,10 +11,10 @@
             color="grey lighten-3"
             elevation="3"
           >
-            <v-card-subtitle class="mt-2 ml-3">
+            <v-card-subtitle class="ml-3">
               CATEGORY
             </v-card-subtitle>
-            <div class="mb-5 ml-3 mt-2">
+            <div class="mb-5 ml-3">
               <v-btn
                 v-for="category in categories"
                 :key="category.id"
