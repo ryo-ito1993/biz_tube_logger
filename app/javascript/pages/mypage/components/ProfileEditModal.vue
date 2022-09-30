@@ -1,30 +1,36 @@
 <template>
-  <v-container class=" white rounded-lg">
+  <v-container class="white rounded-lg pb-5">
     <p class="text-h6 pt-2 mb-3 font-weight-bold text-center">
-      <v-icon
-        left
-        bottom
-        color="#00AA00"
-      >
-        mdi-square-edit-outline
-      </v-icon>
-      EDIT COMMENT
+      EDIT PROFILE
     </p>
     <v-divider
       class="mb-4"
-      style="max-width: 1200px; margin: auto"
+      style="max-width: 1000px; margin: auto"
     />
     <ValidationObserver v-slot="{ invalid }">
       <ValidationProvider
         v-slot="{ errors }"
         rules="required"
+        name="ユーザー名"
       >
-        <v-textarea
-          v-model="comment.body"
-          label="コメント内容"
-          placeholder="コメントを投稿しよう！"
-          auto-grow
-          outlined
+        <v-text-field
+          v-model="user.name"
+          label="ユーザー名"
+          type="text"
+          prepend-icon="mdi-account-circle"
+          :error-messages="errors"
+        />
+      </ValidationProvider>
+      <ValidationProvider
+        v-slot="{ errors }"
+        rules="required|email"
+        name="メールアドレス"
+      >
+        <v-text-field
+          v-model="user.email"
+          label="メールアドレス"
+          type="email"
+          prepend-icon="mdi-email"
           :error-messages="errors"
         />
       </ValidationProvider>
@@ -34,7 +40,7 @@
         type="submit"
         color="success"
         :disabled="invalid"
-        @click="handleUpdateComment"
+        @click="handleUpdateProfile"
       >
         更新する
       </v-btn>
@@ -49,35 +55,23 @@
   </v-container>
 </template>
 
-
 <script>
   export default {
-    name: "CommentEditModal",
+    name: "ProfileEditModal",
     props: {
-      comment: {
+      user: {
         type: Object,
         required: true,
-        id: {
-        type: Number,
-        required: true
-        },
-        body: {
-          type: Text,
-          required: true
-        },
-        video_id: {
-          type: Number,
-          required: true
-        }
       },
     },
     methods: {
       handleCloseModal(){
         this.$emit('close-modal')
       },
-      handleUpdateComment() {
-      this.$emit('update-comment', this.comment)
+      handleUpdateProfile() {
+      this.$emit('update-profile', this.user)
     }
+
     }
   }
 </script>

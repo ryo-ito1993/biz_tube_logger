@@ -1,7 +1,6 @@
 <template>
   <v-footer
     dark
-    color="#555555"
   >
     <v-spacer />
     <div>

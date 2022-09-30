@@ -12,13 +12,6 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def show
-    @videos = Video.joins(:outputs).where(outputs: {user_id: params[:id]}).distinct.includes(:user, :outputs, :categories).order('outputs.created_at DESC')
-    @video_comments = Output.joins(:comments).group('outputs.video_id').count
-    @video_likes = Output.joins(:likes).group('outputs.video_id').count
-    render :index, formats: :json, handlers: 'jbuilder'
-  end
-
   def me
     render json: current_user
   end

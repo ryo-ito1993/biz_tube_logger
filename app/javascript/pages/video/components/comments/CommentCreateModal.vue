@@ -1,8 +1,18 @@
 <template>
   <v-container class="white rounded-lg">
-    <p class="text-h5 pt-5 title text-center">
-      コメント投稿
+    <p class="text-h6 pt-2 mb-3 font-weight-bold text-center">
+      <v-icon
+        left
+        bottom
+      >
+        mdi-comment-processing-outline
+      </v-icon>
+      COMMENT
     </p>
+    <v-divider
+      class="mb-4"
+      style="max-width: 1200px; margin: auto"
+    />
     <ValidationObserver v-slot="{ invalid }">
       <ValidationProvider
         v-slot="{ errors }"
