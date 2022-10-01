@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :comments
     resources :profile
+    resources :videopreview
     resources :mypages do
       get :likes_comments_count, on: :collection
     end
