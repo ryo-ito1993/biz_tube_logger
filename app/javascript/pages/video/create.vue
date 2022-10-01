@@ -25,37 +25,51 @@
             v-slot="{ errors }"
             rules="required|url_format"
           >
-          <div class="d-flex flex-row align-baseline">
-            <v-text-field
-              v-model="youtube_url"
-              label="YouTube動画URL"
-              placeholder="YouTube動画URLを貼り付けてください"
-              outlined
-              :error-messages="errors"
-              class="input-url"
-              v-bind:disabled="isDisabled"
-            />
-            <v-btn class="ma-2 pa-2" color="primary" @click="previewVideo" v-bind:disabled="isDisabled">
-              プレビュー
-            </v-btn>
-          </div>
+            <div class="d-flex flex-row align-baseline">
+              <v-text-field
+                v-model="youtube_url"
+                label="YouTube動画URL"
+                placeholder="YouTube動画URLを貼り付けてください"
+                outlined
+                :error-messages="errors"
+                class="input-url"
+                :disabled="isDisabled"
+              />
+              <v-btn
+                class="ma-2 pa-2"
+                color="primary"
+                :disabled="isDisabled"
+                @click="previewVideo"
+              >
+                プレビュー
+              </v-btn>
+            </div>
           </ValidationProvider>
 
-          <div v-if="youtubeId" class="justify-center d-flex mb-5">
-          <iframe
-        width="840"
-        height="473"
-        :src="`https://www.youtube.com/embed/${youtubeId}`"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        class="d-inline-block"
-      />
-        <div class="d-inline-block">
-          <v-icon @click="closePreviewVideo" large color="error">mdi-close-box</v-icon>
-        </div>
-      </div>
+          <div
+            v-if="youtubeId"
+            class="justify-center d-flex mb-5"
+          >
+            <iframe
+              width="840"
+              height="473"
+              :src="`https://www.youtube.com/embed/${youtubeId}`"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="d-inline-block"
+            />
+            <div class="d-inline-block">
+              <v-icon
+                large
+                color="error"
+                @click="closePreviewVideo"
+              >
+                mdi-close-box
+              </v-icon>
+            </div>
+          </div>
 
           <v-select
             v-model="selected_categories"
