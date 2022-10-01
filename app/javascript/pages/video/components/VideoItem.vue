@@ -34,6 +34,17 @@
             <v-card-subtitle class="pt-0 pb-1 d-flex">
               {{ video.view_count.toLocaleString() }}回再生
               <v-spacer />
+              <span>
+                <v-icon
+                  color="primary"
+                  class="mr-1"
+                >
+                  mdi-pen
+                </v-icon>
+              </span>
+              <span class="primary--text mr-1">
+                {{ video.outputs.length }}
+              </span>
               <span class="mr-1">
                 <v-icon color="primary">mdi-thumb-up-outline</v-icon>
               </span>
@@ -47,7 +58,7 @@
               <span>
                 <v-icon
                   color="primary"
-                  class="mr-1"
+                  class="mr-1 ml-1"
                 >
                   mdi-comment-outline
                 </v-icon>

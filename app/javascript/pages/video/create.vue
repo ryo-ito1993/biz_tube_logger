@@ -25,14 +25,51 @@
             v-slot="{ errors }"
             rules="required|url_format"
           >
-            <v-text-field
-              v-model="youtube_url"
-              label="YouTube動画URL"
-              placeholder="YouTube動画URLを貼り付けてください"
-              outlined
-              :error-messages="errors"
-            />
+            <div class="d-flex flex-row align-baseline">
+              <v-text-field
+                v-model="youtube_url"
+                label="YouTube動画URL"
+                placeholder="YouTube動画URLを貼り付けてください"
+                outlined
+                :error-messages="errors"
+                class="input-url"
+                :disabled="isDisabled"
+              />
+              <v-btn
+                class="ma-2 pa-2"
+                color="primary"
+                :disabled="isDisabled"
+                @click="previewVideo"
+              >
+                プレビュー
+              </v-btn>
+            </div>
           </ValidationProvider>
+
+          <div
+            v-if="youtubeId"
+            class="justify-center d-flex mb-5"
+          >
+            <iframe
+              width="840"
+              height="473"
+              :src="`https://www.youtube.com/embed/${youtubeId}`"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="d-inline-block"
+            />
+            <div class="d-inline-block">
+              <v-icon
+                large
+                color="error"
+                @click="closePreviewVideo"
+              >
+                mdi-close-box
+              </v-icon>
+            </div>
+          </div>
 
           <v-select
             v-model="selected_categories"
@@ -106,7 +143,9 @@ export default {
       output: {
         summary: '',
         impression: ''
-      }
+      },
+      youtubeId: '',
+      isDisabled: false
     }),
     created: function () {
       this.fetchCategories();
@@ -141,10 +180,33 @@ export default {
         .then(res => this.categories = res.data)
         .catch(err => console.log(err.status));
     },
-
+      previewVideo() {
+        this.youtubeId = ''
+        this.$axios.post('videopreview', { youtube_url: this.youtube_url})
+          .then(res => {
+            this.youtubeId = res.data
+            this.isDisabled = true
+          })
+          .catch(err => {
+            this.showMessage(
+        {
+          message: "プレビューに失敗しました",
+          type: "error",
+          status: true,
+        },
+      )
+            console.log(err)
+          })
+    },
+    closePreviewVideo(){
+      this.youtubeId = ''
+      this.isDisabled = false
     }
+
+  }
 }
 </script>
 
 <style scoped>
+
 </style>

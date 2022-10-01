@@ -16,8 +16,9 @@
       <div class="pt-5 ml-3 mr-3 title text-h5 font-weight-bold">
         {{ video.title }}
       </div>
-      <div class="wrap-box ml-5 mb-4 pt-2">
+      <div class="d-flex ml-5 mb-4 pt-2 mr-5">
         <span class="count">再生回数:{{ video.view_count.toLocaleString() }}回</span>
+        <v-spacer />
         <span class="box-right category">
           <v-icon color="primary"> mdi-tag</v-icon>
           <v-chip
@@ -107,16 +108,4 @@ iframe {
   max-width: 100%;
 }
 
-.wrap-box {
-  position: relative;
-}
-
-.wrap-box .box-right {
-  position: absolute;
-  right: 0;
-}
-
-.category{
-  margin-right: 30px;
-}
 </style>
