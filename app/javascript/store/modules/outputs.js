@@ -45,7 +45,7 @@ const actions = {
         commit('updateOutput', res.data)
       })
   },
-  deleteOutput({commit}, output) {
+  deleteOutput({commit, dispatch}, output) {
     return axios.delete('outputs/' + output.id)
       .then(res => {
         commit('deleteOutput', res.data)

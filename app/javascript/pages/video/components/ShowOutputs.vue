@@ -240,7 +240,6 @@ export default {
     async handleDeleteOutput(output) {
       try {
         await this.deleteOutput(output);
-      } catch (error) {
         this.showMessage(
       {
         message: "投稿を削除しました",
@@ -248,6 +247,7 @@ export default {
         status: true,
       },
     )
+      } catch (error) {
         console.log(error);
       }
     },
