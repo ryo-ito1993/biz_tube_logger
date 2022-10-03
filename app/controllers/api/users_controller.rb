@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
 
     if user.save
       token = user.create_tokens
-      render json: { token: token }
+      render json: { token: }
     else
       render json: user.errors, status: :bad_request
     end

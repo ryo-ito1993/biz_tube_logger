@@ -10,10 +10,10 @@ class Api::VideopreviewController < ApplicationController
 
   def create
     youtube_id = if params[:youtube_url][0..16] == 'https://youtu.be/'
-      params[:youtube_url][17..27]
-    else
-      params[:youtube_url][32..42]
-    end
+                   params[:youtube_url][17..27]
+                 else
+                   params[:youtube_url][32..42]
+                 end
 
     set_yt
     yt_video = Yt::Video.new id: youtube_id

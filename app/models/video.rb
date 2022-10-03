@@ -4,7 +4,7 @@ class Video < ApplicationRecord
   has_many :video_categories, dependent: :destroy
   has_many :categories, through: :video_categories
   has_many :bookmarks, dependent: :destroy
-  validates :youtube_id, presence: true
+  validates :youtube_id, :title, :view_count, :published_at, :thumbnail, presence: true
 
   GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
 

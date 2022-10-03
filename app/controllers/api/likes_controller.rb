@@ -11,7 +11,6 @@ class Api::LikesController < ApplicationController
     render json: @output.to_json(include: [:user, :likes, { comments: { include: :user } }])
   end
 
-
   private
 
   def set_output
