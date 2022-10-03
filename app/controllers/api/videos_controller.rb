@@ -10,7 +10,7 @@ class Api::VideosController < ApplicationController
   end
 
   def display_videos
-    pagy_a, @videos = pagy_array(Video.joins(:outputs).includes(:user, :outputs, :categories).order('outputs.created_at DESC'))
+    pagy_a, @videos = pagy_array(Video.includes(:user, :outputs, :categories).order('outputs.created_at DESC'))
     pagy_headers_merge(pagy_a)
     @video_comments = Output.joins(:comments).group('outputs.video_id').count
     @video_likes = Output.joins(:likes).group('outputs.video_id').count

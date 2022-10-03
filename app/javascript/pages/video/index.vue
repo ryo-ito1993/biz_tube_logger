@@ -56,10 +56,10 @@
                 :videos="displayVideos"
               />
               <v-pagination
-              v-model="page.currentPage"
-              :length="page.totalPages"
-              @input="changePage"
-              ></v-pagination>
+                v-model="page.currentPage"
+                :length="page.totalPages"
+                @input="changePage"
+              />
             </v-container>
           </v-tab-item>
 
@@ -97,7 +97,7 @@
                 </div>
               </div>
               <VideoItem
-              :videos="searchLists"
+                :videos="searchLists"
               />
             </v-container>
           </v-tab-item>
