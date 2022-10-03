@@ -1,7 +1,6 @@
 class Api::VideosController < ApplicationController
   include Pagy::Backend
 
-
   def index
     @videos = Video.includes(:user, :outputs, :categories).order('outputs.created_at DESC')
     @video_comments = Output.joins(:comments).group('outputs.video_id').count
@@ -19,20 +18,20 @@ class Api::VideosController < ApplicationController
 
   def create
     youtube_id = if params[:youtube_url][0..16] == 'https://youtu.be/'
-      params[:youtube_url][17..27]
-    else
-      params[:youtube_url][32..42]
-    end
+                   params[:youtube_url][17..27]
+                 else
+                   params[:youtube_url][32..42]
+                 end
 
-    #同じvideoレコードがある場合、既存のvideoにoutputを紐付ける
-    if Video.find_by(youtube_id: youtube_id)
+    # 同じvideoレコードがある場合、既存のvideoにoutputを紐付ける
+    if Video.find_by(youtube_id:)
       ApplicationRecord.transaction do
-        @video = Video.find_by(youtube_id: youtube_id)
+        @video = Video.find_by(youtube_id:)
         @output = current_user.outputs.build(output_params)
         @output.video_id = @video.id
         @output.save!
       end
-    #レコードがない場合は新たにvideoを作成し、outputに紐づける
+    # レコードがない場合は新たにvideoを作成し、outputに紐づける
     else
       @video = current_user.videos.build
       @video.create_videodata_from_youtube(youtube_id)
@@ -44,8 +43,6 @@ class Api::VideosController < ApplicationController
         @output.save!
       end
     end
-
-
   end
 
   def show
