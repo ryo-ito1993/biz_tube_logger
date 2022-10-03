@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :sessions
     resources :videos, shallow: true do
       resources :bookmarks, only: %i[create destroy]
+      get :display_videos, on: :collection
     end
     resources :outputs, shallow: true do
       resources :likes, only: %i[create destroy]
