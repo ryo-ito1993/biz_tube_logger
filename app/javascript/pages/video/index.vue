@@ -53,7 +53,12 @@
           <v-tab-item class="rounded lighten-2 grey">
             <v-container>
               <VideoItem
-                :videos="videos"
+                :videos="displayVideos"
+              />
+              <v-pagination
+                v-model="page.currentPage"
+                :length="page.totalPages"
+                @input="changePage"
               />
             </v-container>
           </v-tab-item>
@@ -104,6 +109,7 @@
 
 
 <script>
+import goTo from "vuetify/es5/services/goto"
 import VideoItem from "./components/VideoItem.vue"
 export default {
   name: "VideoIndex",
@@ -113,10 +119,16 @@ export default {
   data() {
     return {
       videos: [],
+      displayVideos: [],
       categories: [],
       categorysearchlists: [],
       keyword: '',
-      tab: null
+      tab: null,
+      requestUrl: "videos",
+        page: {
+          currentPage: 1,
+          totalPages: 1,
+        }
     }
   },
   computed: {
@@ -135,12 +147,18 @@ export default {
     mounted() {
     this.fetchVideos();
     this.fetchCategories();
+    this.fetchDisplayVideos();
   },
   methods: {
-    fetchVideos() {
-      this.$axios.get("videos")
+    async fetchVideos() {
+      this.$axios.get('videos')
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
+    },
+    async fetchDisplayVideos() {
+      const res = await this.$axios.get('videos/display_videos')
+      this.page.totalPages = Number(res.headers["total-pages"])
+      this.displayVideos = res.data
     },
     fetchCategories() {
       this.$axios.get("categories")
@@ -158,6 +176,11 @@ export default {
         }
       }
       this.tab = 1
+    },
+    async changePage(val) {
+      goTo(0)  // ページ最上部までスクロール。Vuetifyのメソッド
+      const res = await this.$axios.get(`videos/display_videos/?page=`+ val)
+      this.displayVideos = res.data
     }
   }
 }
