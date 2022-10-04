@@ -4,7 +4,7 @@
       class="pa-5 top-frame"
       tile
     >
-      <!-- video -->
+      <!-- video表示部分 -->
       <ShowVideo
         :videos="videos"
       />

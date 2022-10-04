@@ -114,7 +114,7 @@
       v-model="isVisibleEditModal"
       max-width="800"
     >
-      <EditModal
+      <OutputEditModal
         :youtube-id="videos[0].youtube_id"
         :output="outputEdit"
         @close-modal="handleCloseEditModal"
@@ -158,12 +158,12 @@
 
 <script>
 import moment from "moment";
-import EditModal from "./EditModal"
+import OutputEditModal from "./OutputEditModal"
 import { mapActions } from "vuex"
 export default {
   name: "ShowOutputs",
   components: {
-    EditModal,
+    OutputEditModal,
   },
   filters: {
       moment: function(date) {

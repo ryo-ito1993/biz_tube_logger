@@ -5,9 +5,9 @@ import store from '../store'
 import TopIndex from "../pages/top/index";
 import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
-import VideoIndex from "../pages/video/index"
+import VideoIndex from "../pages/video/index/index"
 import VideoCreate from "../pages/video/create"
-import VideoShow from "../pages/video/show"
+import VideoShow from "../pages/video/show/show"
 import MypageIndex from "../pages/mypage/index"
 
 Vue.use(Router)

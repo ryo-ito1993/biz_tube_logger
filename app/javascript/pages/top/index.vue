@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import VideoItem from "../video/components/VideoItem.vue"
+import VideoItem from "../video/index/components/VideoItem.vue"
 export default {
   components: {
     VideoItem,

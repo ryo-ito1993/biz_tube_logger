@@ -76,8 +76,8 @@
 
 <script>
 import { mapActions } from "vuex"
-import CommentCreateModal from "./comments/CommentCreateModal.vue"
-import CommentEditModal from "./comments/CommentEditModal.vue"
+import CommentCreateModal from "./CommentCreateModal.vue"
+import CommentEditModal from "./CommentEditModal.vue"
 export default {
   name: "ShowOutputsComments",
   components: {
