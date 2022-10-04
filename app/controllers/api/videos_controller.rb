@@ -24,13 +24,10 @@ class Api::VideosController < ApplicationController
                  end
 
     # 同じvideoレコードがある場合、既存のvideoにoutputを紐付ける
-    if Video.find_by(youtube_id:)
-      ApplicationRecord.transaction do
-        @video = Video.find_by(youtube_id:)
-        @output = current_user.outputs.build(output_params)
-        @output.video_id = @video.id
-        @output.save!
-      end
+    if (@video = Video.find_by(youtube_id:))
+      @output = current_user.outputs.build(output_params)
+      @output.video_id = @video.id
+      @output.save
     # レコードがない場合は新たにvideoを作成し、outputに紐づける
     else
       @video = current_user.videos.build

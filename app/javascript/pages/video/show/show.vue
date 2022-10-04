@@ -57,18 +57,18 @@
 </template>
 
 <script>
-import OutputCreateModal from "./components/OutputCreateModal.vue"
 import ShowVideo from "./components/ShowVideo.vue"
 import ShowOutputs from "./components/ShowOutputs.vue"
 import ShowOutputsComments from "./components/ShowOutputsComments.vue"
+import OutputCreateModal from "./components/OutputCreateModal.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
   name: "VideoShow",
   components: {
-    OutputCreateModal,
     ShowVideo,
     ShowOutputs,
-    ShowOutputsComments
+    ShowOutputsComments,
+    OutputCreateModal
   },
   props: {
     id:{

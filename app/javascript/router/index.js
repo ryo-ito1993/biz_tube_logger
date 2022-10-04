@@ -1,8 +1,8 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from "vue"
+import Router from "vue-router"
 import store from '../store'
 
-import TopIndex from "../pages/top/index";
+import TopIndex from "../pages/top/index"
 import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
 import VideoIndex from "../pages/video/index/index"
