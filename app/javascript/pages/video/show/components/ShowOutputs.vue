@@ -4,7 +4,7 @@
       cols="12"
       class="d-flex pt-0 pb-0"
     >
-      <span class="text-h6 font-weight-bold">{{ output.user.name }}さんのアウトプット</span>
+      <span class="font-weight-bold"><v-icon>mdi-account-circle</v-icon>{{ output.user.name }}</span>
       <v-spacer />
       <template v-if="authUser">
         <template v-if="isAuthUserLike(output)">
