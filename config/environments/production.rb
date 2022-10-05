@@ -64,6 +64,21 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
+
+  # 送信詳細の設定
+  config.action_mailer.smtp_settings = {
+    #gmail利用時はaddress,domain,portは下記で固定
+    address:"smtp.yahoo.co.jp",
+    domain: "yahoo.co.jp",
+    port:587,
+    #gmailのユーザアカウント（xxxx@gmail.com)
+    user_name: "biztubelogger@yahoo.co.jp",
+    #gmail２段階認証回避のためにアプリケーションでの利用パスワードを取得
+    password: "Runteq123",
+    #パスワードをBase64でエンコード
+    authentication: :login
+  }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
