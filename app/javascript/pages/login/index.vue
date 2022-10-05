@@ -52,7 +52,7 @@
             </ValidationProvider>
             <v-card-actions>
               <v-btn
-                class="info"
+                class="info mb-2"
                 :disabled="invalid"
                 @click="login"
               >
@@ -67,23 +67,44 @@
             こちら
           </router-link>
         </v-card-text>
+        <v-row>
+        <v-btn @click="handleShowResetPassworModal" color="primary" class="mx-auto mt-3 mb-4" outlined max-width=210 max-height=25>
+          パスワードをお忘れですか？
+        </v-btn>
+        </v-row>
       </v-card-text>
     </v-card>
+
+    <v-dialog
+      v-if="isVisibleResetPasswordModal"
+      v-model="isVisibleResetPasswordModal"
+      max-width="800"
+    >
+      <ResetPasswordModal
+        @close-modal="handleCloseResetPasswordModal"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import { mapActions } from "vuex"
+import ResetPasswordModal from "./components/ResetPasswordModal"
+
 
 export default {
   name: "LoginIndex",
+  components: {
+    ResetPasswordModal,
+  },
   data() {
     return {
       showPassword: false,
       user: {
         email: "",
         password: "",
-      }
+      },
+      isVisibleResetPasswordModal: false
     }
   },
   methods: {
@@ -113,7 +134,14 @@ export default {
     )
         console.log(error);
       }
-    }
+    },
+    handleShowResetPassworModal() {
+      this.isVisibleResetPasswordModal = true;
+    },
+    handleCloseResetPasswordModal() {
+      this.isVisibleResetPasswordModal = false;
+      this.email = {};
+    },
   }
 }
 </script>
