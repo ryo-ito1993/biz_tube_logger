@@ -66,16 +66,6 @@ import { mapActions } from "vuex"
       },
     )
         })
-        .catch(err => {
-          this.showMessage(
-      {
-        message: "送信に失敗しました",
-        type: "error",
-        status: true,
-      },
-    )
-          console.log(err)
-        })
       },
       handleCloseModal(){
         this.$emit('close-modal')

@@ -11,14 +11,21 @@ class Api::PasswordResetsController < ApplicationController
   end
 
   def update
-    @user = User.load_from_reset_password_token(params[:id])
-    return not_authenticated if @user.blank?
+    user = User.load_from_reset_password_token(params[:id])
+    raise ActiveRecord::RecordNotFound unless user
 
-    @user.password_confirmation = params[:password_reset][:password_confirmation]
-    if @user.change_password(params[:password_reset][:password])
-      render nothing: true
+    user.password_confirmation = user_params[:password_confirmation]
+
+    if user.change_password(user_params[:password])
+      head :ok
     else
-      render json: @user.errors, status: :bad_request
+      render json: { errors: user.errors }, status: :bad_request
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 end
