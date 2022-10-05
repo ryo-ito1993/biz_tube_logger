@@ -14,6 +14,9 @@ const mutations = {
   setOutputs: (state, outputs) => {
     state.outputs = outputs
   },
+  addOutput: (state, output) => {
+    state.outputs.push(output)
+  },
   updateOutput: (state, updateOutput) => {
     const index = state.outputs.findIndex(output => {
       return output.id == updateOutput.id
@@ -25,10 +28,6 @@ const mutations = {
       return output.id != deleteOutput.id
     })
   },
-  addOutput: (state, output) => {
-    state.outputs.push(output)
-  }
-
 }
 
 const actions = {
@@ -38,6 +37,12 @@ const actions = {
         commit('setOutputs', res.data)
       })
       .catch(err => console.log(err.response));
+  },
+  createOutput({ commit }, output) {
+    return axios.post('outputs', output)
+      .then(res => {
+        commit('addOutput', res.data)
+      })
   },
   updateOutput({commit}, output) {
     return axios.patch('outputs/' + output.id , output)
@@ -64,16 +69,16 @@ const actions = {
         }
       })
   },
-  createOutput({ commit }, output) {
-    return axios.post('outputs', output)
-      .then(res => {
-        commit('addOutput', res.data)
-      })
-    },
     createComment({ commit }, comment) {
       return axios.post('comments', comment)
         .then(res => {
           console.log(res.data)
+          commit('updateOutput', res.data)
+        })
+    },
+    updateComment({commit}, comment) {
+      return axios.patch('comments/' + comment.id , comment)
+        .then(res => {
           commit('updateOutput', res.data)
         })
     },
@@ -82,12 +87,6 @@ const actions = {
         .then(res => {
           commit('updateOutput', res.data)
           console.log(res.data)
-        })
-    },
-    updateComment({commit}, comment) {
-      return axios.patch('comments/' + comment.id , comment)
-        .then(res => {
-          commit('updateOutput', res.data)
         })
     },
     createLike({ commit }, output) {

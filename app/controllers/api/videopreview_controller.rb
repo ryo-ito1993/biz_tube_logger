@@ -18,7 +18,7 @@ class Api::VideopreviewController < ApplicationController
     set_yt
     yt_video = Yt::Video.new id: youtube_id
     video = Video.new
-    if video.title = yt_video.title
+    if (video.title = yt_video.title)
       render json: youtube_id
     else
       render json: yt_video.errors, status: :bad_request

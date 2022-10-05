@@ -4,7 +4,7 @@
       cols="12"
       class="d-flex pt-0 pb-0"
     >
-      <span class="text-h6 font-weight-bold">{{ output.user.name }}さんのアウトプット</span>
+      <span class="font-weight-bold"><v-icon>mdi-account-circle</v-icon>{{ output.user.name }}</span>
       <v-spacer />
       <template v-if="authUser">
         <template v-if="isAuthUserLike(output)">
@@ -114,13 +114,14 @@
       v-model="isVisibleEditModal"
       max-width="800"
     >
-      <EditModal
+      <OutputEditModal
         :youtube-id="videos[0].youtube_id"
         :output="outputEdit"
         @close-modal="handleCloseEditModal"
         @update-output="handleUpdateOutput"
       />
     </v-dialog>
+    <!-- 削除確認モーダル -->
     <v-dialog
       v-if="isVisibleConfirmModal"
       v-model="isVisibleConfirmModal"
@@ -158,12 +159,12 @@
 
 <script>
 import moment from "moment";
-import EditModal from "./EditModal"
+import OutputEditModal from "./OutputEditModal"
 import { mapActions } from "vuex"
 export default {
   name: "ShowOutputs",
   components: {
-    EditModal,
+    OutputEditModal,
   },
   filters: {
       moment: function(date) {

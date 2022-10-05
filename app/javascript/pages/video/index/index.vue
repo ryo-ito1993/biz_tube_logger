@@ -58,8 +58,8 @@
               <v-pagination
                 v-model="page.currentPage"
                 :length="page.totalPages"
-                @input="changePage"
                 class="mt-5"
+                @input="changePage"
               />
             </v-container>
           </v-tab-item>
@@ -125,11 +125,10 @@ export default {
       categorysearchlists: [],
       keyword: '',
       tab: null,
-      requestUrl: "videos",
-        page: {
-          currentPage: 1,
-          totalPages: 1,
-        }
+      page: {
+        currentPage: 1,
+        totalPages: 1,
+      }
     }
   },
   computed: {

@@ -109,7 +109,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex"
-import VideoItem from "../video/components/VideoItem.vue"
+import VideoItem from "../video/index/components/VideoItem.vue"
 import ProfileEditModal from "./components/ProfileEditModal.vue"
 export default {
   name: "MypageIndex",
