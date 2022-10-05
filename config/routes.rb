@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         get 'me'
       end
     end
+    resources :password_resets, only: %i[create edit update]
   end
 
   root to: 'home#index'
