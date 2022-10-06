@@ -23,8 +23,9 @@ Rails.application.routes.draw do
         get 'me'
       end
     end
+    resources :password_resets, only: %i[create edit update]
   end
-
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   root to: 'home#index'
   get '*path', to: 'home#index'
 end

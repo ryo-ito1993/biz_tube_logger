@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, presence: true
   validates :name, presence: true
+  validates :reset_password_token, presence: true, uniqueness: true, allow_nil: true
+
 
   def bookmark(video)
     bookmark_videos << video

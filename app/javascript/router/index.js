@@ -9,6 +9,7 @@ import VideoIndex from "../pages/video/index/index"
 import VideoCreate from "../pages/video/create"
 import VideoShow from "../pages/video/show/show"
 import MypageIndex from "../pages/mypage/index"
+import ResetPasswordUpdate from "../pages/reset_password/ResetPasswordUpdate.vue"
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ const router = new Router({
       component: MypageIndex,
       name: "MypageIndex",
       meta: { requiredAuth: true },
+    },
+    {
+      path: "/users/password/edit",
+      name: "ResetPasswordUpdate",
+      component: ResetPasswordUpdate,
     },
   ],
 })

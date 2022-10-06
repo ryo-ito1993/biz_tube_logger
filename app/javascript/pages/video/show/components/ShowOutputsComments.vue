@@ -48,12 +48,12 @@
     >
       コメントする
     </v-btn>
+    <!-- モーダルコンポーネント -->
     <v-dialog
       v-if="isVisibleCommentModal"
       v-model="isVisibleCommentModal"
       max-width="500"
     >
-      <!-- モーダルコンポーネント -->
       <CommentCreateModal
         :output-id="outputId"
         @close-modal="handleCloseCommentModal"
