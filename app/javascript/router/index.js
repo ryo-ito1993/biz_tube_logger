@@ -10,6 +10,8 @@ import VideoCreate from "../pages/video/create"
 import VideoShow from "../pages/video/show/show"
 import MypageIndex from "../pages/mypage/index"
 import ResetPasswordUpdate from "../pages/reset_password/ResetPasswordUpdate.vue"
+import PrivacyPolicy from "../pages/policies/PrivacyPolicy"
+
 
 Vue.use(Router)
 
@@ -59,7 +61,27 @@ const router = new Router({
       name: "ResetPasswordUpdate",
       component: ResetPasswordUpdate,
     },
+    {
+      path: "/privacypolicy",
+      component: PrivacyPolicy,
+      name: "PrivacyPolicy",
+    },
   ],
+  scrollBehavior(to, from, savePosition) {
+    console.log("to", to);
+    console.log("from", from);
+    console.log("savePosition", savePosition);
+    if (savePosition) {
+        return savePosition;
+    }
+    if (to.hash) {
+        return {
+            selector: "#next-user",
+            offset: { x: 0, y: 100 }
+        }
+    }
+    return { x: 0, y: 0 };
+}
 })
 
 router.beforeEach((to, from, next) => {
