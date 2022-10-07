@@ -11,7 +11,7 @@ import VideoShow from "../pages/video/show/show"
 import MypageIndex from "../pages/mypage/index"
 import ResetPasswordUpdate from "../pages/reset_password/ResetPasswordUpdate.vue"
 import PrivacyPolicy from "../pages/policies/PrivacyPolicy"
-
+import TermsOfService from "../pages/policies/TermsOfService"
 
 Vue.use(Router)
 
@@ -65,6 +65,11 @@ const router = new Router({
       path: "/privacypolicy",
       component: PrivacyPolicy,
       name: "PrivacyPolicy",
+    },
+    {
+      path: "/termsofservice",
+      component: TermsOfService,
+      name: "TermsOfService",
     },
   ],
   scrollBehavior(to, from, savePosition) {

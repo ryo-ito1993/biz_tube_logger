@@ -68,9 +68,16 @@
           </router-link>
         </v-card-text>
         <v-row>
-        <v-btn @click="handleShowResetPassworModal" color="primary" class="mx-auto mt-3 mb-4" outlined max-width=210 max-height=25>
-          パスワードをお忘れですか？
-        </v-btn>
+          <v-btn
+            color="primary"
+            class="mx-auto mt-3 mb-4"
+            outlined
+            max-width="210"
+            max-height="25"
+            @click="handleShowResetPassworModal"
+          >
+            パスワードをお忘れですか？
+          </v-btn>
         </v-row>
       </v-card-text>
     </v-card>

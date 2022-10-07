@@ -4,27 +4,32 @@
   >
     <v-spacer />
     <div>
-      <v-btn
-        dense
-        text
-      >
-        利用規約
-      </v-btn>
-      <router-link :to="{ name: 'PrivacyPolicy' }">
-      <v-btn
-        dense
-        text
-      >
-        プライバシーポリシー
-      </v-btn>
-      </router-link>
-      <a href="https://twitter.com/ryo_runteq32" target="_blank">
+      <router-link :to="{ name: 'TermsOfService' }">
         <v-btn
-        dense
-        text
+          dense
+          text
+        >
+          利用規約
+        </v-btn>
+      </router-link>
+      <router-link :to="{ name: 'PrivacyPolicy' }">
+        <v-btn
+          dense
+          text
+        >
+          プライバシーポリシー
+        </v-btn>
+      </router-link>
+      <a
+        href="https://twitter.com/ryo_runteq32"
+        target="_blank"
       >
-        お問い合せ
-      </v-btn>
+        <v-btn
+          dense
+          text
+        >
+          お問い合せ
+        </v-btn>
       </a>
       <small>&copy; BizTubeLogger 2022.</small>
     </div>
