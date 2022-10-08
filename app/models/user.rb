@@ -18,7 +18,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :reset_password_token, presence: true, uniqueness: true, allow_nil: true
 
-
   def bookmark(video)
     bookmark_videos << video
   end
@@ -33,5 +32,15 @@ class User < ApplicationRecord
 
   def unlike(output)
     like_outputs.destroy(output)
+  end
+
+  # ゲストユーザーが存在しない場合、ゲストユーザーを作成
+  def self.guest
+    password = SecureRandom.urlsafe_base64
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = password
+      user.password_confirmation = password
+      user.name = 'ゲストユーザー'
+    end
   end
 end

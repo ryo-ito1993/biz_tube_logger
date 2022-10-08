@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :sessions
+    resources :sessions, only: %i[create] do
+      post :guest_login, on: :collection
+    end
     resources :videos, shallow: true do
       resources :bookmarks, only: %i[create destroy]
       get :display_videos, on: :collection

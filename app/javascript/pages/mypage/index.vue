@@ -1,16 +1,21 @@
 <template>
   <div>
     <v-container class="text-center justify-center pb-0 d-flex">
-      <span class="text-h6 mb-0 font-weight-bold">
+      <span
+        v-if="authUser"
+        class="text-h6 mb-0 font-weight-bold"
+      >
         {{ authUser.name }}さんのMY PAGE
       </span>
       <v-spacer />
-      <v-btn
-        color="success"
-        @click="handleShowProfileEditModal"
-      >
-        Edit Profile
-      </v-btn>
+      <div v-if="authUser && (authUser.name !== 'ゲストユーザー')">
+        <v-btn
+          color="success"
+          @click="handleShowProfileEditModal"
+        >
+          Edit Profile
+        </v-btn>
+      </div>
     </v-container>
     <v-container class="text-center justify-center py-6">
       <v-card elevation="10">

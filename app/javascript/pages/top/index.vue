@@ -24,11 +24,12 @@
               さっそくはじめる
             </v-btn>
           </router-link>
-          <router-link :to="{ name: 'VideoIndex' }">
-            <v-btn class="primary ml-6 mt-10">
-              みんなの投稿を覗いてみる
-            </v-btn>
-          </router-link>
+          <v-btn
+            class="primary ml-6 mt-10"
+            @click="guestLogin()"
+          >
+            ゲストログインで試してみる
+          </v-btn>
         </v-container>
       </v-img>
     </div>
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 import VideoItem from "../video/index/components/VideoItem.vue"
 export default {
   components: {
@@ -125,10 +127,34 @@ export default {
     this.fetchVideos();
   },
   methods: {
+    ...mapActions("users", ["guestLoginUser"]),
+    ...mapActions("flashMessage", ["showMessage"]),
     fetchVideos() {
       this.$axios.get("videos")
         .then(res => this.videos = res.data)
         .catch(err => console.log(err.status));
+    },
+    async guestLogin() {
+      try {
+        await this.guestLoginUser();
+        this.$router.push({ name: 'VideoIndex' })
+        this.showMessage(
+      {
+        message: "ゲストユーザーでログインしました",
+        type: "light-blue",
+        status: true,
+      },
+    )
+      } catch (error) {
+        this.showMessage(
+      {
+        message: "ログインに失敗しました",
+        type: "error",
+        status: true,
+      },
+    )
+        console.log(error);
+      }
     },
   }
 }

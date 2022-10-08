@@ -30,6 +30,15 @@ const actions = {
     const userResponse = await axios.get('users/me')
     commit('setUser', userResponse.data)
   },
+  async guestLoginUser({ commit }) {
+    const sessionsResponse = await axios.post('sessions/guest_login')
+    localStorage.auth_token = sessionsResponse.data.token
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.auth_token}`
+
+    const userResponse = await axios.get('users/me')
+    commit('setUser', userResponse.data)
+  },
+
   logoutUser({ commit }) {
     localStorage.removeItem('auth_token')
     axios.defaults.headers.common['Authorization'] = ''
@@ -60,7 +69,6 @@ const actions = {
         commit('setUser', res.data)
       })
   },
-
 }
 
 export default {
