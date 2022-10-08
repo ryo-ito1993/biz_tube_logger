@@ -10,22 +10,22 @@ Rails.application.routes.draw do
     resources :outputs, shallow: true do
       resources :likes, only: %i[create destroy]
     end
-    resources :categories
-    resources :comments
-    resources :profile
-    resources :videopreview
-    resources :mypages do
+    resources :categories, only: %i[index]
+    resources :comments, only: %i[create update destroy]
+    resources :profile, only: %i[update]
+    resources :videopreview, only: %i[create]
+    resources :mypages, only: %i[index] do
       get :likes_comments_count, on: :collection
     end
     resources :bookmarks, only: %i[index] do
       get :bookmark_list, on: :collection
     end
-    resources :users, only: %i[show create] do
+    resources :users, only: %i[create] do
       collection do
         get 'me'
       end
     end
-    resources :password_resets, only: %i[create edit update]
+    resources :password_resets, only: %i[create update]
   end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   root to: 'home#index'

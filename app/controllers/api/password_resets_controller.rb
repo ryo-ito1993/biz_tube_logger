@@ -1,13 +1,8 @@
 class Api::PasswordResetsController < ApplicationController
   def create
-    @user = User.find_by_email(params[:email])
+    @user = User.find_by(email: params[:email])
     @user&.generate_reset_password_token!
     UserMailer.reset_password_email(@user).deliver_now if @user
-  end
-
-  def edit
-    user = User.load_from_reset_password_token(params[:id])
-    render json: user
   end
 
   def update
