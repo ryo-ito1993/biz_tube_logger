@@ -144,7 +144,16 @@ export default {
           console.log(err)
         })
     }
-  }
+  },
+  head() {
+    return {
+      title: {
+        inner: "SignUp",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 }
 </script>
 

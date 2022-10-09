@@ -188,7 +188,16 @@ export default {
         console.log(error);
       }
     },
-  }
+  },
+  head() {
+    return {
+      title: {
+        inner: "MyPage",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 }
 </script>
 

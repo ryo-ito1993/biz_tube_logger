@@ -149,7 +149,16 @@ export default {
       this.isVisibleResetPasswordModal = false;
       this.email = {};
     },
-  }
+  },
+  head() {
+    return {
+      title: {
+        inner: "Login",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 }
 </script>
 

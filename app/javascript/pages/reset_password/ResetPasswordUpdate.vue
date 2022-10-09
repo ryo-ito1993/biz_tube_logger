@@ -102,5 +102,14 @@ export default {
         })
       },
   },
+  head() {
+    return {
+      title: {
+        inner: "PasswordEdit",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 };
 </script>
