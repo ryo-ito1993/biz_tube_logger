@@ -136,74 +136,83 @@
 <script>
 import { mapActions } from "vuex"
 export default {
-    data: () => ({
-      categories: [],
-      selected_categories: [],
-      youtube_url: '',
-      output: {
-        summary: '',
-        impression: ''
-      },
-      youtubeId: '',
-      isDisabled: false
-    }),
-    created: function () {
-      this.fetchCategories();
+  name: "VideoCreate",
+  data: () => ({
+    categories: [],
+    selected_categories: [],
+    youtube_url: '',
+    output: {
+      summary: '',
+      impression: ''
     },
-    methods: {
-      ...mapActions("flashMessage", ["showMessage"]),
-      createVideo() {
-      this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
+    youtubeId: '',
+    isDisabled: false
+  }),
+  created: function () {
+    this.fetchCategories();
+  },
+  methods: {
+    ...mapActions("flashMessage", ["showMessage"]),
+    createVideo() {
+    this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
+      .then(res => {
+        this.$router.push({ name:'VideoIndex' })
+        this.showMessage(
+    {
+      message: "投稿しました",
+      type: "light-blue",
+      status: true,
+    },
+  )
+      })
+      .catch(err => {
+        this.showMessage(
+    {
+      message: "投稿に失敗しました",
+      type: "error",
+      status: true,
+    },
+  )
+        console.log(err)
+      })
+    },
+    fetchCategories() {
+    this.$axios.get("/categories/")
+      .then(res => this.categories = res.data)
+      .catch(err => console.log(err.status));
+  },
+    previewVideo() {
+      this.youtubeId = ''
+      this.$axios.post('videopreview', { youtube_url: this.youtube_url})
         .then(res => {
-          this.$router.push({ name:'VideoIndex' })
-          this.showMessage(
-      {
-        message: "投稿しました",
-        type: "light-blue",
-        status: true,
-      },
-    )
+          this.youtubeId = res.data
+          this.isDisabled = true
         })
         .catch(err => {
           this.showMessage(
       {
-        message: "投稿に失敗しました",
+        message: "プレビューに失敗しました",
         type: "error",
         status: true,
       },
     )
           console.log(err)
         })
-      },
-      fetchCategories() {
-      this.$axios.get("/categories/")
-        .then(res => this.categories = res.data)
-        .catch(err => console.log(err.status));
-    },
-      previewVideo() {
-        this.youtubeId = ''
-        this.$axios.post('videopreview', { youtube_url: this.youtube_url})
-          .then(res => {
-            this.youtubeId = res.data
-            this.isDisabled = true
-          })
-          .catch(err => {
-            this.showMessage(
-        {
-          message: "プレビューに失敗しました",
-          type: "error",
-          status: true,
-        },
-      )
-            console.log(err)
-          })
     },
     closePreviewVideo(){
       this.youtubeId = ''
       this.isDisabled = false
     }
-
-  }
+  },
+  head() {
+    return {
+      title: {
+        inner: "NewOutput",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 }
 </script>
 

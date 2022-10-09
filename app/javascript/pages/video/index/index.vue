@@ -114,7 +114,7 @@ import goTo from "vuetify/es5/services/goto"
 import VideoItem from "./components/VideoItem.vue"
 export default {
   name: "VideoIndex",
-    components: {
+  components: {
     VideoItem,
   },
   data() {
@@ -181,6 +181,15 @@ export default {
       goTo(0)  // ページ最上部までスクロール。Vuetifyのメソッド
       const res = await this.$axios.get(`videos/display_videos/?page=`+ val)
       this.displayVideos = res.data
+    }
+  },
+  head() {
+    return {
+      title: {
+        inner: "List",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
     }
   }
 }

@@ -86,5 +86,14 @@
 <script>
 export default {
   name: "PrivacyPolicy",
+  head() {
+    return {
+      title: {
+        inner: "プライバシーポリシー",
+        separator: "|",
+        complement: "BizTubeLogger",
+      }
+    }
+  },
 };
 </script>
