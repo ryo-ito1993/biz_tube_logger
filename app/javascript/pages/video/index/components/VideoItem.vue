@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col
-        v-for="video in videos"
+        v-for="(video, index) in videos"
         :key="video.id"
         cols="12"
         sm="6"
@@ -49,11 +49,9 @@
                 <v-icon color="primary">mdi-thumb-up-outline</v-icon>
               </span>
               <span
-                v-for="(key, value) in video.video_likes"
-                :key="key.id"
                 class="primary--text"
               >
-                <template v-if="Number(value) === video.id">{{ key }}</template>
+              {{likesCount[index]}}
               </span>
               <span>
                 <v-icon
@@ -64,11 +62,9 @@
                 </v-icon>
               </span>
               <span
-                v-for="(key, value) in video.video_comments"
-                :key="key.id"
                 class="primary--text"
               >
-                <template v-if="Number(value) === video.id">{{ key }}</template>
+                {{ commentsCount[index] }}
               </span>
               <template v-if="authUser">
                 <template v-if="isAuthUserBookmark(video)">
@@ -134,6 +130,24 @@ export default {
   computed: {
   ...mapGetters("users", ["authUser"]),
   ...mapGetters("bookmarks", ["bookmarks"]),
+  commentsCount: function() {
+      var commentscounts = [];
+      for (var i in this.videos) {
+        var video  = this.videos[i];
+        var total = video.outputs.reduce((sum, i) => sum + i.comments_count, 0);
+        commentscounts.push(total)
+      }
+      return commentscounts
+    },
+    likesCount: function() {
+      var likescounts = [];
+      for (var i in this.videos) {
+        var video  = this.videos[i];
+        var total = video.outputs.reduce((sum, i) => sum + i.likes_count, 0);
+        likescounts.push(total)
+      }
+      return likescounts
+    },
   },
   created () {
     if(this.authUser){

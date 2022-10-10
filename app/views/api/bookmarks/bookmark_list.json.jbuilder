@@ -10,7 +10,7 @@ json.array! @bookmarks do |video|
   end
   json.outputs video.outputs do |output|
     json.created_at output.created_at
+    json.comments_count output.comments.count
+    json.likes_count output.likes.count
   end
-  json.video_comments @video_comments
-  json.video_likes @video_likes
 end
