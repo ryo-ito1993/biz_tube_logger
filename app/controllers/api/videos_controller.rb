@@ -2,12 +2,12 @@ class Api::VideosController < ApplicationController
   include Pagy::Backend
 
   def index
-    @videos = Video.includes(:user, :outputs, :categories).order('outputs.created_at DESC')
+    @videos = Video.includes(:user, :categories, outputs: [:comments, :likes]).order('outputs.created_at DESC')
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
   def display_videos
-    pagy_a, @videos = pagy_array(Video.includes(:user, :outputs, :categories).order('outputs.created_at DESC'))
+    pagy_a, @videos = pagy_array(Video.includes(:user, :categories, outputs: [:comments, :likes]).order('outputs.created_at DESC'))
     pagy_headers_merge(pagy_a)
     render :index, formats: :json, handlers: 'jbuilder'
   end

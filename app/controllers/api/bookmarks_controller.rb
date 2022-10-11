@@ -17,7 +17,7 @@ class Api::BookmarksController < ApplicationController
   end
 
   def bookmark_list
-    @bookmarks = current_user.bookmark_videos.includes(:user, :outputs, :categories).order('outputs.created_at DESC')
+    @bookmarks = current_user.bookmark_videos.includes(:user, :categories, outputs: [:comments, :likes]).order('outputs.created_at DESC')
     render :bookmark_list, formats: :json, handlers: 'jbuilder'
   end
 
