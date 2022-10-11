@@ -1,8 +1,6 @@
 class Api::MypagesController < ApplicationController
   def index
     @videos = Video.joins(:outputs).where(outputs: { user_id: current_user.id }).distinct.includes(:user, :outputs, :categories).order('outputs.created_at DESC')
-    @video_comments = Output.joins(:comments).group('outputs.video_id').count
-    @video_likes = Output.joins(:likes).group('outputs.video_id').count
     render :index, formats: :json, handlers: 'jbuilder'
   end
 

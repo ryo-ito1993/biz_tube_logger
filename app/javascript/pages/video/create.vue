@@ -47,13 +47,13 @@
           </ValidationProvider>
 
           <div
-            v-if="youtubeId"
+            v-if="preview_youtube_id"
             class="justify-center d-flex mb-5"
           >
             <iframe
               width="840"
               height="473"
-              :src="`https://www.youtube.com/embed/${youtubeId}`"
+              :src="`https://www.youtube.com/embed/${preview_youtube_id}`"
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -145,7 +145,8 @@ export default {
       summary: '',
       impression: ''
     },
-    youtubeId: '',
+    preview_youtube_id: '',
+    youtube_id: '',
     isDisabled: false
   }),
   created: function () {
@@ -154,7 +155,14 @@ export default {
   methods: {
     ...mapActions("flashMessage", ["showMessage"]),
     createVideo() {
-    this.$axios.post('videos', { youtube_url: this.youtube_url, output: this.output , selected_categories: this.selected_categories})
+    this.youtube_id = ''
+    if (this.youtube_url.slice(0, 17) == 'https://youtu.be/'){
+      this.youtube_id = this.youtube_url.slice(17, 28)
+    }
+    else {
+      this.youtube_id = this.youtube_url.slice(32, 43)
+    }
+    this.$axios.post('videos', { youtube_id: this.youtube_id, output: this.output , selected_categories: this.selected_categories})
       .then(res => {
         this.$router.push({ name:'VideoIndex' })
         this.showMessage(
@@ -182,10 +190,17 @@ export default {
       .catch(err => console.log(err.status));
   },
     previewVideo() {
-      this.youtubeId = ''
-      this.$axios.post('videopreview', { youtube_url: this.youtube_url})
+      this.preview_youtube_id = ''
+      this.youtube_id = ''
+      if (this.youtube_url.slice(0, 17) == 'https://youtu.be/'){
+      this.youtube_id = this.youtube_url.slice(17, 28)
+    }
+    else {
+      this.youtube_id = this.youtube_url.slice(32, 43)
+    }
+      this.$axios.post('videopreview', { youtube_id: this.youtube_id})
         .then(res => {
-          this.youtubeId = res.data
+          this.preview_youtube_id = res.data
           this.isDisabled = true
         })
         .catch(err => {
@@ -200,7 +215,8 @@ export default {
         })
     },
     closePreviewVideo(){
-      this.youtubeId = ''
+      this.preview_youtube_id = ''
+      this.youtube_id = ''
       this.isDisabled = false
     }
   },
