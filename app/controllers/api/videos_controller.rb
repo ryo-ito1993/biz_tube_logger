@@ -17,7 +17,11 @@ class Api::VideosController < ApplicationController
     if (@video = Video.find_by(youtube_id: params[:youtube_id]))
       @output = current_user.outputs.build(output_params)
       @output.video_id = @video.id
-      @output.save
+      if @output.save
+        render json: [@video, @output], status: :ok
+      else
+        render json: @output.errors, status: :bad_request
+      end
     # レコードがない場合は新たにvideoを作成し、outputに紐づける
     else
       @video = current_user.videos.build
@@ -28,6 +32,7 @@ class Api::VideosController < ApplicationController
         @output = current_user.outputs.build(output_params)
         @output.video_id = @video.id
         @output.save!
+        render json: [@video, @output], status: :ok
       end
     end
   end
