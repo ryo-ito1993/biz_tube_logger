@@ -87,6 +87,7 @@ GEM
     deep_merge (1.2.2)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    docile (1.4.0)
     dry-configurable (0.15.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
@@ -297,6 +298,12 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    simplecov (0.21.2)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     snaky_hash (2.0.0)
       hashie
       version_gem (~> 1.1)
@@ -377,6 +384,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
+  simplecov
   sorcery
   spring
   turbolinks (~> 5)
