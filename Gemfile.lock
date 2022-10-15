@@ -373,7 +373,6 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  oauth2
   pagy
   pg (~> 1.1)
   puma (~> 5.0)
