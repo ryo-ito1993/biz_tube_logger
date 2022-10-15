@@ -1,4 +1,5 @@
 class Api::VideosController < ApplicationController
+  before_action :authenticate!, only: %i[create]
   include Pagy::Backend
 
   def index

@@ -1,4 +1,5 @@
 class Api::VideopreviewController < ApplicationController
+  before_action :authenticate!
   GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
 
   def set_yt

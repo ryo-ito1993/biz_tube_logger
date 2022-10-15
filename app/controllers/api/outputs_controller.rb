@@ -1,5 +1,6 @@
 class Api::OutputsController < ApplicationController
   before_action :set_output, only: %i[update destroy]
+  before_action :authenticate!, only: %i[create update destroy]
 
   def show
     @outputs = Output.where(video_id: params[:id]).includes(:user, :likes, :comments).order(created_at: :asc)
