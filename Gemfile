@@ -68,3 +68,4 @@ gem 'net-pop'
 gem 'pagy'
 gem 'config'
 gem 'meta-tags'
+gem 'whenever', require: false
