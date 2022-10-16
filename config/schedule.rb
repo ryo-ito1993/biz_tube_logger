@@ -31,6 +31,6 @@ set :environment, rails_env
 # cronのログファイルの出力先指定
 set :output, "#{Rails.root}/log/cron.log"
 
-every :minute do
+every 1.day, at: '9:00 am' do
   rake 'view_count:update_view_count'
 end
