@@ -1,5 +1,6 @@
 class Api::BookmarksController < ApplicationController
   before_action :set_video, only: %i[create destroy]
+  before_action :authenticate!, only: %i[create destroy]
 
   def index
     @bookmarks = current_user.bookmark_videos

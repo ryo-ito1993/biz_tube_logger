@@ -1,5 +1,6 @@
 class Api::OutputsController < ApplicationController
   before_action :set_output, only: %i[update destroy]
+  before_action :authenticate!, only: %i[create update destroy]
 
   def show
     @outputs = Output.where(video_id: params[:id]).includes(:user, :likes, :comments).order(created_at: :asc)
@@ -25,6 +26,7 @@ class Api::OutputsController < ApplicationController
 
   def destroy
     @video = Video.find(@output.video_id)
+    #output投稿が1件のみの場合、videoも同時に削除
     if @video.outputs.length == 1
       @video.destroy!
       render json: [@video, @output]

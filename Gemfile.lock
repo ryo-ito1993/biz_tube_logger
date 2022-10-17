@@ -79,6 +79,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
+    chronic (0.10.2)
     concurrent-ruby (1.1.10)
     config (4.0.0)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -348,6 +349,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yt (0.32.6)
@@ -373,7 +376,6 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  oauth2
   pagy
   pg (~> 1.1)
   puma (~> 5.0)
@@ -392,10 +394,11 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
+  whenever
   yt (~> 0.32.0)
 
 RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.7
+   2.3.23

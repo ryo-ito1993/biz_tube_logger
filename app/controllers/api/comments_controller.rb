@@ -1,4 +1,5 @@
 class Api::CommentsController < ApplicationController
+  before_action :authenticate!
   def create
     comment = current_user.comments.build(comment_params)
     if comment.save

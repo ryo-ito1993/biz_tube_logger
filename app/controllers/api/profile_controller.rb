@@ -1,4 +1,5 @@
 class Api::ProfileController < ApplicationController
+  before_action :authenticate!
   def update
     user = User.find(current_user.id)
     if user.update(user_params)
