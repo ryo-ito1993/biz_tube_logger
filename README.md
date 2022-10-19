@@ -1,6 +1,9 @@
 # BizTubeLogger
 
-## ■ サービス概要
+## ■サービスURL
+https://www.biztube-logger.com/
+
+## ■サービス概要
 &emsp;ビジネス系youtubeの内容をアウトプットして記録管理、共有ができるサービスです。
 
 ## ■ビジネス系youtubeとは
