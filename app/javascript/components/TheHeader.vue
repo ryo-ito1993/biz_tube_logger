@@ -42,7 +42,7 @@
         </router-link>
       </template>
       <template v-else>
-        <router-link :to="{ name: 'VideoCreate' }">
+        <router-link :to="{ name: 'VideoNew' }">
           <v-btn
             v-if="!$vuetify.breakpoint.xsOnly"
             text
@@ -100,7 +100,7 @@
             </v-list-item>
           </template>
           <template v-else>
-            <v-list-item :to="{ name: 'VideoCreate' }">
+            <v-list-item :to="{ name: 'VideoNew' }">
               NEW OUTPUT
             </v-list-item>
             <v-list-item :to="{ name: 'MypageIndex' }">
