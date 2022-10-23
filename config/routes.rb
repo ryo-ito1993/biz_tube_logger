@@ -14,9 +14,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create update destroy]
     resources :profile, only: %i[update]
     resources :videopreview, only: %i[create]
-    resources :mypages, only: %i[index] do
-      get :likes_comments_count, on: :collection
-    end
+    resources :mypages, only: %i[index]
     resources :bookmarks, only: %i[index] do
       get :bookmark_list, on: :collection
     end

@@ -13,4 +13,6 @@ json.array! @videos do |video|
     json.comments_count output.comments.count
     json.likes_count output.likes.count
   end
+  json.likes_count @likes
+  json.comments_count @comments
 end

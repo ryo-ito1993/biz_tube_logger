@@ -51,7 +51,7 @@
               <span
                 class="primary--text"
               >
-              {{likesCount[index]}}
+                {{ likesCount[index] }}
               </span>
               <span>
                 <v-icon
