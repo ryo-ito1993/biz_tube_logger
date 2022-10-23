@@ -6,7 +6,7 @@ import TopIndex from "../pages/top/index"
 import RegisterIndex from "../pages/register/index"
 import LoginIndex from "../pages/login/index"
 import VideoIndex from "../pages/video/index/index"
-import VideoCreate from "../pages/video/create"
+import VideoNew from "../pages/video/new"
 import VideoShow from "../pages/video/show/show"
 import MypageIndex from "../pages/mypage/index"
 import ResetPasswordUpdate from "../pages/reset_password/ResetPasswordUpdate.vue"
@@ -40,8 +40,8 @@ const router = new Router({
     },
     {
       path: "/videonew",
-      component: VideoCreate,
-      name: "VideoCreate",
+      component: VideoNew,
+      name: "VideoNew",
       meta: { requiredAuth: true },
     },
     {

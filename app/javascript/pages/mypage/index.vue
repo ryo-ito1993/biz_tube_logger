@@ -41,8 +41,17 @@
             >
               mdi-thumb-up-outline
             </v-icon>
-            <h3 class="like">
-              {{ likesCommentsCount.likes_count }}
+            <h3
+              v-if="videos.length"
+              class="like"
+            >
+              {{ videos[0].likes_count }}
+            </h3>
+            <h3
+              v-if="!videos.length"
+              class="like"
+            >
+              0
             </h3>
             <h3 class="like">
               参考になった数
@@ -55,8 +64,11 @@
             >
               mdi-comment-outline
             </v-icon>
-            <h3>
-              {{ likesCommentsCount.comments_count }}
+            <h3 v-if="videos.length">
+              {{ videos[0].comments_count }}
+            </h3>
+            <h3 v-if="!videos.length">
+              0
             </h3>
             <h3>
               コメント数
@@ -127,7 +139,6 @@ export default {
       videos: [],
       tab: null,
       bookmarks: [],
-      likesCommentsCount: [],
       isVisibleProfileEditModal: false,
       userEdit: {}
     }
@@ -138,7 +149,6 @@ export default {
   created () {
     this.fetchmyVideos();
     this.fetchmyBookmarkList();
-    this.fetchmyLikesCommentsCount();
   },
   methods: {
     ...mapActions("users", ["updateProfile"]),
@@ -151,11 +161,6 @@ export default {
     fetchmyBookmarkList(){
       this.$axios.get('bookmarks/bookmark_list')
         .then(res => this.bookmarks = res.data)
-        .catch(err => console.log(err.status));
-    },
-    fetchmyLikesCommentsCount(){
-      this.$axios.get('mypages/likes_comments_count')
-        .then(res => this.likesCommentsCount = res.data)
         .catch(err => console.log(err.status));
     },
     handleShowProfileEditModal() {

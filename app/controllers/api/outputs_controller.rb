@@ -26,7 +26,7 @@ class Api::OutputsController < ApplicationController
 
   def destroy
     @video = Video.find(@output.video_id)
-    #output投稿が1件のみの場合、videoも同時に削除
+    # output投稿が1件のみの場合、videoも同時に削除
     if @video.outputs.length == 1
       @video.destroy!
       render json: [@video, @output]

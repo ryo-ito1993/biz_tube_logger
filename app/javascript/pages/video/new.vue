@@ -136,7 +136,7 @@
 <script>
 import { mapActions } from "vuex"
 export default {
-  name: "VideoCreate",
+  name: "VideoNew",
   data: () => ({
     categories: [],
     selected_categories: [],

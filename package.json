@@ -1,6 +1,9 @@
 {
   "name": "biz-tube-logger",
   "private": true,
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.vue app/javascript",
     "lint-fix": "eslint --fix --ext .js,.vue app/javascript"
