@@ -6,17 +6,8 @@ class Video < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   validates :youtube_id, :title, :view_count, :published_at, :thumbnail, presence: true
 
-  GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
-
-  def set_yt
-    Yt.configure do |config|
-      config.api_key = GOOGLE_API_KEY
-      config.log_level = :debug
-    end
-  end
-
   def create_videodata_from_youtube(youtube_id)
-    set_yt
+    SetYtService.new
     yt_video = Yt::Video.new id: youtube_id
     self.youtube_id = youtube_id
     self.title = yt_video.title

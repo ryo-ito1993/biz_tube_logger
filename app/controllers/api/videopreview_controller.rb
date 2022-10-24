@@ -1,16 +1,8 @@
 class Api::VideopreviewController < ApplicationController
   before_action :authenticate!
-  GOOGLE_API_KEY = ENV.fetch('GOOGLE_API_KEY', nil)
-
-  def set_yt
-    Yt.configure do |config|
-      config.api_key = GOOGLE_API_KEY
-      config.log_level = :debug
-    end
-  end
 
   def create
-    set_yt
+    SetYtService.new
     yt_video = Yt::Video.new id: params[:youtube_id]
     video = Video.new
     if (video.title = yt_video.title)
