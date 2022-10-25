@@ -17,6 +17,9 @@ module ApplicationHelper
         url: request.original_url,
         image: image_url('top_ogp.jpg'),
         locale: 'ja_JP'
+      },
+      twitter: {
+        card: 'summary_large_image'
       }
     }
   end
