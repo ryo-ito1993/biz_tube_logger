@@ -233,5 +233,10 @@ export default {
 </script>
 
 <style scoped>
-
+@media only screen and (max-width:600px) {
+  iframe {
+    width: 480px;
+    height:270px;
+  }
+}
 </style>
