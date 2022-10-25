@@ -108,4 +108,11 @@ iframe {
   max-width: 100%;
 }
 
+@media only screen and (max-width:600px) {
+  iframe {
+    width: 500px;
+    height:281px;
+  }
+}
+
 </style>

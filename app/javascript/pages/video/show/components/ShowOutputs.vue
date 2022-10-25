@@ -69,6 +69,14 @@
       </template>
       <template v-if="isAuthUserOutput(output)">
         <v-icon
+          class="ml-2"
+          color="blue"
+          large
+          @click="twitterShare(output)"
+        >
+          mdi-twitter
+        </v-icon>
+        <v-icon
           large
           right
           color="green"
@@ -183,6 +191,10 @@ export default {
     authUser: {
       type: Object,
       default: null,
+    },
+    id:{
+      type: String,
+      required: true
     }
   },
   data() {
@@ -275,7 +287,13 @@ export default {
         status: true,
       },
     )
-    }
+    },
+    twitterShare(output){
+           //シェアする画面を設定
+            var shareURL = 'https://twitter.com/intent/tweet?text=' + `${output.user.name}さんがアウトプットを投稿しました!\n` + '&url=' + `https://www.biztube-logger.com/video/${this.id}` + "%20%23BizTubeLogger";
+           //シェア用の画面へ移行
+            window.open(shareURL, '_blank')
+        }
   }
 }
 </script>

@@ -7,29 +7,31 @@
         max-height="580"
       >
         <v-container class="main-text">
-          <h1 class="white--text">
-            BizTubeLogger
-          </h1>
-          <h4 class="white--text pb-3">
-            ビジネスYouTubeアウトプット記録・共有サービス
-          </h4>
-          <h3 class="white--text mt-10">
-            せっかく学んだ知識、活かせていますか？
-          </h3>
-          <h3 class="white--text mt-3">
-            アウトプットで知識を自分のモノにしましょう！
-          </h3>
-          <router-link :to="{ name: 'RegisterIndex' }">
-            <v-btn class="success ml-10 mt-10">
-              さっそくはじめる
+          <v-col>
+            <h1 class="main-title white--text">
+              BizTubeLogger
+            </h1>
+            <h4 class="white--text pb-3">
+              ビジネスYouTubeアウトプット記録・共有サービス
+            </h4>
+            <h3 class="white--text mt-10">
+              せっかく学んだ知識、活かせていますか？
+            </h3>
+            <h3 class="white--text mt-3">
+              アウトプットで知識を自分のモノにしましょう！
+            </h3>
+            <router-link :to="{ name: 'RegisterIndex' }">
+              <v-btn class="success ml-10 mt-10">
+                さっそくはじめる
+              </v-btn>
+            </router-link>
+            <v-btn
+              class="primary ml-6 mt-10"
+              @click="guestLogin()"
+            >
+              ゲストログインで試してみる
             </v-btn>
-          </router-link>
-          <v-btn
-            class="primary ml-6 mt-10"
-            @click="guestLogin()"
-          >
-            ゲストログインで試してみる
-          </v-btn>
+          </v-col>
         </v-container>
       </v-img>
     </div>
@@ -106,7 +108,7 @@ export default {
           title: "アウトプットを積み上げて自分のスキルにしよう",
           imgSrc: "/image/notes.png",
           text:
-            "<p>継続してアウトプットすることで知識がどんどん増えていきます。</p><p>アウトプットを積み上げてマイページから振り返ろう！</p>",
+            "<p>継続してアウトプットすることで知識がどんどん増えていきます。</p><p>アウトプットを積み上げてマイページから振り返りましょう！</p>",
           line: "-reverse"
         },
         {
@@ -167,22 +169,18 @@ export default {
 .main {
   background-color: white;
 }
-
 .features{
   background-color: white;
 }
 .features p {
   line-height: 1.8rem;
 }
-
 .video-zone p {
   line-height: 1.5rem;
 }
-
 .main-text{
   margin-top: 30px;
 }
-
 .main h1{
   font-family: 'Kaisei Tokumin', serif;
   font-size: 1.5em;
@@ -198,5 +196,19 @@ export default {
 }
 a {
   text-decoration: none;
+}
+
+@media only screen and (max-width:550px) {
+  .main h1{
+    font-size: 320%;
+  }
+  .main h4{
+    margin-left: 15px;
+    font-size: 80%;
+  }
+  .main h3{
+    margin-left: 15px;
+    font-size: 90%;
+  }
 }
 </style>
