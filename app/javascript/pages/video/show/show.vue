@@ -18,6 +18,7 @@
         tile
       >
         <ShowOutputs
+          :id="id"
           :output="output"
           :videos="videos"
           :auth-user="authUser"
