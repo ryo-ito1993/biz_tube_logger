@@ -20,6 +20,7 @@
             <h3 class="white--text mt-3">
               アウトプットで知識を自分のモノにしましょう！
             </h3>
+            <template v-if="!authUser">
             <router-link :to="{ name: 'RegisterIndex' }">
               <v-btn class="success ml-10 mt-10">
                 さっそくはじめる
@@ -31,6 +32,7 @@
             >
               ゲストログインで試してみる
             </v-btn>
+            </template>
           </v-col>
         </v-container>
       </v-img>
@@ -83,7 +85,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 import VideoItem from "../video/index/components/VideoItem.vue"
 export default {
   components: {
@@ -95,6 +97,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("users", ["authUser"]),
     descriptions() {
       return [
         {
@@ -122,8 +125,7 @@ export default {
     },
     limitvideos() {
       return this.videos.slice(0,3)
-    }
-
+    },
   },
     mounted() {
     this.fetchVideos();
