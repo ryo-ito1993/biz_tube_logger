@@ -49,7 +49,7 @@
             </ValidationProvider>
             <ValidationProvider
               v-slot="{ errors }"
-              rules="required|min:3"
+              rules="required|min:6"
               vid="password"
               name="パスワード"
             >
@@ -66,7 +66,7 @@
             <ValidationProvider
               v-slot="{ errors }"
               name="パスワード(確認)"
-              rules="required|min:3|password_confirmed:@password"
+              rules="required|min:6|password_confirmed:@password"
             >
               <v-text-field
                 v-model="user.password_confirmation"
