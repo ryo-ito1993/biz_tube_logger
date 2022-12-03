@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: biz_tube_logger_production
-  username: biz_tube_logger
-  password: <%= ENV['BIZ_TUBE_LOGGER_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/pgsql/pgsql.sock
