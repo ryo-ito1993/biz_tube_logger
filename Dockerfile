@@ -2,8 +2,6 @@
 ARG APP_NAME=biz_tube_logger
 #使いたいrubyのimage名に置き換えてください
 ARG RUBY_IMAGE=ruby:3.1.2
-#使いたいnodeのversionに置き換えてください(`15.14.0`ではなく`15`とか`16`とかのメジャーバージョン形式で書いてください)
-ARG NODE_VERSION='16'
 #インストールするbundlerのversionに置き換えてください
 ARG BUNDLER_VERSION=2.3.23
 
@@ -23,11 +21,7 @@ RUN mkdir /$APP_NAME
 WORKDIR /$APP_NAME
 
 # 別途インストールが必要なものがある場合は追加してください
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
-&& wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-&& echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-&& apt-get update -qq \
-&& apt-get install -y build-essential nodejs yarn
+RUN apt-get update -qq && apt-get install -y build-essential
 
 RUN gem install bundler:$BUNDLER_VERSION
 
@@ -36,15 +30,7 @@ COPY Gemfile.lock /$APP_NAME/Gemfile.lock
 
 RUN bundle install
 
-COPY yarn.lock /$APP_NAME/yarn.lock
-COPY package.json /$APP_NAME/package.json
-
 COPY . /$APP_NAME/
-
-RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bin/rails assets:precompile assets:clean \
-&& yarn install --production --frozen-lockfile \
-&& yarn cache clean \
-&& rm -rf /$APP_NAME/node_modules /$APP_NAME/tmp/cache
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
