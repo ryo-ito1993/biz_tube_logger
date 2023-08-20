@@ -290,7 +290,7 @@ export default {
     },
     twitterShare(output){
            //シェアする画面を設定
-            var shareURL = 'https://twitter.com/intent/tweet?text=' + `${output.user.name}さんがアウトプットを投稿しました!\n` + '&url=' + `https://www.biztube-logger.com/video/${this.id}` + "%20%23BizTubeLogger";
+            var shareURL = 'https://twitter.com/intent/tweet?text=' + `${output.user.name}さんがアウトプットを投稿しました!\n` + '&url=' + `https://biztube-logger-96f1648638c0.herokuapp.com/video/${this.id}` + "%20%23BizTubeLogger";
            //シェア用の画面へ移行
             window.open(shareURL, '_blank')
         }
