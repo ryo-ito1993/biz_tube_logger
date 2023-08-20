@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: cldbna28o00f29try3t723lqf
-  username: v5SbkJ39GEwAfIq5iv3VPMu1
+  database: biz_tube_logger_production
+  username: biz_tube_logger
   password: <%= ENV['BIZ_TUBE_LOGGER_DATABASE_PASSWORD'] %>
