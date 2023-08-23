@@ -2,7 +2,7 @@
 [![Image from Gyazo](https://i.gyazo.com/d3fbf03646418a47aa11e1d1fa267a44.jpg)](https://gyazo.com/d3fbf03646418a47aa11e1d1fa267a44)
 
 ## ■サービスURL
-https://www.biztube-logger.com
+https://biztube-logger-ea238eaf1d37.herokuapp.com
 
 ## ■サービス概要
 &emsp;ビジネス系youtubeの内容をアウトプットして記録管理、共有ができるサービスです。
