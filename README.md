@@ -76,11 +76,3 @@ https://biztube-logger-ea238eaf1d37.herokuapp.com
 ## ■ER図
 [draw.io](https://drive.google.com/file/d/1a_sgZG8fUdDulSuAmLoqRdc3K0bRs2ww/view?usp=sharing)
 
-## ■スケジュール
-
-- 企画〜技術調査：8/24〆切
-&emsp;(YouTubeDataAPIで動画URLから動画情報を取得できることを確認した)
-- README〜ER図作成：9/4〆切
-- メイン機能実装：9/5 - 10/7
-- β版をRUNTEQ内リリース（MVP）：10/7〆切
-- 本番リリース：10/23
