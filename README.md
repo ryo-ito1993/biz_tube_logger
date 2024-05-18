@@ -2,7 +2,7 @@
 [![Image from Gyazo](https://i.gyazo.com/d3fbf03646418a47aa11e1d1fa267a44.jpg)](https://gyazo.com/d3fbf03646418a47aa11e1d1fa267a44)
 
 ## ■サービスURL
-https://biztube-logger-ea238eaf1d37.herokuapp.com
+https://biz-tube-logger.onrender.com
 
 ## ■サービス概要
 &emsp;ビジネス系youtubeの内容をアウトプットして記録管理、共有ができるサービスです。
@@ -25,11 +25,11 @@ https://biztube-logger-ea238eaf1d37.herokuapp.com
 
 ## ■使用技術
 ### バックエンド
-- Ruby 3.1.2 
+- Ruby 3.1.2
 - Rails  6.1.5
 ### フロントエンド
-- Vue.js 2.6.14  
-- Vuetify 2.6.9 
+- Vue.js 2.6.14
+- Vuetify 2.6.9
 
 ## ■実装予定の機能
 ### 未ログインユーザー
@@ -75,4 +75,3 @@ https://biztube-logger-ea238eaf1d37.herokuapp.com
 
 ## ■ER図
 [draw.io](https://drive.google.com/file/d/1a_sgZG8fUdDulSuAmLoqRdc3K0bRs2ww/view?usp=sharing)
-

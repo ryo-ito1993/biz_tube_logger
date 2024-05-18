@@ -1,4 +1,4 @@
 default_url_options:
-  host: "biztube-logger-96f1648638c0.herokuapp.com"
+  host: "https://biz-tube-logger.onrender.com"
 site:
-  top_url: "https://biztube-logger-96f1648638c0.herokuapp.com/"
+  top_url: "https://biz-tube-logger.onrender.com/"
