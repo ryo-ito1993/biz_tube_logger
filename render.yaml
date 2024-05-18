@@ -1,7 +1,7 @@
 databases:
   - name: biz_tube_logger
     databaseName: biz_tube_logger_production
-    user: biz_tube_logger_production
+    user: biz_tube_logger
     region: Oregon (US West)
 
 services:
