@@ -34,6 +34,6 @@ module BizTubeLogger
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.hosts << 'xxx.onrender.com'
+    config.hosts << 'biz-tube-logger.onrender.com'
   end
 end
