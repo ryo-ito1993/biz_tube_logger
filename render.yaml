@@ -1,8 +1,8 @@
 databases:
   - name: biz_tube_logger
-    databaseName: biz_tube_logger_production
+    databaseName: biz_tube_logger_production_nkiz
     user: biz_tube_logger
-    region: Oregon (US West)
+    region: singapore
 
 services:
   - type: web
