@@ -81,7 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: biz_tube_logger_production
-  username: biz_tube_logger
-  password: <%= ENV['BIZ_TUBE_LOGGER_DATABASE_PASSWORD'] %>
+  # database: biz_tube_logger_production
+  # username: biz_tube_logger
+  # password: <%= ENV['BIZ_TUBE_LOGGER_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
