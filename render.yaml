@@ -1,0 +1,21 @@
+databases:
+  - name: biz_tube_logger
+    databaseName: biz_tube_logger_production
+    user: biz_tube_logger_production_user
+    region: Oregon (US West)
+
+services:
+  - type: web
+    name: biz_tube_logger
+    env: ruby
+    region: singapore
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: biz_tube_logger
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
